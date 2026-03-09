@@ -116,6 +116,24 @@
   color: rgba(153, 153, 153, 0.5);
 }
 
+/* Override browser autofill styles to maintain transparent background */
+.sketch-input-field:-webkit-autofill,
+.sketch-input-field:-webkit-autofill:hover,
+.sketch-input-field:-webkit-autofill:focus,
+.sketch-input-field:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: inherit;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px transparent;
+}
+
+.sketch-input-field:autofill {
+  background-clip: text;
+  text-fill-color: inherit;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px transparent;
+}
+
 /* Sketch Checkbox Styles */
 .sketch-checkbox {
   position: relative;
