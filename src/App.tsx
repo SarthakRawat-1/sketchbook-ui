@@ -1,8 +1,8 @@
 ﻿import { useState } from "react";
 import {
   Accordion, AccordionItem,
-  SketchCard,
-  SketchDivider,
+  Card,
+  Divider,
   Button,
   Dropdown,
   Avatar,
@@ -10,13 +10,13 @@ import {
   Input,
   Switch,
   Select,
-  SketchSlider,
-  SketchSkeleton,
-  SketchSkeletonText,
+  Slider,
+  Skeleton,
+  SkeletonText,
 
   ToastContainer, useToast,
 
-  SketchTooltip,
+  Tooltip,
 } from "./components";
 
 export default function App() {
@@ -115,7 +115,7 @@ export default function App() {
         </div>
       </section>
 
-      <SketchDivider style={{ maxWidth: 800, margin: "0 auto 72px" }} />
+      <Divider style={{ maxWidth: 800, margin: "0 auto 72px" }} />
 
       {/* FEATURES */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px 88px" }}>
@@ -131,13 +131,13 @@ export default function App() {
             { badge: "Flexible", title: "Fully themeable", body: "Override colors, fonts, stroke widths, and noise textures per component. Ship on-brand without fighting the defaults." },
             { badge: "Docs", title: "Storybook included", body: "Every component ships with CSF3 stories covering all variants, sizes, and edge cases. Documentation as code." },
           ].map(({ badge, title, body }) => (
-            <SketchCard key={title} style={{ padding: 28 }}>
+            <Card key={title} style={{ padding: 28 }}>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8, marginBottom: 12 }}>
                 <span style={{ fontFamily: "'Caveat', cursive", fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.3 }}>{title}</span>
                 <span style={{ flexShrink: 0 }}><Badge variant="default" size="sm">{badge}</Badge></span>
               </div>
               <p style={{ fontSize: "0.92rem", lineHeight: 1.7, color: "#6b6460", margin: 0 }}>{body}</p>
-            </SketchCard>
+            </Card>
           ))}
         </div>
       </section>
@@ -149,21 +149,21 @@ export default function App() {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 28 }}>
           {[0, 1, 2].map((i) => (
-            <SketchCard key={i} style={{ padding: 28, display: "flex", flexDirection: "column", gap: 20 }}>
-              <SketchSkeletonText lines={4} />
+            <Card key={i} style={{ padding: 28, display: "flex", flexDirection: "column", gap: 20 }}>
+              <SkeletonText lines={4} />
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <SketchSkeleton variant="avatar" height={40} />
+                <Skeleton variant="avatar" height={40} />
                 <div style={{ flex: 1 }}>
-                  <SketchSkeleton variant="text" width="60%" height={16} />
-                  <SketchSkeleton variant="text" width="40%" height={14} />
+                  <Skeleton variant="text" width="60%" height={16} />
+                  <Skeleton variant="text" width="40%" height={14} />
                 </div>
               </div>
-            </SketchCard>
+            </Card>
           ))}
         </div>
       </section>
 
-      <SketchDivider style={{ maxWidth: 800, margin: "0 auto" }} />
+      <Divider style={{ maxWidth: 800, margin: "0 auto" }} />
 
       {/* PREFERENCES PANEL */}
       <section style={{ maxWidth: 720, margin: "0 auto", padding: "80px 32px" }}>
@@ -191,11 +191,11 @@ export default function App() {
             <p style={{ fontFamily: "'Caveat', cursive", fontSize: "1.1rem", margin: "0 0 10px", color: "#5a5248" }}>
               Base font size — {fontSize} px
             </p>
-            <SketchTooltip content={`${fontSize} px`} placement="top">
+            <Tooltip content={`${fontSize} px`} placement="top">
               <div>
-                <SketchSlider min={12} max={24} step={1} value={fontSize} onChange={setFontSize} />
+                <Slider min={12} max={24} step={1} value={fontSize} onChange={setFontSize} />
               </div>
-            </SketchTooltip>
+            </Tooltip>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <p style={{ fontFamily: "'Caveat', cursive", fontSize: "1.1rem", margin: "0 0 2px", color: "#5a5248" }}>Notifications</p>
@@ -277,7 +277,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
-        <SketchDivider style={{ marginBottom: 32 }} />
+        <Divider style={{ marginBottom: 32 }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <img src="./logo.png" alt="Sketchbook UI Logo" style={{ width: "24px", height: "24px", objectFit: "contain" }} />

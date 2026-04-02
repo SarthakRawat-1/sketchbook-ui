@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Divider } from 'sketchbook-ui';
+import { Divider } from './Divider';
 
 const meta: Meta<typeof Divider> = {
   title: 'Components/Divider',

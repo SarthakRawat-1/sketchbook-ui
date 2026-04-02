@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Toast, ToastContainer, useToast } from 'sketchbook-ui';
-import type { ToastPosition } from 'sketchbook-ui';
+import { Toast, ToastContainer, useToast } from './Toast';
+import type { ToastPosition } from './Toast';
 
 const meta: Meta<typeof Toast> = {
   title: 'Components/Toast',
