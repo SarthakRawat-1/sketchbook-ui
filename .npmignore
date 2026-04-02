@@ -1,0 +1,47 @@
+# Source files 
+src/
+public/
+.storybook/
+storybook-static/
+scripts/
+
+# Development files
+*.log
+*.tsbuildinfo
+.vscode/
+.git/
+.github/
+node_modules/
+
+# Config files
+vite.config.ts
+vite.config.lib.ts
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+tsconfig.lib.json
+eslint.config.js
+.gitignore
+
+# Development HTML
+index.html
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/*.stories.tsx
+vitest.config.ts
+
+# Documentation (keep README and LICENSE)
+CONTRIBUTING.md
+
+# Exclude images and assets from dist 
+dist/hero.png
+dist/logo.png
+dist/logo.svg
+dist/desktop.ini
+dist/*.png
+dist/*.svg
+dist/*.ini

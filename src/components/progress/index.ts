@@ -1,2 +1,2 @@
-export { SketchProgress } from './Progress';
-export type { SketchProgressProps } from './Progress';
+export { Progress } from './Progress';
+export type { ProgressProps } from './Progress';

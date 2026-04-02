@@ -5,6 +5,147 @@ const meta: Meta<typeof Accordion> = {
   title: 'Components/Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn accordion component that mimics notebook paper with expandable sections. Features smooth animations, numbered items, and lined paper effects.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Accordion, AccordionItem } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  return (
+    <Accordion>
+      <AccordionItem title="Section 1" number={1}>
+        Content for section 1
+      </AccordionItem>
+      <AccordionItem title="Section 2" number={2} defaultOpen>
+        Content for section 2 (starts open)
+      </AccordionItem>
+      <AccordionItem title="Section 3" number={3}>
+        Content for section 3
+      </AccordionItem>
+    </Accordion>
+  );
+}
+\`\`\`
+
+## Without Numbers
+
+\`\`\`tsx
+<Accordion>
+  <AccordionItem title="Design" showNumber={false}>
+    Content without section number
+  </AccordionItem>
+  <AccordionItem title="Development" showNumber={false}>
+    Another section without number
+  </AccordionItem>
+</Accordion>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<AccordionItem 
+  title="Custom Theme" 
+  number={1}
+  colors={{
+    bg: "#fee2e2",
+    bgOverlay: "#fecaca", 
+    stroke: "#dc2626",
+    text: "#dc2626",
+    numberColor: "#991b1b",
+    lineColor: "#f87171"
+  }}
+>
+  Content with custom red theme
+</AccordionItem>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<AccordionItem 
+  title="Large Title" 
+  typography={{
+    titleSize: "1.8rem",
+    titleWeight: "bold",
+    contentSize: "1.1rem"
+  }}
+>
+  Content with custom typography
+</AccordionItem>
+\`\`\`
+
+## Without Lines or Border
+
+\`\`\`tsx
+<AccordionItem 
+  title="Clean Look" 
+  showBorder={false}
+  showLines={false}
+>
+  Content without notebook lines or border
+</AccordionItem>
+\`\`\`
+
+## Props
+
+### Accordion Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`children\` | \`ReactNode\` | required | AccordionItem components |
+| \`maxWidth\` | \`string\` | \`"700px"\` | Maximum width of accordion |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+### AccordionItem Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`title\` | \`string\` | required | Item header text |
+| \`children\` | \`ReactNode\` | required | Item content |
+| \`number\` | \`number\` | - | Section number to display |
+| \`defaultOpen\` | \`boolean\` | \`false\` | Start in open state |
+| \`showNumber\` | \`boolean\` | \`true\` | Show section number |
+| \`showBorder\` | \`boolean\` | \`true\` | Show hand-drawn border |
+| \`showLines\` | \`boolean\` | \`true\` | Show notebook ruling lines |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`colors.numberColor\` | \`string\` | - | Section number color |
+| \`colors.lineColor\` | \`string\` | - | Ruling lines color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.titleSize\` | \`string\` | - | Title font size |
+| \`typography.titleWeight\` | \`string \\| number\` | - | Title font weight |
+| \`typography.contentSize\` | \`string\` | - | Content font size |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+## Important Notes
+
+- Each AccordionItem manages its own open/close state independently
+- Smooth grid-based animation for expand/collapse
+- Header and content dimensions adapt dynamically to content
+- Notebook variant adds left padding automatically for margin line
+- Focus state adds thicker border for accessibility
+- Arrow icon rotates 90° when item is open
+        `,
+      },
+    },
+  },
   argTypes: {
     maxWidth: {
       control: { type: 'text' },

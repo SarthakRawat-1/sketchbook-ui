@@ -63,7 +63,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     };
 
     const scrollRef = useRef<HTMLDivElement>(null);
-    const itemHeight = 52;
+    const itemHeight = 60; // Increased from 52 for better spacing
     const { virtualItems, totalHeight, scrollToIndex } = useVirtualizer({
       count: items.length,
       itemHeight,
@@ -587,8 +587,15 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             {/* Scrollable Container and Virtual Text/Icon overlay */}
             <div
               ref={scrollRef}
-              className="absolute top-0 left-0 w-full"
-              style={{ height: `${Math.min(items.length * itemHeight + 16, 350)}px`, overflowY: "auto", overflowX: "hidden" }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: `${Math.min(items.length * itemHeight + 16, 350)}px`,
+                overflowY: "auto",
+                overflowX: "hidden",
+              }}
               role="menu"
               onKeyDown={handleListKeyDown}
             >
@@ -608,21 +615,40 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                     >
                       {/* Item hover backgrounds (Moved from SVG panel) */}
                       {activeIndex === i && (
-                        <svg width="220" height="52" className="absolute top-0 left-0 pointer-events-none">
+                        <svg
+                          width="220"
+                          height={itemHeight}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            pointerEvents: "none",
+                          }}
+                        >
                           <defs>
                             <pattern id={`${hoverId}-${i}`} x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
                               <rect width="4" height="4" fill={finalColors.hoverBg} opacity="0.6" />
                               <circle cx="2" cy="2" r="0.5" fill={finalColors.stroke} opacity="0.2" />
                             </pattern>
                           </defs>
-                          <rect x="12" y="0" width="196" height="48" fill={`url(#${hoverId}-${i})`} opacity="0.9" rx="6" />
+                          <rect x="12" y="0" width="196" height={itemHeight - 12} fill={`url(#${hoverId}-${i})`} opacity="0.9" rx="6" />
                         </svg>
                       )}
 
                       {/* Separator lines between items (Moved from SVG panel) */}
                       {i < items.length - 1 && (
-                        <svg width="220" height="52" className="absolute top-0 left-0 pointer-events-none" opacity="0.25">
-                          <path d="M 20 52 L 200 52" stroke={finalColors.stroke} strokeWidth="1" strokeDasharray="4,3" strokeLinecap="round" />
+                        <svg
+                          width="220"
+                          height={itemHeight}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            pointerEvents: "none",
+                          }}
+                          opacity="0.25"
+                        >
+                          <path d={`M 20 ${itemHeight} L 200 ${itemHeight}`} stroke={finalColors.stroke} strokeWidth="1" strokeDasharray="4,3" strokeLinecap="round" />
                         </svg>
                       )}
 
@@ -633,8 +659,14 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                         onClick={() => handleItemClick(item)}
                         onMouseEnter={() => setActiveIndex(i)}
                         onMouseLeave={() => setActiveIndex(null)}
-                        className="sketch-dropdown-item absolute top-0 left-0 w-full h-full m-0"
+                        className="sketch-dropdown-item"
                         style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: `${itemHeight}px`,
+                          margin: 0,
                           fontFamily: dropdownTypography.fontFamily,
                           fontSize: dropdownTypography.fontSize,
                           fontWeight: dropdownTypography.fontWeight,

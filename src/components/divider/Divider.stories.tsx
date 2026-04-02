@@ -1,10 +1,101 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SketchDivider } from './Divider';
+import { Divider } from 'sketchbook-ui';
 
-const meta: Meta<typeof SketchDivider> = {
+const meta: Meta<typeof Divider> = {
   title: 'Components/Divider',
-  component: SketchDivider,
+  component: Divider,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn sketch-style divider for separating content with artistic flair. Perfect for adding visual breaks in your layouts.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Divider } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  return (
+    <div>
+      <section>Content above</section>
+      <Divider />
+      <section>Content below</section>
+    </div>
+  );
+}
+\`\`\`
+
+## Variants
+
+\`\`\`tsx
+<Divider variant="scribble" />
+<Divider variant="dashed" />
+<Divider variant="dots" />
+<Divider variant="zigzag" />
+\`\`\`
+
+## Vertical Orientation
+
+\`\`\`tsx
+<div style={{ display: 'flex', height: '300px' }}>
+  <section>Left content</section>
+  <Divider orientation="vertical" variant="dashed" />
+  <section>Right content</section>
+</div>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Divider color="#e74c3c" variant="scribble" />
+<Divider color="#3498db" variant="dashed" />
+<Divider color="#2ecc71" variant="dots" />
+\`\`\`
+
+## Custom Stroke Width
+
+\`\`\`tsx
+<Divider strokeWidth={1} variant="scribble" />
+<Divider strokeWidth={3} variant="scribble" />
+<Divider strokeWidth={5} variant="scribble" />
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`orientation\` | \`"horizontal" \\| "vertical"\` | \`"horizontal"\` | Divider orientation |
+| \`variant\` | \`"scribble" \\| "dashed" \\| "dots" \\| "zigzag"\` | \`"scribble"\` | Visual style variant |
+| \`color\` | \`string\` | \`"#2d2d2d"\` | Stroke/fill color |
+| \`strokeWidth\` | \`number\` | \`2\` | Width of the stroke in pixels |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+Plus all standard HTML div attributes.
+
+## Variant Details
+
+- **scribble**: Loopy spring-like scribble (default)
+- **dashed**: Irregular dashed line
+- **dots**: Hand-drawn dot pattern
+- **zigzag**: Sharp, erratic zigzag
+
+## Dimensions
+
+- **Horizontal**: 100% width, 40px height
+- **Vertical**: 40px width, 100% height
+        `,
+      },
+    },
+  },
   argTypes: {
     orientation: {
       control: { type: 'radio' },
@@ -21,26 +112,14 @@ const meta: Meta<typeof SketchDivider> = {
       control: { type: 'range', min: 1, max: 6, step: 0.5 },
     },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'A hand-drawn sketch-style divider with multiple variants and orientations.',
-      },
-    },
-  },
-} satisfies Meta<typeof SketchDivider>;
+} satisfies Meta<typeof Divider>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/* ── Basic ──────────────────────────────────── */
-
 export const Default: Story = {
   args: {},
 };
-
-/* ── Variants ───────────────────────────────── */
 
 export const Scribble: Story = {
   args: { variant: 'scribble' },
@@ -63,19 +142,19 @@ export const AllVariants: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem', width: '100%' }}>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Scribble</p>
-        <SketchDivider variant="scribble" />
+        <Divider variant="scribble" />
       </div>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Dashed</p>
-        <SketchDivider variant="dashed" />
+        <Divider variant="dashed" />
       </div>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Dots</p>
-        <SketchDivider variant="dots" />
+        <Divider variant="dots" />
       </div>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Zigzag</p>
-        <SketchDivider variant="zigzag" />
+        <Divider variant="zigzag" />
       </div>
     </div>
   ),
@@ -88,15 +167,13 @@ export const AllVariants: Story = {
   },
 };
 
-/* ── Vertical ───────────────────────────────── */
-
 export const Vertical: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '2rem', padding: '2rem', height: '300px' }}>
-      <SketchDivider orientation="vertical" variant="scribble" />
-      <SketchDivider orientation="vertical" variant="dashed" />
-      <SketchDivider orientation="vertical" variant="dots" />
-      <SketchDivider orientation="vertical" variant="zigzag" />
+      <Divider orientation="vertical" variant="scribble" />
+      <Divider orientation="vertical" variant="dashed" />
+      <Divider orientation="vertical" variant="dots" />
+      <Divider orientation="vertical" variant="zigzag" />
     </div>
   ),
   parameters: {
@@ -108,40 +185,21 @@ export const Vertical: Story = {
   },
 };
 
-/* ── Custom Colors ──────────────────────────── */
-
-export const CustomColors: Story = {
+export const Customization: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem', width: '100%' }}>
-      <SketchDivider color="#e74c3c" variant="scribble" />
-      <SketchDivider color="#3498db" variant="dashed" />
-      <SketchDivider color="#2ecc71" variant="dots" />
-      <SketchDivider color="#9b59b6" variant="zigzag" />
+      <Divider color="#e74c3c" variant="scribble" />
+      <Divider color="#3498db" variant="dashed" />
+      <Divider color="#2ecc71" variant="dots" />
+      <Divider color="#9b59b6" variant="zigzag" />
+      <Divider strokeWidth={1} variant="scribble" />
+      <Divider strokeWidth={4} variant="scribble" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Dividers with custom stroke/fill colors.',
-      },
-    },
-  },
-};
-
-/* ── Stroke Width ───────────────────────────── */
-
-export const StrokeWidths: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem', width: '100%' }}>
-      <SketchDivider strokeWidth={1} variant="scribble" />
-      <SketchDivider strokeWidth={2} variant="scribble" />
-      <SketchDivider strokeWidth={4} variant="scribble" />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Various stroke widths for the scribble variant.',
+        story: 'Dividers with custom colors and stroke widths.',
       },
     },
   },

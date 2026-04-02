@@ -155,10 +155,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <label
-        className={cn("relative inline-flex items-center cursor-pointer gap-3", className)}
+        className={cn("sketch-checkbox", className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{
+          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.75rem",
           transform: disabled ? "rotate(-0.1deg)" : "rotate(-0.3deg)",
           cursor: disabled ? "not-allowed" : "pointer",
         }}
@@ -177,7 +181,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         />
 
         {/* Custom checkbox visual */}
-        <div className="relative inline-block" style={{ width: `${w}px`, height: `${h}px` }}>
+        <div style={{ position: "relative", display: "inline-block", width: `${w}px`, height: `${h}px` }}>
           <svg
             width={w}
             height={h}

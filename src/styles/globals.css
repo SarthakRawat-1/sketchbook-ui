@@ -568,8 +568,8 @@
   align-items: center;
   gap: 12px;
   font-family: 'Caveat', cursive;
-  height: 52px;
-  padding: 14px 20px;
+  height: 60px;
+  padding: 16px 20px;
   transition: transform 0.2s ease;
 }
 
@@ -1127,6 +1127,9 @@
 
 .sketch-card {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .sketch-card__svg {
@@ -1143,4 +1146,27 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.sketch-card__content > * {
+  max-width: 100%;
+}
+
+/* Prevent form inputs from expanding beyond card width while allowing user control */
+.sketch-card__content .sketch-input-container,
+.sketch-card__content .sketch-textarea-container {
+  max-width: 100%;
+}
+
+/* Add proper spacing between form elements in cards */
+.sketch-card__content form > *:not(:last-child),
+.sketch-card__content > *:not(:last-child):not(form) {
+  margin-bottom: 1.5rem;
+}
+
+.sketch-card__content form > button[type="submit"] {
+  margin-top: 0.5rem;
 }

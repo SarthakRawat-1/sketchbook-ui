@@ -5,6 +5,138 @@ const meta: Meta<typeof Switch> = {
   title: 'Components/Switch',
   component: Switch,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn toggle switch component with smooth animations and authentic sketchy design. Perfect for on/off settings.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Switch } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  const [enabled, setEnabled] = React.useState(false);
+  
+  return (
+    <Switch
+      label="Enable notifications"
+      checked={enabled}
+      onChange={(e) => setEnabled(e.target.checked)}
+    />
+  );
+}
+\`\`\`
+
+## Uncontrolled (with defaultChecked)
+
+\`\`\`tsx
+<Switch 
+  label="Dark mode" 
+  defaultChecked={true}
+  onChange={(e) => console.log('Checked:', e.target.checked)}
+/>
+\`\`\`
+
+## Without Label
+
+\`\`\`tsx
+<Switch showLabel={false} />
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Switch size="sm" label="Small" />
+<Switch size="md" label="Medium" />
+<Switch size="lg" label="Large" />
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<Switch label="Disabled off" disabled />
+<Switch label="Disabled on" disabled defaultChecked />
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Switch 
+  label="Red Theme"
+  colors={{ 
+    track: "#fee2e2", 
+    trackChecked: "#fecaca", 
+    stroke: "#dc2626", 
+    strokeChecked: "#dc2626",
+    text: "#dc2626" 
+  }}
+/>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<Switch 
+  label="BOLD CAPS"
+  typography={{ 
+    textTransform: "uppercase", 
+    fontWeight: "bold" 
+  }}
+/>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Switch size |
+| \`label\` | \`string\` | \`"Toggle"\` | Label text next to switch |
+| \`showLabel\` | \`boolean\` | \`true\` | Show/hide label |
+| \`checked\` | \`boolean\` | - | Controlled checked state |
+| \`defaultChecked\` | \`boolean\` | \`false\` | Uncontrolled default state |
+| \`onChange\` | \`(e: ChangeEvent) => void\` | - | Change event handler |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`showBorder\` | \`boolean\` | \`true\` | Show sketchy border |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.track\` | \`string\` | - | Track background (off) |
+| \`colors.trackChecked\` | \`string\` | - | Track background (on) |
+| \`colors.thumb\` | \`string\` | - | Thumb color (off) |
+| \`colors.thumbChecked\` | \`string\` | - | Thumb color (on) |
+| \`colors.stroke\` | \`string\` | - | Border stroke (off) |
+| \`colors.strokeChecked\` | \`string\` | - | Border stroke (on) |
+| \`colors.text\` | \`string\` | - | Label text color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Label font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.textTransform\` | \`string\` | - | Text transform |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+Plus all standard HTML input attributes (\`name\`, \`value\`, \`required\`, etc.)
+
+## Important Note
+
+Unlike Checkbox, Switch's \`onChange\` receives the standard React change event:
+\`\`\`tsx
+// ✅ Correct
+<Switch onChange={(e) => setEnabled(e.target.checked)} />
+
+// ❌ Wrong (this is for Checkbox)
+<Switch onChange={(checked) => setEnabled(checked)} />
+\`\`\`
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: 'radio' },

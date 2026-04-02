@@ -1,2 +1,2 @@
-export { SketchSpinner } from "./Spinner";
-export type { SketchSpinnerProps } from "./Spinner";
+export { Spinner } from "./Spinner";
+export type { SpinnerProps } from "./Spinner";

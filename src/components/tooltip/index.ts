@@ -1,2 +1,2 @@
-export { SketchTooltip } from './Tooltip';
-export type { SketchTooltipProps } from './Tooltip';
+export { Tooltip } from './Tooltip';
+export type { TooltipProps } from './Tooltip';

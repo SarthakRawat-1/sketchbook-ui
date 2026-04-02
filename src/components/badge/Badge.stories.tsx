@@ -5,6 +5,121 @@ const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn hexagonal badge component with semantic color variants and dynamic sizing. Features authentic sketchy borders and hover animations.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Badge } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  return <Badge>Default Badge</Badge>;
+}
+\`\`\`
+
+## Variants
+
+\`\`\`tsx
+<Badge variant="default">Default</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="warning">Warning</Badge>
+<Badge variant="error">Error</Badge>
+<Badge variant="info">Info</Badge>
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Badge size="sm">Small</Badge>
+<Badge size="md">Medium</Badge>
+<Badge size="lg">Large</Badge>
+\`\`\`
+
+## Custom Dimensions
+
+\`\`\`tsx
+<Badge width={120} height={100}>Custom Size</Badge>
+<Badge width={200} height={80}>Wide Badge</Badge>
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<Badge disabled>Disabled Badge</Badge>
+<Badge disabled variant="success">Disabled Success</Badge>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Badge 
+  colors={{ 
+    bg: "#fce7f3", 
+    text: "#be185d", 
+    stroke: "#be185d" 
+  }}
+>
+  Custom Pink
+</Badge>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<Badge 
+  typography={{ 
+    fontSize: "1rem", 
+    fontWeight: "bold" 
+  }}
+>
+  Bold Text
+</Badge>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`children\` | \`ReactNode\` | required | Badge content |
+| \`variant\` | \`"default" \\| "success" \\| "warning" \\| "error" \\| "info"\` | \`"default"\` | Semantic color variant |
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Predefined size |
+| \`width\` | \`number\` | - | Custom width in pixels (overrides size) |
+| \`height\` | \`number\` | - | Custom height in pixels (overrides size) |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`showShadow\` | \`boolean\` | \`true\` | Show shadow beneath badge |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+## Important Notes
+
+- Badge automatically adjusts width to fit content (minimum width based on size)
+- Hexagonal shape scales proportionally with custom dimensions
+- Stroke width scales automatically based on badge size
+- Disabled state applies grayscale effect and reduces opacity
+- Hover effect adds rotation and scale animation
+        `,
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: { type: 'radio' },

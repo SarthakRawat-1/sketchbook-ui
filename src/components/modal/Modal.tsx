@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { cn, SketchPaper, SketchBorder, SK } from "../../lib";
 
-export interface SketchModalProps {
+export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
@@ -95,7 +95,7 @@ function CloseIcon({ stroke }: { stroke: string }) {
   );
 }
 
-const SketchModal = React.forwardRef<HTMLDivElement, SketchModalProps>(
+const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   (
     {
       isOpen,
@@ -425,6 +425,6 @@ const SketchModal = React.forwardRef<HTMLDivElement, SketchModalProps>(
   },
 );
 
-SketchModal.displayName = "SketchModal";
+Modal.displayName = "Modal";
 
-export { SketchModal };
+export { Modal };

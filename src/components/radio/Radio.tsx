@@ -88,7 +88,12 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     };
 
     return (
-      <div ref={ref} className={cn("flex flex-col gap-4", className)} {...props}>
+      <div 
+        ref={ref} 
+        className={cn("sketch-radio-group", className)} 
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        {...props}
+      >
         {options.map((option, index) => (
           <Radio
             key={option.value}
@@ -184,13 +189,16 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <label
-        className="relative inline-flex items-center cursor-pointer gap-3"
+        style={{
+          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          cursor: disabled ? "not-allowed" : "pointer",
+          gap: "0.75rem",
+          transform: disabled ? "rotate(-0.1deg)" : `rotate(${rotation}deg)`,
+        }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        style={{
-          transform: disabled ? "rotate(-0.1deg)" : `rotate(${rotation}deg)`,
-          cursor: disabled ? "not-allowed" : "pointer",
-        }}
       >
         {/* Hidden native radio for accessibility */}
         <input
@@ -208,7 +216,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         />
 
         {/* Custom radio visual */}
-        <div className="relative inline-block" style={{ width: `${w}px`, height: `${h}px` }}>
+        <div style={{ position: "relative", display: "inline-block", width: `${w}px`, height: `${h}px` }}>
           <svg
             width={w}
             height={h}

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
 
-export interface SketchSliderProps
+export interface SliderProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   min?: number;
   max?: number;
@@ -40,7 +40,7 @@ const TRACK_VIEWBOX_W = 300;
 const TRACK_PAD = 10; // left & right padding inside viewBox
 const TRACK_USABLE = TRACK_VIEWBOX_W - TRACK_PAD * 2; // 280
 
-const SketchSlider = React.forwardRef<HTMLDivElement, SketchSliderProps>(
+const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       min = 0,
@@ -223,8 +223,10 @@ const SketchSlider = React.forwardRef<HTMLDivElement, SketchSliderProps>(
             height="100%"
             viewBox={`0 0 ${TRACK_VIEWBOX_W} ${sc.viewH}`}
             preserveAspectRatio="none"
-            className="pointer-events-none"
-            style={{ overflow: "visible" }}
+            style={{
+              pointerEvents: "none",
+              overflow: "visible",
+            }}
             aria-hidden="true"
           >
             {/* Track — reuses shared SketchBorder (primary dashed + secondary lighter) */}
@@ -357,6 +359,6 @@ const SketchSlider = React.forwardRef<HTMLDivElement, SketchSliderProps>(
   },
 );
 
-SketchSlider.displayName = "SketchSlider";
+Slider.displayName = "Slider";
 
-export { SketchSlider };
+export { Slider };

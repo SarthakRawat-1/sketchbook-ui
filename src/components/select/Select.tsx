@@ -167,8 +167,11 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         >
           <div
             ref={triggerSizeRef}
-            className="relative"
-            style={{ minWidth: `${config.width}px`, height: `${h}px` }}
+            style={{
+              position: "relative",
+              minWidth: `${config.width}px`,
+              height: `${h}px`,
+            }}
           >
             {/* SVG Background */}
             <svg
@@ -177,8 +180,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               viewBox={`0 0 ${w} ${h}`}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute inset-0"
               style={{
+                position: "absolute",
+                inset: 0,
                 pointerEvents: "none",
                 filter: disabled
                   ? "drop-shadow(1px 2px 0px rgba(0,0,0,0.06)) drop-shadow(2px 3px 4px rgba(0,0,0,0.04)) grayscale(0.3) opacity(0.7)"
@@ -289,8 +293,15 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             {/* Scrollable Container and Virtual Option text overlay */}
             <div
               ref={scrollRef}
-              className="absolute top-0 left-0 w-full"
-              style={{ height: `${Math.min(options.length * config.optionHeight + 16, 350)}px`, overflowY: "auto", overflowX: "hidden" }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: `${Math.min(options.length * config.optionHeight + 16, 350)}px`,
+                overflowY: "auto",
+                overflowX: "hidden",
+              }}
               role="listbox"
               onKeyDown={handleListKeyDown}
             >
@@ -310,7 +321,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     >
                       {/* Option hover backgrounds */}
                       {activeIndex === i && (
-                        <svg width={w} height={config.optionHeight} className="absolute top-0 left-0 pointer-events-none">
+                        <svg
+                          width={w}
+                          height={config.optionHeight}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            pointerEvents: "none",
+                          }}
+                        >
                           <defs>
                             <pattern id={`${hoverId}-${i}`} x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
                               <rect width="3" height="3" fill={finalColors.hoverBg} opacity="0.4" />
@@ -323,7 +343,17 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
                       {/* Separator lines between options (dashed) */}
                       {i < options.length - 1 && (
-                        <svg width={w} height={config.optionHeight} className="absolute top-0 left-0 pointer-events-none" opacity="0.3">
+                        <svg
+                          width={w}
+                          height={config.optionHeight}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            pointerEvents: "none",
+                          }}
+                          opacity="0.3"
+                        >
                           <path d={`M 15 ${config.optionHeight} L ${w - 15} ${config.optionHeight}`} stroke={finalColors.stroke} strokeWidth="1" strokeDasharray="3,2" strokeLinecap="round" />
                         </svg>
                       )}
@@ -336,9 +366,14 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                         onClick={() => handleSelect(option.value)}
                         onMouseEnter={() => setActiveIndex(i)}
                         onMouseLeave={() => setActiveIndex(null)}
-                        className="sketch-select-option absolute top-0 left-0 w-full h-full m-0"
+                        className="sketch-select-option"
                         style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
                           height: `${config.optionHeight}px`,
+                          margin: 0,
                           padding: "12px 20px",
                           fontFamily: selectTypography.fontFamily,
                           fontSize: selectTypography.fontSize,

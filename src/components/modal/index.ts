@@ -1,2 +1,2 @@
-export { SketchModal } from "./Modal";
-export type { SketchModalProps } from "./Modal";
+export { Modal } from "./Modal";
+export type { ModalProps } from "./Modal";

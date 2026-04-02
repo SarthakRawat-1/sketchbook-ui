@@ -1,7 +1,7 @@
 import React from "react";
 import { cn, SK, DISP_DIVIDER_ID } from "../../lib";
 
-export interface SketchDividerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+export interface DividerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
   orientation?: "horizontal" | "vertical";
   variant?: "scribble" | "dashed" | "dots" | "zigzag";
   /** Stroke / dot fill color. Defaults to the sketch theme stroke color. */
@@ -9,7 +9,7 @@ export interface SketchDividerProps extends Omit<React.HTMLAttributes<HTMLDivEle
   strokeWidth?: number;
 }
 
-const SketchDivider = React.forwardRef<HTMLDivElement, SketchDividerProps>(
+const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
   (
     {
       orientation = "horizontal",
@@ -240,6 +240,6 @@ const SketchDivider = React.forwardRef<HTMLDivElement, SketchDividerProps>(
   }
 );
 
-SketchDivider.displayName = "SketchDivider";
+Divider.displayName = "Divider";
 
-export { SketchDivider };
+export { Divider };

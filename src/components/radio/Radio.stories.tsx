@@ -5,6 +5,155 @@ const meta: Meta<typeof RadioGroup> = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn radio button group component with authentic sketchy design. Perfect for single-choice selections.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { RadioGroup } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  const [selected, setSelected] = React.useState('');
+  
+  const options = [
+    { value: 'option1', label: 'First option' },
+    { value: 'option2', label: 'Second option' },
+    { value: 'option3', label: 'Third option' },
+  ];
+  
+  return (
+    <RadioGroup
+      name="my-radio"
+      options={options}
+      value={selected}
+      onChange={setSelected}
+    />
+  );
+}
+\`\`\`
+
+## Uncontrolled (with defaultValue)
+
+\`\`\`tsx
+<RadioGroup
+  name="my-radio"
+  options={options}
+  defaultValue="option1"
+  onChange={(value) => console.log('Selected:', value)}
+/>
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<RadioGroup name="small" size="sm" options={options} />
+<RadioGroup name="medium" size="md" options={options} />
+<RadioGroup name="large" size="lg" options={options} />
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<RadioGroup
+  name="disabled"
+  options={options}
+  defaultValue="option2"
+  disabled
+/>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<RadioGroup
+  name="custom"
+  options={options}
+  colors={{ 
+    bg: "#fee2e2", 
+    bgOverlay: "#fecaca", 
+    stroke: "#dc2626", 
+    text: "#dc2626",
+    fill: "#dc2626"
+  }}
+/>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<RadioGroup
+  name="custom-font"
+  options={options}
+  typography={{ 
+    fontFamily: "serif", 
+    fontSize: "1.2rem",
+    fontWeight: "bold"
+  }}
+/>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`name\` | \`string\` | - | Radio group name (required) |
+| \`options\` | \`RadioOption[]\` | - | Array of options (required) |
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Radio button size |
+| \`value\` | \`string\` | - | Controlled selected value |
+| \`defaultValue\` | \`string\` | - | Uncontrolled default value |
+| \`onChange\` | \`(value: string) => void\` | - | Called when selection changes |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`showBorder\` | \`boolean\` | \`true\` | Show sketchy border |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Label text color |
+| \`colors.fill\` | \`string\` | - | Selected dot fill color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Label font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+## RadioOption Type
+
+\`\`\`tsx
+interface RadioOption {
+  value: string;
+  label: string;
+}
+\`\`\`
+
+## Important Notes
+
+1. The \`name\` prop is required and must be unique for each radio group
+2. The \`onChange\` prop receives the selected value directly (not an event):
+
+\`\`\`tsx
+// ✅ Correct
+<RadioGroup onChange={(value) => setSelected(value)} />
+
+// ❌ Wrong
+<RadioGroup onChange={(e) => setSelected(e.target.value)} />
+\`\`\`
+
+3. Options are displayed vertically by default with proper spacing
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: 'radio' },

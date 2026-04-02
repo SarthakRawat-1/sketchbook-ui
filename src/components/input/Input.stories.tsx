@@ -5,6 +5,133 @@ const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn text input component with authentic sketchy borders and smooth animations. Supports labels, various input types, and full customization.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Input } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  const [value, setValue] = React.useState('');
+  
+  return (
+    <Input
+      label="Your name"
+      placeholder="Enter your name..."
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+\`\`\`
+
+## Without Label
+
+\`\`\`tsx
+<Input placeholder="Search..." />
+\`\`\`
+
+## Different Input Types
+
+\`\`\`tsx
+<Input label="Email" type="email" placeholder="your@email.com" />
+<Input label="Password" type="password" placeholder="••••••••" />
+<Input label="Phone" type="tel" placeholder="+1 (555) 123-4567" />
+<Input label="Number" type="number" placeholder="42" />
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Input size="sm" label="Small" placeholder="Small input..." />
+<Input size="md" label="Medium" placeholder="Medium input..." />
+<Input size="lg" label="Large" placeholder="Large input..." />
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<Input 
+  label="Disabled field" 
+  disabled 
+  defaultValue="Cannot edit this"
+/>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Input 
+  label="Red Theme"
+  placeholder="Custom colors..."
+  colors={{ 
+    bg: "#fee2e2", 
+    bgOverlay: "#fecaca", 
+    stroke: "#dc2626", 
+    text: "#dc2626",
+    label: "#dc2626"
+  }}
+/>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<Input 
+  label="Custom Font"
+  placeholder="Different typography..."
+  typography={{ 
+    fontFamily: "serif", 
+    fontSize: "1.1rem",
+    fontWeight: "bold",
+    labelSize: "1.3rem"
+  }}
+/>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Input size |
+| \`label\` | \`string\` | - | Label text above input |
+| \`placeholder\` | \`string\` | - | Placeholder text |
+| \`type\` | \`string\` | \`"text"\` | HTML input type |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`showBorder\` | \`boolean\` | \`true\` | Show sketchy border |
+| \`value\` | \`string\` | - | Controlled value |
+| \`defaultValue\` | \`string\` | - | Uncontrolled default value |
+| \`onChange\` | \`function\` | - | Change handler |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`colors.label\` | \`string\` | - | Label text color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Input font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`typography.labelSize\` | \`string\` | - | Label font size |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+Plus all standard HTML input attributes (\`name\`, \`required\`, \`pattern\`, \`maxLength\`, etc.)
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: 'radio' },

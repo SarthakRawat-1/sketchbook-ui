@@ -162,18 +162,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       C ${w * 0.0125} ${h * 0.164}, ${w * 0.0171875} ${h * 0.121}, 8.5 6.5 Z`;
 
     return (
-      <div className="relative">
+      <div style={{ position: "relative" }}>
         {/* Label */}
         {label && (
           <label
-            className="block mb-2"
             style={{
+              display: "block",
+              marginBottom: "0.5rem",
               fontFamily: inputTypography.fontFamily,
               fontSize: inputTypography.labelSize,
               color: finalColors.label,
               marginLeft: "8px",
               transform: "rotate(-0.5deg)",
-              display: "block",
               width: "fit-content",
             }}
           >
@@ -202,8 +202,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             viewBox={`0 0 ${w} ${h}`}
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute inset-0"
             style={{
+              position: "absolute",
+              inset: 0,
               pointerEvents: "none",
               filter: disabled
                 ? "drop-shadow(1px 2px 0px rgba(0,0,0,0.06)) grayscale(0.3) opacity(0.7)"

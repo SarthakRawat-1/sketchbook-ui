@@ -1,16 +1,102 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SketchSpinner } from "./Spinner";
+import { Spinner } from "./Spinner";
 
-const meta: Meta<typeof SketchSpinner> = {
+const meta: Meta<typeof Spinner> = {
   title: "Components/Spinner",
-  component: SketchSpinner,
+  component: Spinner,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "A hand-drawn sketch-style spinner / loader with four distinct animation variants: a wobbly circle arc, a spiralling doodle, a flipping hourglass, and bouncing dots.",
+        component: `
+A hand-drawn loading spinner with four distinct animation variants. Features authentic sketchy appearance and customizable speed.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Spinner } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  return <Spinner />;
+}
+\`\`\`
+
+## Variants
+
+\`\`\`tsx
+<Spinner variant="circle" />
+<Spinner variant="spiral" />
+<Spinner variant="hourglass" />
+<Spinner variant="dots" />
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Spinner size="sm" />
+<Spinner size="md" />
+<Spinner size="lg" />
+\`\`\`
+
+## Custom Speed
+
+\`\`\`tsx
+<Spinner speed={0.5} />  {/* Slower */}
+<Spinner speed={1} />    {/* Normal */}
+<Spinner speed={2} />    {/* Faster */}
+\`\`\`
+
+## Custom Color
+
+\`\`\`tsx
+<Spinner colors={{ stroke: "#e74c3c" }} />
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<Spinner disabled />
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`variant\` | \`"circle" \\| "spiral" \\| "hourglass" \\| "dots"\` | \`"circle"\` | Animation style |
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Spinner size (24px/36px/48px) |
+| \`speed\` | \`number\` | \`1\` | Animation speed multiplier |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.stroke\` | \`string\` | - | Stroke color |
+| \`label\` | \`string\` | \`"Loading"\` | Accessibility label |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`className\` | \`string\` | - | Additional CSS classes |
+| \`style\` | \`CSSProperties\` | - | Inline styles |
+
+Plus all standard HTML div attributes.
+
+## Variant Details
+
+- **circle**: Rotating 270° arc with ghost track
+- **spiral**: Expanding doodle drawn from center
+- **hourglass**: Flipping sand timer animation
+- **dots**: Three pulsing wobbly circles
+
+## Important Notes
+
+- All animations use CSS for smooth performance
+- Speed prop multiplies animation duration (0.5 = slower, 2 = faster)
+- Disabled state applies grayscale colors
+- Includes proper ARIA role="status" for accessibility
+- SVG-based for crisp rendering at any scale
+        `,
       },
     },
   },
@@ -23,7 +109,7 @@ const meta: Meta<typeof SketchSpinner> = {
     speed: { control: { type: "range", min: 0.25, max: 3, step: 0.25 } },
     disabled: { control: "boolean" },
   },
-} satisfies Meta<typeof SketchSpinner>;
+} satisfies Meta<typeof Spinner>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -46,7 +132,7 @@ export const Variants: Story = {
     <div style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
       {(["circle", "spiral", "hourglass", "dots"] as const).map((v) => (
         <div key={v} style={{ textAlign: "center" }}>
-          <SketchSpinner variant={v} size="lg" />
+          <Spinner variant={v} size="lg" />
           <p
             style={{
               fontFamily: "'Caveat', cursive",
@@ -75,7 +161,7 @@ export const Sizes: Story = {
     <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
       {(["sm", "md", "lg"] as const).map((s) => (
         <div key={s} style={{ textAlign: "center" }}>
-          <SketchSpinner size={s} />
+          <Spinner size={s} />
           <p
             style={{
               fontFamily: "'Caveat', cursive",
@@ -118,7 +204,7 @@ export const SpeedComparison: Story = {
     <div style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
       {[0.4, 1, 2.5].map((sp) => (
         <div key={sp} style={{ textAlign: "center" }}>
-          <SketchSpinner size="lg" speed={sp} />
+          <Spinner size="lg" speed={sp} />
           <p
             style={{
               fontFamily: "'Caveat', cursive",
@@ -171,9 +257,9 @@ export const AllVariantsAllSizes: Story = {
           >
             {v}
           </span>
-          <SketchSpinner variant={v} size="sm" />
-          <SketchSpinner variant={v} size="md" />
-          <SketchSpinner variant={v} size="lg" />
+          <Spinner variant={v} size="sm" />
+          <Spinner variant={v} size="md" />
+          <Spinner variant={v} size="lg" />
         </div>
       ))}
     </div>

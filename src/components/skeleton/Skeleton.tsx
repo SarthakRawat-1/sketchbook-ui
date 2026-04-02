@@ -1,7 +1,7 @@
 import React, { useId } from "react";
 import { cn, SketchBorder, noiseUrl } from "../../lib";
 
-export interface SketchSkeletonProps
+export interface SkeletonProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   variant?: "text" | "circle" | "rectangle" | "avatar";
   width?: number | string;
@@ -14,19 +14,19 @@ export interface SketchSkeletonProps
   };
 }
 
-export interface SketchSkeletonTextProps
+export interface SkeletonTextProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** Number of text lines. @default 3 */
   lines?: number;
   animated?: boolean;
-  colors?: SketchSkeletonProps["colors"];
+  colors?: SkeletonProps["colors"];
 }
 
-export interface SketchSkeletonCardProps
+export interface SkeletonCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   animated?: boolean;
   showAvatar?: boolean;
-  colors?: SketchSkeletonProps["colors"];
+  colors?: SkeletonProps["colors"];
 }
 
 const VB = {
@@ -45,7 +45,7 @@ const CIRCLE_PATH = `M 40 8 C 25 10, 12 18, 8 30 C 6 42, 10 56, 20 65 C 30 72, 4
 
 const RECT_PATH = `M 8 6 C 10 4.5, 15 4, 20 4 L 150 3.5 C 200 3.3, 250 3.5, 300 3.8 L 450 4.2 C 500 4.5, 550 5, 580 6 C 588 7, 594 9, 596 13 L 597 27 C 596.5 31, 593 34, 588 35 L 560 36 C 510 36.5, 460 36.8, 410 36.5 L 190 36 C 140 35.8, 90 35.5, 40 35 L 15 34.5 C 10 34, 6 32, 4 28 L 3 12 C 3.5 8.5, 5 6.5, 8 6 Z`;
 
-const SketchSkeleton = React.forwardRef<HTMLDivElement, SketchSkeletonProps>(
+const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
   (
     {
       variant = "text",
@@ -170,13 +170,13 @@ const SketchSkeleton = React.forwardRef<HTMLDivElement, SketchSkeletonProps>(
   },
 );
 
-SketchSkeleton.displayName = "SketchSkeleton";
+Skeleton.displayName = "Skeleton";
 
-const SketchSkeletonText = React.forwardRef<HTMLDivElement, SketchSkeletonTextProps>(
+const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
   ({ lines = 3, animated = true, colors, className, ...props }, ref) => (
     <div ref={ref} className={cn("sketch-skeleton-text", className)} {...props}>
       {Array.from({ length: lines }, (_, i) => (
-        <SketchSkeleton
+        <Skeleton
           key={i}
           variant="text"
           width={i === lines - 1 ? "70%" : "100%"}
@@ -189,30 +189,30 @@ const SketchSkeletonText = React.forwardRef<HTMLDivElement, SketchSkeletonTextPr
   ),
 );
 
-SketchSkeletonText.displayName = "SketchSkeletonText";
+SkeletonText.displayName = "SkeletonText";
 
-const SketchSkeletonCard = React.forwardRef<HTMLDivElement, SketchSkeletonCardProps>(
+const SkeletonCard = React.forwardRef<HTMLDivElement, SkeletonCardProps>(
   ({ animated = true, showAvatar = false, colors, className, ...props }, ref) => (
     <div ref={ref} className={cn("sketch-skeleton-card", className)} {...props}>
       {/* Image placeholder */}
-      <SketchSkeleton variant="rectangle" width="100%" height={200} animated={animated} colors={colors} />
+      <Skeleton variant="rectangle" width="100%" height={200} animated={animated} colors={colors} />
 
       {/* Avatar row */}
       {showAvatar && (
         <div className="sketch-skeleton-card__avatar-row">
-          <SketchSkeleton variant="avatar" height={40} animated={animated} colors={colors} />
+          <Skeleton variant="avatar" height={40} animated={animated} colors={colors} />
           <div style={{ flex: 1 }}>
-            <SketchSkeleton variant="text" width="60%" height={14} animated={animated} colors={colors} />
+            <Skeleton variant="text" width="60%" height={14} animated={animated} colors={colors} />
           </div>
         </div>
       )}
 
       {/* Text lines */}
-      <SketchSkeletonText lines={showAvatar ? 2 : 3} animated={animated} colors={colors} />
+      <SkeletonText lines={showAvatar ? 2 : 3} animated={animated} colors={colors} />
     </div>
   ),
 );
 
-SketchSkeletonCard.displayName = "SketchSkeletonCard";
+SkeletonCard.displayName = "SkeletonCard";
 
-export { SketchSkeleton, SketchSkeletonText, SketchSkeletonCard };
+export { Skeleton, SkeletonText, SkeletonCard };

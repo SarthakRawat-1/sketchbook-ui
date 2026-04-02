@@ -1,7 +1,7 @@
 import React from "react";
 import { cn, SketchPaper, SketchBorder, SK } from "../../lib";
 
-export interface SketchCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Card body content. */
   children: React.ReactNode;
   variant?: "paper" | "notebook" | "sticky";
@@ -45,7 +45,7 @@ const VARIANT_DEFAULTS = {
 /*  Component                                                                */
 /* ────────────────────────────────────────────────────────────────────────── */
 
-const SketchCard = React.forwardRef<HTMLDivElement, SketchCardProps>(
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
     {
       children,
@@ -187,6 +187,6 @@ const SketchCard = React.forwardRef<HTMLDivElement, SketchCardProps>(
   },
 );
 
-SketchCard.displayName = "SketchCard";
+Card.displayName = "Card";
 
-export { SketchCard };
+export { Card };

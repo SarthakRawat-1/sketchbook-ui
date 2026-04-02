@@ -1,14 +1,123 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SketchSkeleton, SketchSkeletonText, SketchSkeletonCard } from "./Skeleton";
+import { Skeleton, SkeletonText, SkeletonCard } from "sketchbook-ui";
 
-/* ═══════════════════════════════════════════════════════════════════════ */
-/*  SketchSkeleton                                                        */
-/* ═══════════════════════════════════════════════════════════════════════ */
-
-const meta: Meta<typeof SketchSkeleton> = {
+const meta: Meta<typeof Skeleton> = {
   title: "Components/Skeleton",
-  component: SketchSkeleton,
+  component: Skeleton,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn sketch-style skeleton placeholder with shimmer animation. Perfect for loading states with a playful, artistic touch.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Skeleton, SkeletonText, SkeletonCard } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function LoadingProfile() {
+  return (
+    <div>
+      <Skeleton variant="avatar" height={60} />
+      <SkeletonText lines={3} />
+    </div>
+  );
+}
+\`\`\`
+
+## Variants
+
+\`\`\`tsx
+<Skeleton variant="text" />
+<Skeleton variant="rectangle" height={120} />
+<Skeleton variant="circle" />
+<Skeleton variant="avatar" />
+\`\`\`
+
+## Static (No Animation)
+
+\`\`\`tsx
+<Skeleton variant="rectangle" height={100} animated={false} />
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Skeleton
+  variant="rectangle"
+  height={80}
+  colors={{
+    fill: "#d6eaff",
+    fillAlt: "#b3d4f7",
+    stroke: "#6ba3d6"
+  }}
+/>
+\`\`\`
+
+## SkeletonText Component
+
+Multi-line text skeleton with automatic width variation on the last line:
+
+\`\`\`tsx
+<SkeletonText lines={4} />
+\`\`\`
+
+## SkeletonCard Component
+
+Complete card skeleton with image, optional avatar row, and text lines:
+
+\`\`\`tsx
+<SkeletonCard />
+<SkeletonCard showAvatar />
+\`\`\`
+
+## Props
+
+### Skeleton Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`variant\` | \`"text" \\| "rectangle" \\| "circle" \\| "avatar"\` | \`"text"\` | Shape variant |
+| \`width\` | \`number \\| string\` | \`"100%"\` | Width (ignored for circle/avatar) |
+| \`height\` | \`number \\| string\` | varies | Height (20 for text, 60 for circle/avatar, 120 for rectangle) |
+| \`animated\` | \`boolean\` | \`true\` | Enable shimmer animation |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.fill\` | \`string\` | \`"#e0ddd5"\` | Primary fill color |
+| \`colors.fillAlt\` | \`string\` | \`"#d5d1c8"\` | Alternate fill for shimmer |
+| \`colors.stroke\` | \`string\` | \`"#a8a49b"\` | Border stroke color |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+### SkeletonText Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`lines\` | \`number\` | \`3\` | Number of text lines |
+| \`animated\` | \`boolean\` | \`true\` | Enable shimmer animation |
+| \`colors\` | \`object\` | - | Custom colors (same as Skeleton) |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+### SkeletonCard Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`animated\` | \`boolean\` | \`true\` | Enable shimmer animation |
+| \`showAvatar\` | \`boolean\` | \`false\` | Show avatar row |
+| \`colors\` | \`object\` | - | Custom colors (same as Skeleton) |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+Plus all standard HTML div attributes.
+        `,
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: { type: "radio" },
@@ -18,15 +127,7 @@ const meta: Meta<typeof SketchSkeleton> = {
     width: { control: { type: "text" } },
     height: { control: { type: "number" } },
   },
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "A hand-drawn sketch-style skeleton placeholder with shimmer animation, four shape variants, and convenience composites for text blocks and cards.",
-      },
-    },
-  },
-} satisfies Meta<typeof SketchSkeleton>;
+} satisfies Meta<typeof Skeleton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -47,20 +148,20 @@ export const Variants: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem", padding: "2rem", maxWidth: 420 }}>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>text</p>
-        <SketchSkeleton variant="text" />
+        <Skeleton variant="text" />
       </div>
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>rectangle</p>
-        <SketchSkeleton variant="rectangle" height={120} />
+        <Skeleton variant="rectangle" height={120} />
       </div>
       <div style={{ display: "flex", gap: "2rem" }}>
         <div>
           <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>circle</p>
-          <SketchSkeleton variant="circle" />
+          <Skeleton variant="circle" />
         </div>
         <div>
           <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>avatar</p>
-          <SketchSkeleton variant="avatar" />
+          <Skeleton variant="avatar" />
         </div>
       </div>
     </div>
@@ -92,12 +193,12 @@ export const Static: Story = {
 export const CustomColors: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", padding: "2rem", maxWidth: 360 }}>
-      <SketchSkeleton
+      <Skeleton
         variant="rectangle"
         height={80}
         colors={{ fill: "#d6eaff", fillAlt: "#b3d4f7", stroke: "#6ba3d6" }}
       />
-      <SketchSkeleton
+      <Skeleton
         variant="circle"
         height={60}
         colors={{ fill: "#ffe0e0", fillAlt: "#f5c2c2", stroke: "#c97878" }}
@@ -112,13 +213,13 @@ export const CustomColors: Story = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════ */
-/*  SketchSkeletonText                                                    */
+/*  SkeletonText                                                           */
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 export const TextBlock: Story = {
   render: () => (
     <div style={{ padding: "2rem", maxWidth: 400 }}>
-      <SketchSkeletonText lines={4} />
+      <SkeletonText lines={4} />
     </div>
   ),
   parameters: {
@@ -129,13 +230,13 @@ export const TextBlock: Story = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════ */
-/*  SketchSkeletonCard                                                    */
+/*  SkeletonCard                                                           */
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 export const Card: Story = {
   render: () => (
     <div style={{ padding: "2rem" }}>
-      <SketchSkeletonCard />
+      <SkeletonCard />
     </div>
   ),
   parameters: {
@@ -148,7 +249,7 @@ export const Card: Story = {
 export const CardWithAvatar: Story = {
   render: () => (
     <div style={{ padding: "2rem" }}>
-      <SketchSkeletonCard showAvatar />
+      <SkeletonCard showAvatar />
     </div>
   ),
   parameters: {

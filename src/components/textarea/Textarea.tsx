@@ -1,7 +1,7 @@
 import React, { useId, useState } from "react";
 import { cn, SketchPaper, SketchBorder, useSketchSize, SK, SK_DISABLED } from "../../lib";
 
-export interface SketchTextareaProps
+export interface TextareaProps
   extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
   size?: "sm" | "md" | "lg";
   label?: string;
@@ -46,7 +46,7 @@ const SIZE_CONFIG = {
   },
 } as const;
 
-const SketchTextarea = React.forwardRef<HTMLTextAreaElement, SketchTextareaProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       size = "md",
@@ -326,6 +326,6 @@ const SketchTextarea = React.forwardRef<HTMLTextAreaElement, SketchTextareaProps
   },
 );
 
-SketchTextarea.displayName = "SketchTextarea";
+Textarea.displayName = "Textarea";
 
-export { SketchTextarea };
+export { Textarea };

@@ -5,6 +5,110 @@ const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn button component with a unique sketchy, notebook aesthetic. Features authentic hand-drawn borders, subtle animations, and customizable colors and typography.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Button } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  return (
+    <Button onClick={() => console.log('Clicked!')}>
+      Click me
+    </Button>
+  );
+}
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+\`\`\`
+
+## Icon-Only Buttons
+
+\`\`\`tsx
+<Button iconOnly size="sm">+</Button>
+<Button iconOnly size="md">→</Button>
+<Button iconOnly size="lg">×</Button>
+\`\`\`
+
+## Disabled State
+
+\`\`\`tsx
+<Button disabled>Disabled Button</Button>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Button 
+  colors={{ 
+    bg: "#fee2e2", 
+    bgOverlay: "#fecaca", 
+    stroke: "#dc2626", 
+    text: "#dc2626" 
+  }}
+>
+  Red Theme
+</Button>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<Button 
+  typography={{ 
+    textTransform: "uppercase", 
+    fontWeight: "bold" 
+  }}
+>
+  BOLD CAPS
+</Button>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Button size |
+| \`iconOnly\` | \`boolean\` | \`false\` | Square button for icons |
+| \`disabled\` | \`boolean\` | \`false\` | Disabled state |
+| \`showBorder\` | \`boolean\` | \`true\` | Show sketchy border |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.textTransform\` | \`string\` | - | Text transform |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`children\` | \`ReactNode\` | - | Button content |
+| \`onClick\` | \`function\` | - | Click handler |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+Plus all standard HTML button attributes (\`type\`, \`form\`, \`name\`, etc.)
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: 'radio' },

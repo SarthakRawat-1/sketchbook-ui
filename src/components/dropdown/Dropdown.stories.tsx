@@ -5,6 +5,100 @@ const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+# Dropdown
+
+A hand-drawn dropdown menu component with customizable triggers, icons, and virtualized scrolling for large lists.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Dropdown, DropdownItem } from 'sketchbook-ui';
+
+const items: DropdownItem[] = [
+  { label: 'Edit', icon: 'edit', onClick: () => console.log('Edit') },
+  { label: 'Duplicate', icon: 'duplicate', onClick: () => console.log('Duplicate') },
+  { label: 'Delete', icon: 'delete', onClick: () => console.log('Delete'), danger: true },
+];
+
+function App() {
+  return <Dropdown items={items} triggerIcon="dots" />;
+}
+\`\`\`
+
+## Features
+
+### Trigger Types
+- **Icon Triggers**: dots, menu, gear, plus, user, bell, chevron
+- **Text Triggers**: Custom text with automatic width adjustment
+- **Emoji Triggers**: Any emoji with automatic width adjustment
+- **Custom Triggers**: Pass any React element as \`customTrigger\`
+
+### Sizes
+- \`sm\`: 40px button, 0.8x icon scale
+- \`md\`: 56px button, 1x icon scale (default)
+- \`lg\`: 64px button, 1.2x icon scale
+
+### Item Features
+- Optional icons (edit, duplicate, delete, settings, share)
+- Danger state for destructive actions (red text)
+- Click handlers for each item
+- Keyboard navigation (Arrow keys, Enter, Escape)
+- Virtualized scrolling for large lists (350px max height)
+
+### Customization
+- **Colors**: bg, bgOverlay, stroke, text, hoverBg, dangerText
+- **Typography**: fontSize, fontWeight, fontFamily
+- **Border**: Toggle with \`showBorder\`
+- **Disabled State**: Grayscale appearance, prevents interaction
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| items | DropdownItem[] | required | Array of menu items |
+| triggerIcon | 'dots' \\| 'menu' \\| 'gear' \\| 'plus' \\| 'user' \\| 'bell' \\| 'chevron' | 'dots' | Icon for trigger button |
+| triggerText | string | undefined | Custom text for trigger (auto-sizes) |
+| triggerEmoji | string | undefined | Custom emoji for trigger (auto-sizes) |
+| customTrigger | ReactNode | undefined | Custom trigger element |
+| size | 'sm' \\| 'md' \\| 'lg' | 'md' | Button size |
+| disabled | boolean | false | Disable dropdown |
+| colors | object | default | Custom colors (bg, bgOverlay, stroke, text, hoverBg, dangerText) |
+| typography | object | default | Custom typography (fontSize, fontWeight, fontFamily) |
+| showBorder | boolean | true | Show hand-drawn border |
+| className | string | '' | Additional CSS class |
+
+## DropdownItem Interface
+
+\`\`\`tsx
+interface DropdownItem {
+  label: string;
+  icon?: 'edit' | 'duplicate' | 'delete' | 'settings' | 'share';
+  onClick?: () => void;
+  danger?: boolean;
+}
+\`\`\`
+
+## Important Notes
+
+- Dropdown automatically closes when clicking outside
+- Keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close
+- Text/emoji triggers automatically adjust button width based on content
+- Virtualized scrolling handles large item lists efficiently (350px max height)
+- Disabled state prevents all interactions and applies grayscale styling
+        `,
+      },
+    },
+  },
   argTypes: {
     triggerIcon: {
       control: { type: 'radio' },

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { cn, SketchPaper, SketchBorder, useSketchSize, SK } from "../../lib";
 
-export interface SketchTooltipProps
+export interface TooltipProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "color"> {
   content: React.ReactNode;
   placement?: "top" | "bottom" | "left" | "right";
@@ -100,7 +100,7 @@ function bubbleBd2(w: number, h: number): string {
 function tailPath(
   bw: number,
   bh: number,
-  placement: SketchTooltipProps["placement"],
+  placement: TooltipProps["placement"],
 ): string {
   const cx = bw / 2;
   const cy = bh / 2;
@@ -121,7 +121,7 @@ function tailPath(
   }
 }
 
-const SketchTooltip = React.forwardRef<HTMLDivElement, SketchTooltipProps>(
+const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   (
     {
       content,
@@ -284,6 +284,6 @@ const SketchTooltip = React.forwardRef<HTMLDivElement, SketchTooltipProps>(
   },
 );
 
-SketchTooltip.displayName = "SketchTooltip";
+Tooltip.displayName = "Tooltip";
 
-export { SketchTooltip };
+export { Tooltip };

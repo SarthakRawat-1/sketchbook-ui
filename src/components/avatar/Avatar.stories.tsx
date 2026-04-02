@@ -5,6 +5,138 @@ const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
   component: Avatar,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn avatar component with support for images, initials, and fallback doodle faces. Features authentic sketchy borders and hover animations.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { Avatar } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+// With initials
+function App() {
+  return <Avatar initials="JD" />;
+}
+
+// With image
+function App() {
+  return (
+    <Avatar 
+      src="https://example.com/avatar.jpg"
+      alt="John Doe"
+      initials="JD"
+    />
+  );
+}
+
+// Fallback doodle (no src, no initials)
+function App() {
+  return <Avatar alt="User" />;
+}
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Avatar size="sm" initials="SM" />
+<Avatar size="md" initials="MD" />
+<Avatar size="lg" initials="LG" />
+\`\`\`
+
+## Custom Width
+
+\`\`\`tsx
+<Avatar width={100} initials="CW" />
+<Avatar width={150} initials="XL" />
+\`\`\`
+
+## Shapes
+
+\`\`\`tsx
+<Avatar shape="circle" initials="○" />
+<Avatar shape="square" initials="□" />
+\`\`\`
+
+## Interactive
+
+\`\`\`tsx
+<Avatar 
+  initials="CL"
+  onClick={() => alert('Avatar clicked!')}
+/>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Avatar 
+  initials="AB"
+  colors={{ 
+    bg: "#fee2e2", 
+    fallbackBg: "#fecaca", 
+    stroke: "#dc2626", 
+    text: "#dc2626" 
+  }}
+/>
+\`\`\`
+
+## Custom Typography
+
+\`\`\`tsx
+<Avatar 
+  initials="EF"
+  typography={{ 
+    fontSize: "1.8rem", 
+    fontWeight: "bold" 
+  }}
+/>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`src\` | \`string\` | - | Image URL |
+| \`alt\` | \`string\` | \`"Avatar"\` | Alt text for accessibility |
+| \`initials\` | \`string\` | - | Text to display (shows first character) |
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Predefined size |
+| \`width\` | \`number\` | - | Custom width in pixels (overrides size) |
+| \`shape\` | \`"circle" \\| "square"\` | \`"circle"\` | Avatar shape |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.fallbackBg\` | \`string\` | - | Fallback background color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Font weight |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`showBorder\` | \`boolean\` | \`true\` | Show hand-drawn border |
+| \`showShadow\` | \`boolean\` | \`true\` | Show shadow beneath avatar |
+| \`onClick\` | \`() => void\` | - | Click handler (makes avatar interactive) |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+## Important Notes
+
+- When \`width\` is provided, it overrides the \`size\` prop
+- Font size and stroke width scale automatically with custom width
+- Image fallback: If image fails to load, shows initials or doodle
+- First character only: \`initials="JD"\` displays "J"
+- Interactive avatars are keyboard accessible with Enter/Space keys
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: 'radio' },

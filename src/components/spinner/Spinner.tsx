@@ -2,7 +2,7 @@ import React from "react";
 import { cn, SK, SK_DISABLED } from "../../lib";
 
 
-export interface SketchSpinnerProps
+export interface SpinnerProps
   extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual variant */
   variant?: "circle" | "spiral" | "hourglass" | "dots";
@@ -83,7 +83,7 @@ const DOTS = [
   wobbleDot(31, 20, 3.8, 3),
 ];
 
-const SketchSpinner = React.forwardRef<HTMLDivElement, SketchSpinnerProps>(
+const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
   (
     {
       variant = "circle",
@@ -238,5 +238,5 @@ const SketchSpinner = React.forwardRef<HTMLDivElement, SketchSpinnerProps>(
   },
 );
 
-SketchSpinner.displayName = "SketchSpinner";
-export { SketchSpinner };
+Spinner.displayName = "Spinner";
+export { Spinner };

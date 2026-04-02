@@ -1,16 +1,155 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { SketchModal } from "./Modal";
+import { Modal } from "./Modal";
 import { Button } from "../button/Button";
 import { Input } from "../input/Input";
 import { Checkbox } from "../checkbox/Checkbox";
 import { Select } from "../select/Select";
 import { Switch } from "../switch/Switch";
 
-const meta: Meta<typeof SketchModal> = {
+const meta: Meta<typeof Modal> = {
   title: "Components/Modal",
-  component: SketchModal,
+  component: Modal,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+A hand-drawn modal dialog with three distinct variants: paper, notebook, and sticky note. Features focus management, keyboard navigation, and customizable appearance.
+
+## Installation
+
+\`\`\`bash
+npm install sketchbook-ui
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+import { useState } from 'react';
+import { Modal, Button } from 'sketchbook-ui';
+import 'sketchbook-ui/style.css';
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+      <Modal 
+        isOpen={isOpen} 
+        onClose={() => setIsOpen(false)}
+        title="Welcome!"
+      >
+        <p>This is a hand-drawn modal dialog.</p>
+      </Modal>
+    </>
+  );
+}
+\`\`\`
+
+## Variants
+
+\`\`\`tsx
+<Modal variant="paper" isOpen={isOpen} onClose={onClose} title="Paper">
+  Classic paper look with folded corner
+</Modal>
+
+<Modal variant="notebook" isOpen={isOpen} onClose={onClose} title="Notebook">
+  Ruled lines with spiral holes and red margin
+</Modal>
+
+<Modal variant="sticky" isOpen={isOpen} onClose={onClose} title="Sticky">
+  Yellow sticky note with tape at top
+</Modal>
+\`\`\`
+
+## Sizes
+
+\`\`\`tsx
+<Modal size="sm" isOpen={isOpen} onClose={onClose}>Small (400px)</Modal>
+<Modal size="md" isOpen={isOpen} onClose={onClose}>Medium (600px)</Modal>
+<Modal size="lg" isOpen={isOpen} onClose={onClose}>Large (800px)</Modal>
+\`\`\`
+
+## With Footer
+
+\`\`\`tsx
+<Modal 
+  isOpen={isOpen} 
+  onClose={onClose}
+  title="Confirm Action"
+  footer={
+    <>
+      <Button onClick={onClose}>Cancel</Button>
+      <Button onClick={handleConfirm}>Confirm</Button>
+    </>
+  }
+>
+  <p>Are you sure?</p>
+</Modal>
+\`\`\`
+
+## Custom Colors
+
+\`\`\`tsx
+<Modal 
+  isOpen={isOpen} 
+  onClose={onClose}
+  colors={{
+    bg: "#f0e6ff",
+    bgOverlay: "#e0d0f5",
+    stroke: "#5b21b6",
+    text: "#3b0764",
+    backdrop: "rgba(91, 33, 182, 0.3)"
+  }}
+>
+  Custom purple theme
+</Modal>
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| \`isOpen\` | \`boolean\` | required | Controls modal visibility |
+| \`onClose\` | \`() => void\` | required | Called when modal should close |
+| \`title\` | \`string\` | - | Modal title text |
+| \`children\` | \`ReactNode\` | required | Modal body content |
+| \`footer\` | \`ReactNode\` | - | Footer content (buttons, etc.) |
+| \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Modal width (400px/600px/800px) |
+| \`variant\` | \`"paper" \\| "notebook" \\| "sticky"\` | \`"paper"\` | Visual style variant |
+| \`showCloseButton\` | \`boolean\` | \`true\` | Show X button in top-right |
+| \`closeOnBackdrop\` | \`boolean\` | \`true\` | Close when clicking backdrop |
+| \`closeOnEscape\` | \`boolean\` | \`true\` | Close when pressing Escape |
+| \`showBorder\` | \`boolean\` | \`true\` | Show hand-drawn border |
+| \`colors\` | \`object\` | - | Custom color scheme |
+| \`colors.bg\` | \`string\` | - | Background color |
+| \`colors.bgOverlay\` | \`string\` | - | Background overlay color |
+| \`colors.stroke\` | \`string\` | - | Border stroke color |
+| \`colors.text\` | \`string\` | - | Text color |
+| \`colors.backdrop\` | \`string\` | - | Backdrop overlay color |
+| \`typography\` | \`object\` | - | Custom typography |
+| \`typography.fontSize\` | \`string\` | - | Body font size |
+| \`typography.fontWeight\` | \`string \\| number\` | - | Body font weight |
+| \`typography.fontFamily\` | \`string\` | - | Font family |
+| \`typography.titleSize\` | \`string\` | - | Title font size |
+| \`typography.titleWeight\` | \`string \\| number\` | - | Title font weight |
+| \`className\` | \`string\` | - | Additional CSS classes |
+
+## Important Notes
+
+- Modal uses React Portal to render at document.body level
+- Automatically locks body scroll when open
+- Focus management: traps focus inside modal, restores on close
+- Keyboard navigation: Tab cycles through focusable elements, Escape closes
+- Notebook variant adds left padding automatically for margin line
+- Long content makes body scrollable while header/footer stay fixed
+- All sizes cap at 90vw on small screens for responsiveness
+        `,
+      },
+    },
+  },
   argTypes: {
     size: {
       control: { type: "radio" },
@@ -25,7 +164,7 @@ const meta: Meta<typeof SketchModal> = {
     closeOnEscape: { control: "boolean" },
     showBorder: { control: "boolean" },
   },
-} satisfies Meta<typeof SketchModal>;
+} satisfies Meta<typeof Modal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -33,7 +172,7 @@ type Story = StoryObj<typeof meta>;
 /* ── Helper wrapper that manages open/close state ───────────────────── */
 
 function ModalDemo(
-  props: Omit<React.ComponentProps<typeof SketchModal>, "isOpen" | "onClose"> & {
+  props: Omit<React.ComponentProps<typeof Modal>, "isOpen" | "onClose"> & {
     triggerLabel?: string;
   },
 ) {
@@ -43,7 +182,7 @@ function ModalDemo(
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>{triggerLabel}</Button>
-      <SketchModal {...modalProps} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <Modal {...modalProps} isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }
@@ -214,7 +353,7 @@ function FormModalDemo(props: Record<string, unknown>) {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Form Modal</Button>
-      <SketchModal
+      <Modal
         {...props}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -279,7 +418,7 @@ function FormModalDemo(props: Record<string, unknown>) {
             <span>Email notifications</span>
           </div>
         </div>
-      </SketchModal>
+      </Modal>
     </>
   );
 }

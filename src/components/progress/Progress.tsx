@@ -9,7 +9,7 @@ import {
   DISP_PROGRESS_ID,
 } from "../../lib";
 
-export interface SketchProgressProps
+export interface ProgressProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   value: number;
   max?: number;
@@ -91,7 +91,7 @@ const FILL_PATTERNS: Record<string, string | null> = {
   dots: getDotsPattern(),
 };
 
-const SketchProgress = React.forwardRef<HTMLDivElement, SketchProgressProps>(
+const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
   (
     {
       value,
@@ -356,6 +356,6 @@ const SketchProgress = React.forwardRef<HTMLDivElement, SketchProgressProps>(
   },
 );
 
-SketchProgress.displayName = "SketchProgress";
+Progress.displayName = "Progress";
 
-export { SketchProgress };
+export { Progress };
