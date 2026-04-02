@@ -1,6 +1,6 @@
 {
   "name": "sketchbook-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A hand-drawn React component library with a unique sketchy, notebook aesthetic",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -42,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/SarthakRawat-1/sketchbook-ui/issues"
   },
-  "homepage": "https://github.com/SarthakRawat-1/sketchbook-ui#readme",
+  "homepage": "https://sarthakrawat-1.github.io/sketchbook-ui/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
