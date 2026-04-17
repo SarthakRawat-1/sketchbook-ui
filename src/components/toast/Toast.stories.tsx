@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { Toast, ToastContainer, useToast } from './Toast';
-import type { ToastPosition } from './Toast';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import { Toast, ToastContainer, useToast } from "./Toast";
+import type { ToastPosition } from "./Toast";
 
 const meta: Meta<typeof Toast> = {
-  title: 'Components/Toast',
+  title: "Components/Toast",
   component: Toast,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -156,10 +156,10 @@ Plus all standard HTML div attributes.
   },
   argTypes: {
     showBorder: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
     showIcon: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
   },
 } satisfies Meta<typeof Toast>;
@@ -168,47 +168,72 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const sampleToast = {
-  id: 'sample-1',
-  message: 'This is a sample toast message!',
-  variant: 'success' as const,
+  id: "sample-1",
+  message: "This is a sample toast message!",
+  variant: "success" as const,
 };
 
 export const Default: Story = {
   args: {
     toast: sampleToast,
-    onDismiss: () => { },
+    onDismiss: () => {},
   },
 };
 
 export const Variants: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
       <Toast
         {...args}
-        toast={{ id: '1', message: 'Operation completed successfully!', variant: 'success' }}
-        onDismiss={() => { }}
+        toast={{
+          id: "1",
+          message: "Operation completed successfully!",
+          variant: "success",
+        }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '2', message: 'Please check your input and try again.', variant: 'warning' }}
-        onDismiss={() => { }}
+        toast={{
+          id: "2",
+          message: "Please check your input and try again.",
+          variant: "warning",
+        }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '3', message: 'Something went wrong. Please contact support.', variant: 'error' }}
-        onDismiss={() => { }}
+        toast={{
+          id: "3",
+          message: "Something went wrong. Please contact support.",
+          variant: "error",
+        }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '4', message: 'Here is some helpful information for you.', variant: 'info' }}
-        onDismiss={() => { }}
+        toast={{
+          id: "4",
+          message: "Here is some helpful information for you.",
+          variant: "info",
+        }}
+        onDismiss={() => {}}
       />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Toast supports four variants: success (green), warning (orange), error (red), and info (blue).',
+        story:
+          "Toast supports four variants: success (green), warning (orange), error (red), and info (blue).",
       },
     },
   },
@@ -216,31 +241,49 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
       <Toast
         {...args}
-        toast={{ id: '1', message: 'Small toast message', variant: 'success' }}
+        toast={{ id: "1", message: "Small toast message", variant: "success" }}
         size="sm"
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '2', message: 'Medium toast message with a bit more content', variant: 'info' }}
+        toast={{
+          id: "2",
+          message: "Medium toast message with a bit more content",
+          variant: "info",
+        }}
         size="md"
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '3', message: 'Large toast message with even more content to showcase the larger size variant', variant: 'warning' }}
+        toast={{
+          id: "3",
+          message:
+            "Large toast message with even more content to showcase the larger size variant",
+          variant: "warning",
+        }}
         size="lg"
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Toast supports three size variants: sm (280px), md (340px), and lg (400px).',
+        story:
+          "Toast supports three size variants: sm (280px), md (340px), and lg (400px).",
       },
     },
   },
@@ -248,101 +291,125 @@ export const Sizes: Story = {
 
 export const Customization: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
       <Toast
         {...args}
-        toast={{ id: '1', message: 'Custom purple theme', variant: 'info' }}
+        toast={{ id: "1", message: "Custom purple theme", variant: "info" }}
         colors={{
-          info: { bg: '#f3e8ff', border: '#7c3aed', tape: '#7c3aed' }
+          info: { bg: "#f3e8ff", border: "#7c3aed", tape: "#7c3aed" },
         }}
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '2', message: 'Custom pink theme', variant: 'success' }}
+        toast={{ id: "2", message: "Custom pink theme", variant: "success" }}
         colors={{
-          success: { bg: '#fdf2f8', border: '#ec4899', tape: '#ec4899' }
+          success: { bg: "#fdf2f8", border: "#ec4899", tape: "#ec4899" },
         }}
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '3', message: 'Bold and larger text', variant: 'warning' }}
-        typography={{ fontSize: '1.5rem', fontWeight: 'bold' }}
-        onDismiss={() => { }}
+        toast={{ id: "3", message: "Bold and larger text", variant: "warning" }}
+        typography={{ fontSize: "1.5rem", fontWeight: "bold" }}
+        onDismiss={() => {}}
       />
       <Toast
         {...args}
-        toast={{ id: '4', message: 'No icon or border', variant: 'info' }}
+        toast={{ id: "4", message: "No icon or border", variant: "info" }}
         showIcon={false}
         showBorder={false}
-        onDismiss={() => { }}
+        onDismiss={() => {}}
       />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Customize colors, typography, and visibility of icons and borders.',
+        story:
+          "Customize colors, typography, and visibility of icons and borders.",
       },
     },
   },
 };
 
-const ToastHookDemo = ({ position = 'top-right' }: { position?: ToastPosition }) => {
+const ToastHookDemo = ({
+  position = "top-right",
+}: {
+  position?: ToastPosition;
+}) => {
   const { toasts, showToast, dismissToast } = useToast();
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+    <div style={{ padding: "2rem" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          marginBottom: "2rem",
+          flexWrap: "wrap",
+        }}
+      >
         <button
-          onClick={() => showToast('Success! Operation completed.', 'success')}
+          onClick={() => showToast("Success! Operation completed.", "success")}
           style={{
-            padding: '8px 16px',
-            backgroundColor: '#10b981',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
+            padding: "8px 16px",
+            backgroundColor: "#10b981",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
           }}
         >
           Show Success
         </button>
         <button
-          onClick={() => showToast('Warning: Please check your input.', 'warning')}
+          onClick={() =>
+            showToast("Warning: Please check your input.", "warning")
+          }
           style={{
-            padding: '8px 16px',
-            backgroundColor: '#f59e0b',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
+            padding: "8px 16px",
+            backgroundColor: "#f59e0b",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
           }}
         >
           Show Warning
         </button>
         <button
-          onClick={() => showToast('Error: Something went wrong.', 'error')}
+          onClick={() => showToast("Error: Something went wrong.", "error")}
           style={{
-            padding: '8px 16px',
-            backgroundColor: '#ef4444',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
+            padding: "8px 16px",
+            backgroundColor: "#ef4444",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
           }}
         >
           Show Error
         </button>
         <button
-          onClick={() => showToast('Info: Here is some helpful information.', 'info')}
+          onClick={() =>
+            showToast("Info: Here is some helpful information.", "info")
+          }
           style={{
-            padding: '8px 16px',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
+            padding: "8px 16px",
+            backgroundColor: "#3b82f6",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
           }}
         >
           Show Info
@@ -359,21 +426,33 @@ const ToastHookDemo = ({ position = 'top-right' }: { position?: ToastPosition })
 };
 
 export const InteractiveDemo: Story = {
-  render: (args) => <ToastHookDemo position={(args as Record<string, unknown>).position as ToastPosition} />,
+  render: (args) => (
+    <ToastHookDemo
+      position={(args as Record<string, unknown>).position as ToastPosition}
+    />
+  ),
   argTypes: {
     position: {
-      control: { type: 'select' },
-      options: ['top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center'],
-      description: 'Position of the toast container on screen',
+      control: { type: "select" },
+      options: [
+        "top-right",
+        "top-left",
+        "top-center",
+        "bottom-right",
+        "bottom-left",
+        "bottom-center",
+      ],
+      description: "Position of the toast container on screen",
     },
   } as Record<string, unknown>,
   args: {
-    position: 'top-right',
+    position: "top-right",
   } as Record<string, unknown>,
   parameters: {
     docs: {
       description: {
-        story: 'Interactive demo showing the useToast hook. Toasts auto-dismiss after 5 seconds or can be closed manually.',
+        story:
+          "Interactive demo showing the useToast hook. Toasts auto-dismiss after 5 seconds or can be closed manually.",
       },
     },
   },

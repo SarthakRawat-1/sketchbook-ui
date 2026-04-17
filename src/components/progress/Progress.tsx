@@ -9,8 +9,10 @@ import {
   DISP_PROGRESS_ID,
 } from "../../lib";
 
-export interface ProgressProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+export interface ProgressProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "color"
+> {
   value: number;
   max?: number;
   label?: string;
@@ -115,27 +117,30 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
     const sc = SIZE_CONFIG[size];
 
     /* responsive width, fixed height (avoids infinite-growth loop) */
-    const { ref: containerRef, w } = useSketchSize<HTMLDivElement>(sc.minW, sc.minH);
+    const { ref: containerRef, w } = useSketchSize<HTMLDivElement>(
+      sc.minW,
+      sc.minH,
+    );
     const h = sc.minH;
 
     /* ── resolved colours ── */
     const c = disabled
       ? {
-        bg: SK_DISABLED.bg,
-        bgOverlay: SK_DISABLED.bgOverlay,
-        stroke: SK_DISABLED.stroke,
-        text: SK_DISABLED.text,
-        label: SK_DISABLED.text,
-        fill: colors?.fill ?? SK_DISABLED.stroke,
-      }
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+          label: SK_DISABLED.text,
+          fill: colors?.fill ?? SK_DISABLED.stroke,
+        }
       : {
-        bg: colors?.bg ?? SK.bg,
-        bgOverlay: colors?.bgOverlay ?? SK.bgOverlay,
-        stroke: colors?.stroke ?? SK.stroke,
-        text: colors?.text ?? SK.text,
-        label: colors?.label ?? SK.text,
-        fill: colors?.fill ?? SK.stroke,
-      };
+          bg: colors?.bg ?? SK.bg,
+          bgOverlay: colors?.bgOverlay ?? SK.bgOverlay,
+          stroke: colors?.stroke ?? SK.stroke,
+          text: colors?.text ?? SK.text,
+          label: colors?.label ?? SK.text,
+          fill: colors?.fill ?? SK.stroke,
+        };
 
     const font = typography?.fontFamily ?? SK.font;
     const fillPattern = FILL_PATTERNS[variant] ?? null;
@@ -273,7 +278,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   x="0"
                   y="0"
                   height={h}
-                  width={w * percentage / 100}
+                  width={(w * percentage) / 100}
                   style={{
                     transition: animated
                       ? "width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)"

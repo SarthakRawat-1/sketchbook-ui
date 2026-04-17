@@ -145,22 +145,36 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", padding: "2rem", maxWidth: 420 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        padding: "2rem",
+        maxWidth: 420,
+      }}
+    >
       <div>
         <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>text</p>
         <Skeleton variant="text" />
       </div>
       <div>
-        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>rectangle</p>
+        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>
+          rectangle
+        </p>
         <Skeleton variant="rectangle" height={120} />
       </div>
       <div style={{ display: "flex", gap: "2rem" }}>
         <div>
-          <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>circle</p>
+          <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>
+            circle
+          </p>
           <Skeleton variant="circle" />
         </div>
         <div>
-          <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>avatar</p>
+          <p style={{ fontFamily: "'Caveat', cursive", marginBottom: 4 }}>
+            avatar
+          </p>
           <Skeleton variant="avatar" />
         </div>
       </div>
@@ -168,7 +182,10 @@ export const Variants: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "All four shape variants: text, rectangle, circle, and avatar (with face doodle)." },
+      description: {
+        story:
+          "All four shape variants: text, rectangle, circle, and avatar (with face doodle).",
+      },
     },
   },
 };
@@ -192,7 +209,15 @@ export const Static: Story = {
 
 export const CustomColors: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", padding: "2rem", maxWidth: 360 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        padding: "2rem",
+        maxWidth: 360,
+      }}
+    >
       <Skeleton
         variant="rectangle"
         height={80}
@@ -224,7 +249,9 @@ export const TextBlock: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "Multi-line text skeleton (last line shorter for realism)." },
+      description: {
+        story: "Multi-line text skeleton (last line shorter for realism).",
+      },
     },
   },
 };
@@ -241,7 +268,9 @@ export const Card: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "Card skeleton with image placeholder and text lines." },
+      description: {
+        story: "Card skeleton with image placeholder and text lines.",
+      },
     },
   },
 };
@@ -254,7 +283,9 @@ export const CardWithAvatar: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "Card skeleton with avatar row between image and text." },
+      description: {
+        story: "Card skeleton with avatar row between image and text.",
+      },
     },
   },
 };

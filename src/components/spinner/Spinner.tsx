@@ -1,9 +1,7 @@
 import React from "react";
 import { cn, SK, SK_DISABLED } from "../../lib";
 
-
-export interface SpinnerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual variant */
   variant?: "circle" | "spiral" | "hourglass" | "dots";
   size?: "sm" | "md" | "lg";

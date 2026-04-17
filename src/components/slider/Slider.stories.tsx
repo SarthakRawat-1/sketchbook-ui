@@ -165,7 +165,15 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem", padding: "2rem", maxWidth: 420 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2.5rem",
+        padding: "2rem",
+        maxWidth: 420,
+      }}
+    >
       <Slider size="sm" label="Small" defaultValue={25} />
       <Slider size="md" label="Medium" defaultValue={50} />
       <Slider size="lg" label="Large" defaultValue={75} />
@@ -188,7 +196,9 @@ export const Disabled: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Disabled state with muted colours and `not-allowed` cursor." },
+      description: {
+        story: "Disabled state with muted colours and `not-allowed` cursor.",
+      },
     },
   },
 };
@@ -214,21 +224,44 @@ export const CustomStep: Story = {
 
 export const CustomColors: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", padding: "2rem", maxWidth: 420 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        padding: "2rem",
+        maxWidth: 420,
+      }}
+    >
       <Slider
         label="Red theme"
         defaultValue={30}
-        colors={{ track: "#e74c3c", trackFill: "#e74c3c", thumb: "#e74c3c", text: "#c0392b" }}
+        colors={{
+          track: "#e74c3c",
+          trackFill: "#e74c3c",
+          thumb: "#e74c3c",
+          text: "#c0392b",
+        }}
       />
       <Slider
         label="Blue theme"
         defaultValue={65}
-        colors={{ track: "#3498db", trackFill: "#3498db", thumb: "#3498db", text: "#2980b9" }}
+        colors={{
+          track: "#3498db",
+          trackFill: "#3498db",
+          thumb: "#3498db",
+          text: "#2980b9",
+        }}
       />
       <Slider
         label="Green theme"
         defaultValue={80}
-        colors={{ track: "#2ecc71", trackFill: "#2ecc71", thumb: "#2ecc71", text: "#27ae60" }}
+        colors={{
+          track: "#2ecc71",
+          trackFill: "#2ecc71",
+          thumb: "#2ecc71",
+          text: "#27ae60",
+        }}
       />
     </div>
   ),
@@ -247,7 +280,9 @@ export const NoLabel: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Slider without a visible label (still has an aria-label)." },
+      description: {
+        story: "Slider without a visible label (still has an aria-label).",
+      },
     },
   },
 };

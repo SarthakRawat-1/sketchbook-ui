@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from './Checkbox';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Checkbox } from "./Checkbox";
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Components/Checkbox',
+  title: "Components/Checkbox",
   component: Checkbox,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -136,20 +136,20 @@ The \`onChange\` prop receives a boolean value directly, not an event:
   },
   argTypes: {
     size: {
-      control: { type: 'radio' },
-      options: ['sm', 'md', 'lg'],
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
     },
     disabled: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
     showBorder: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
     label: {
-      control: { type: 'text' },
+      control: { type: "text" },
     },
     checked: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
   },
 } satisfies Meta<typeof Checkbox>;
@@ -159,13 +159,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'I agree to the terms',
+    label: "I agree to the terms",
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: 'Already checked',
+    label: "Already checked",
     defaultChecked: true,
   },
 };
@@ -176,7 +176,15 @@ export const WithoutLabel: Story = {
 
 export const Disabled: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
       <Checkbox {...args} label="Disabled unchecked" disabled />
       <Checkbox {...args} label="Disabled checked" disabled defaultChecked />
     </div>
@@ -185,7 +193,15 @@ export const Disabled: Story = {
 
 export const Sizes: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
       <Checkbox {...args} size="sm" label="Small checkbox" />
       <Checkbox {...args} size="md" label="Medium checkbox" />
       <Checkbox {...args} size="lg" label="Large checkbox" />
@@ -195,56 +211,60 @@ export const Sizes: Story = {
 
 export const Customization: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', padding: '2rem' }}>
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "flex-start",
+        padding: "2rem",
+      }}
+    >
+      <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
         <Checkbox {...args} label="Default" />
-        <Checkbox 
-          {...args} 
-          label="Red Theme" 
-          colors={{ 
-            bg: "#fee2e2", 
-            bgOverlay: "#fecaca", 
-            stroke: "#dc2626", 
+        <Checkbox
+          {...args}
+          label="Red Theme"
+          colors={{
+            bg: "#fee2e2",
+            bgOverlay: "#fecaca",
+            stroke: "#dc2626",
             text: "#dc2626",
-            check: "#dc2626"
-          }} 
+            check: "#dc2626",
+          }}
         />
-        <Checkbox 
-          {...args} 
-          label="Blue Theme" 
-          colors={{ 
-            bg: "#dbeafe", 
-            bgOverlay: "#bfdbfe", 
-            stroke: "#2563eb", 
+        <Checkbox
+          {...args}
+          label="Blue Theme"
+          colors={{
+            bg: "#dbeafe",
+            bgOverlay: "#bfdbfe",
+            stroke: "#2563eb",
             text: "#2563eb",
-            check: "#2563eb"
-          }} 
+            check: "#2563eb",
+          }}
         />
       </div>
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        <Checkbox 
-          {...args} 
-          label="Custom Typography" 
-          typography={{ 
-            fontFamily: "serif", 
+      <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+        <Checkbox
+          {...args}
+          label="Custom Typography"
+          typography={{
+            fontFamily: "serif",
             fontSize: "1.2rem",
-            fontWeight: "bold"
-          }} 
+            fontWeight: "bold",
+          }}
         />
-        <Checkbox 
-          {...args} 
-          label="No Border" 
-          showBorder={false} 
-        />
+        <Checkbox {...args} label="No Border" showBorder={false} />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Customize colors, typography, and border visibility to match your design needs.',
+        story:
+          "Customize colors, typography, and border visibility to match your design needs.",
       },
     },
   },
 };
-

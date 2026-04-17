@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Avatar } from './Avatar';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Avatar } from "./Avatar";
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: "Components/Avatar",
   component: Avatar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -139,21 +139,21 @@ function App() {
   },
   argTypes: {
     size: {
-      control: { type: 'radio' },
-      options: ['sm', 'md', 'lg'],
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
     },
     shape: {
-      control: { type: 'radio' },
-      options: ['circle', 'square'],
+      control: { type: "radio" },
+      options: ["circle", "square"],
     },
     width: {
-      control: { type: 'number', min: 20, max: 200, step: 5 },
+      control: { type: "number", min: 20, max: 200, step: 5 },
     },
     showBorder: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
     showShadow: {
-      control: { type: 'boolean' },
+      control: { type: "boolean" },
     },
   },
 } satisfies Meta<typeof Avatar>;
@@ -163,28 +163,35 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    initials: 'JD',
+    initials: "JD",
   },
 };
 
 export const WithImage: Story = {
   args: {
-    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    alt: 'John Doe',
-    initials: 'JD',
+    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    alt: "John Doe",
+    initials: "JD",
   },
 };
 
 export const Fallback: Story = {
   args: {
     // No src, no initials - shows doodle face
-    alt: 'Fallback Avatar',
+    alt: "Fallback Avatar",
   },
 };
 
 export const Sizes: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
       <Avatar {...args} size="sm" initials="SM" />
       <Avatar {...args} size="md" initials="MD" />
       <Avatar {...args} size="lg" initials="LG" />
@@ -194,7 +201,14 @@ export const Sizes: Story = {
 
 export const Shapes: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
       <Avatar {...args} shape="circle" initials="○" />
       <Avatar {...args} shape="square" initials="□" />
     </div>
@@ -203,21 +217,28 @@ export const Shapes: Story = {
 
 export const WithImages: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
-      <Avatar 
-        {...args} 
+    <div
+      style={{
+        display: "flex",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <Avatar
+        {...args}
         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
         alt="Person 1"
         initials="P1"
       />
-      <Avatar 
-        {...args} 
+      <Avatar
+        {...args}
         src="https://images.unsplash.com/photo-1494790108755-2616b612e643?w=150&h=150&fit=crop&crop=face"
         alt="Person 2"
         initials="P2"
       />
-      <Avatar 
-        {...args} 
+      <Avatar
+        {...args}
         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
         alt="Person 3"
         initials="P3"
@@ -228,53 +249,58 @@ export const WithImages: Story = {
 
 export const Customization: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
-      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
         <Avatar {...args} initials="JD" />
-        <Avatar 
-          {...args} 
+        <Avatar
+          {...args}
           initials="AB"
-          colors={{ 
-            bg: "#fee2e2", 
-            fallbackBg: "#fecaca", 
-            stroke: "#dc2626", 
-            text: "#dc2626" 
+          colors={{
+            bg: "#fee2e2",
+            fallbackBg: "#fecaca",
+            stroke: "#dc2626",
+            text: "#dc2626",
           }}
         />
-        <Avatar 
-          {...args} 
+        <Avatar
+          {...args}
           initials="CD"
-          colors={{ 
-            bg: "#dbeafe", 
-            fallbackBg: "#bfdbfe", 
-            stroke: "#2563eb", 
-            text: "#2563eb" 
+          colors={{
+            bg: "#dbeafe",
+            fallbackBg: "#bfdbfe",
+            stroke: "#2563eb",
+            text: "#2563eb",
           }}
         />
       </div>
-      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-        <Avatar 
-          {...args} 
+      <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+        <Avatar
+          {...args}
           initials="EF"
           typography={{ fontSize: "1.8rem", fontWeight: "bold" }}
         />
-        <Avatar 
-          {...args} 
+        <Avatar
+          {...args}
           initials="GH"
           typography={{ fontFamily: "serif", fontSize: "2.2rem" }}
         />
-        <Avatar 
-          {...args} 
-          initials="IJ"
-          showBorder={false}
-        />
+        <Avatar {...args} initials="IJ" showBorder={false} />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Customize colors, typography, and border visibility to match your design needs.',
+        story:
+          "Customize colors, typography, and border visibility to match your design needs.",
       },
     },
   },
@@ -282,25 +308,33 @@ export const Customization: Story = {
 
 export const Interactive: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
-      <Avatar 
-        {...args} 
+    <div
+      style={{
+        display: "flex",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <Avatar
+        {...args}
         initials="CL"
-        onClick={() => alert('Avatar clicked!')}
+        onClick={() => alert("Avatar clicked!")}
       />
-      <Avatar 
-        {...args} 
+      <Avatar
+        {...args}
         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
         alt="Clickable Avatar"
         initials="CA"
-        onClick={() => alert('Image avatar clicked!')}
+        onClick={() => alert("Image avatar clicked!")}
       />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Avatars can be made interactive with onClick handlers. Hover to see the sketchy animation effect.',
+        story:
+          "Avatars can be made interactive with onClick handlers. Hover to see the sketchy animation effect.",
       },
     },
   },
@@ -308,38 +342,70 @@ export const Interactive: Story = {
 
 export const States: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
-      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+        <div style={{ textAlign: "center" }}>
           <Avatar {...args} initials="AB" />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>With Initials</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            With Initials
+          </p>
         </div>
-        <div style={{ textAlign: 'center' }}>
-          <Avatar 
-            {...args} 
+        <div style={{ textAlign: "center" }}>
+          <Avatar
+            {...args}
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
             alt="With Image"
             initials="WI"
           />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>With Image</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            With Image
+          </p>
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <Avatar {...args} />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Fallback Doodle</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            Fallback Doodle
+          </p>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
+      <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+        <div style={{ textAlign: "center" }}>
           <Avatar {...args} initials="NS" showShadow={false} />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>No Shadow</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            No Shadow
+          </p>
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <Avatar {...args} initials="NB" showBorder={false} />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>No Border</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            No Border
+          </p>
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <Avatar {...args} initials="SQ" shape="square" />
-          <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Square Shape</p>
+          <p
+            style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            Square Shape
+          </p>
         </div>
       </div>
     </div>
@@ -347,7 +413,8 @@ export const States: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Different avatar states and configurations showcasing the component flexibility.',
+        story:
+          "Different avatar states and configurations showcasing the component flexibility.",
       },
     },
   },
@@ -355,29 +422,45 @@ export const States: Story = {
 
 export const CustomWidth: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', padding: '2rem' }}>
-      <div style={{ textAlign: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "2rem",
+        alignItems: "center",
+        padding: "2rem",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
         <Avatar {...args} initials="CW" width={40} />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Custom Width: 40px</p>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+          Custom Width: 40px
+        </p>
       </div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <Avatar {...args} initials="CW" width={75} />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Custom Width: 75px</p>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+          Custom Width: 75px
+        </p>
       </div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <Avatar {...args} initials="CW" width={100} />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Custom Width: 100px</p>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+          Custom Width: 100px
+        </p>
       </div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <Avatar {...args} initials="CW" width={150} />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Custom Width: 150px</p>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+          Custom Width: 150px
+        </p>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Avatars with custom width instead of predefined sizes. Width property takes precedence over size prop when specified.',
+        story:
+          "Avatars with custom width instead of predefined sizes. Width property takes precedence over size prop when specified.",
       },
     },
   },

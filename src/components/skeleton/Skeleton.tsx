@@ -1,8 +1,10 @@
 import React, { useId } from "react";
 import { cn, SketchBorder, noiseUrl } from "../../lib";
 
-export interface SkeletonProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+export interface SkeletonProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "color"
+> {
   variant?: "text" | "circle" | "rectangle" | "avatar";
   width?: number | string;
   height?: number | string;
@@ -14,16 +16,20 @@ export interface SkeletonProps
   };
 }
 
-export interface SkeletonTextProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+export interface SkeletonTextProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "color"
+> {
   /** Number of text lines. @default 3 */
   lines?: number;
   animated?: boolean;
   colors?: SkeletonProps["colors"];
 }
 
-export interface SkeletonCardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+export interface SkeletonCardProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "color"
+> {
   animated?: boolean;
   showAvatar?: boolean;
   colors?: SkeletonProps["colors"];
@@ -78,7 +84,11 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
       <div
         ref={ref}
         className={cn("sketch-skeleton", className)}
-        style={{ width: isRound ? h : width, height: h, display: "inline-block" }}
+        style={{
+          width: isRound ? h : width,
+          height: h,
+          display: "inline-block",
+        }}
         {...props}
       >
         <svg
@@ -93,26 +103,66 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
             <linearGradient id={shimmerId} x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor={fillColor} stopOpacity="1">
                 {animated && (
-                  <animate attributeName="stop-opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="stop-opacity"
+                    values="1;0.5;1"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
                 )}
               </stop>
               <stop offset="50%" stopColor={fillAlt} stopOpacity="1">
                 {animated && (
-                  <animate attributeName="stop-opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="stop-opacity"
+                    values="0.5;1;0.5"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
                 )}
               </stop>
               <stop offset="100%" stopColor={fillColor} stopOpacity="1">
                 {animated && (
-                  <animate attributeName="stop-opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="stop-opacity"
+                    values="1;0.5;1"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
                 )}
               </stop>
             </linearGradient>
 
             {/* Scribble pencil-line texture */}
-            <pattern id={scribbleId} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 0 20 C 10 18, 20 22, 30 20 L 40 20" stroke="#c5c1b8" strokeWidth="0.5" fill="none" opacity="0.3" />
-              <path d="M 0 10 C 10 8, 20 12, 30 10 L 40 10" stroke="#c5c1b8" strokeWidth="0.5" fill="none" opacity="0.2" />
-              <path d="M 0 30 C 10 28, 20 32, 30 30 L 40 30" stroke="#c5c1b8" strokeWidth="0.5" fill="none" opacity="0.2" />
+            <pattern
+              id={scribbleId}
+              x="0"
+              y="0"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 0 20 C 10 18, 20 22, 30 20 L 40 20"
+                stroke="#c5c1b8"
+                strokeWidth="0.5"
+                fill="none"
+                opacity="0.3"
+              />
+              <path
+                d="M 0 10 C 10 8, 20 12, 30 10 L 40 10"
+                stroke="#c5c1b8"
+                strokeWidth="0.5"
+                fill="none"
+                opacity="0.2"
+              />
+              <path
+                d="M 0 30 C 10 28, 20 32, 30 30 L 40 30"
+                stroke="#c5c1b8"
+                strokeWidth="0.5"
+                fill="none"
+                opacity="0.2"
+              />
             </pattern>
 
             {/* Clip for noise overlay — confines the global noise rect to the shape */}
@@ -192,23 +242,47 @@ const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
 SkeletonText.displayName = "SkeletonText";
 
 const SkeletonCard = React.forwardRef<HTMLDivElement, SkeletonCardProps>(
-  ({ animated = true, showAvatar = false, colors, className, ...props }, ref) => (
+  (
+    { animated = true, showAvatar = false, colors, className, ...props },
+    ref,
+  ) => (
     <div ref={ref} className={cn("sketch-skeleton-card", className)} {...props}>
       {/* Image placeholder */}
-      <Skeleton variant="rectangle" width="100%" height={200} animated={animated} colors={colors} />
+      <Skeleton
+        variant="rectangle"
+        width="100%"
+        height={200}
+        animated={animated}
+        colors={colors}
+      />
 
       {/* Avatar row */}
       {showAvatar && (
         <div className="sketch-skeleton-card__avatar-row">
-          <Skeleton variant="avatar" height={40} animated={animated} colors={colors} />
+          <Skeleton
+            variant="avatar"
+            height={40}
+            animated={animated}
+            colors={colors}
+          />
           <div style={{ flex: 1 }}>
-            <Skeleton variant="text" width="60%" height={14} animated={animated} colors={colors} />
+            <Skeleton
+              variant="text"
+              width="60%"
+              height={14}
+              animated={animated}
+              colors={colors}
+            />
           </div>
         </div>
       )}
 
       {/* Text lines */}
-      <SkeletonText lines={showAvatar ? 2 : 3} animated={animated} colors={colors} />
+      <SkeletonText
+        lines={showAvatar ? 2 : 3}
+        animated={animated}
+        colors={colors}
+      />
     </div>
   ),
 );

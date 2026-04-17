@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { cn, SketchPaper, SketchBorder, SK, SK_DISABLED, useSketchSize } from "../../lib";
+import {
+  cn,
+  SketchPaper,
+  SketchBorder,
+  SK,
+  SK_DISABLED,
+  useSketchSize,
+} from "../../lib";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
@@ -36,7 +43,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       onFocus,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
@@ -91,7 +98,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const finalColors = disabled
-      ? { bg: SK_DISABLED.bg, bgOverlay: SK_DISABLED.bgOverlay, stroke: SK_DISABLED.stroke, text: SK_DISABLED.text }
+      ? {
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+        }
       : buttonColors;
 
     // Dynamic sizing: measure content and grow beyond minimum if needed
@@ -223,19 +235,37 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         >
           {/* Focus ring */}
           {isFocused && !disabled && (
-            <path d={bgPath} fill="none" stroke={finalColors.stroke}
-              strokeWidth="3" strokeDasharray="4,3" opacity="0.5"
-              strokeLinecap="round" />
+            <path
+              d={bgPath}
+              fill="none"
+              stroke={finalColors.stroke}
+              strokeWidth="3"
+              strokeDasharray="4,3"
+              opacity="0.5"
+              strokeLinecap="round"
+            />
           )}
 
-          <SketchPaper d={bgPath} w={w} h={h} fine
-            bg={finalColors.bg} overlay={finalColors.bgOverlay}
-            overlayOpacity={disabled ? "0.4" : "0.7"} noiseOpacity={0.15} />
+          <SketchPaper
+            d={bgPath}
+            w={w}
+            h={h}
+            fine
+            bg={finalColors.bg}
+            overlay={finalColors.bgOverlay}
+            overlayOpacity={disabled ? "0.4" : "0.7"}
+            noiseOpacity={0.15}
+          />
 
-          <SketchBorder d1={borderPath1} d2={borderPath2} stroke={finalColors.stroke}
-            o1={disabled ? 0.3 : (isFocused ? 1 : isHovered ? 0.95 : 0.85)}
+          <SketchBorder
+            d1={borderPath1}
+            d2={borderPath2}
+            stroke={finalColors.stroke}
+            o1={disabled ? 0.3 : isFocused ? 1 : isHovered ? 0.95 : 0.85}
             w1={isFocused ? 3.5 : undefined}
-            o2={disabled ? 0.15 : 0.3} show={showBorder} />
+            o2={disabled ? 0.15 : 0.3}
+            show={showBorder}
+          />
 
           {/* Hover effect: Ink smudge */}
           <ellipse
@@ -288,9 +318,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           style={{
             fontSize: buttonTypography.fontSize,
             fontWeight: buttonTypography.fontWeight,
-            textTransform: buttonTypography.textTransform as React.CSSProperties['textTransform'],
+            textTransform:
+              buttonTypography.textTransform as React.CSSProperties["textTransform"],
             fontFamily: buttonTypography.fontFamily,
-            transform: disabled ? "scale(1)" : (isHovered ? "scale(1.02)" : "scale(1)"),
+            transform: disabled
+              ? "scale(1)"
+              : isHovered
+                ? "scale(1.02)"
+                : "scale(1)",
             color: finalColors.text,
           }}
         >
@@ -299,7 +334,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <svg
             className="sketch-button-underline"
             style={{
-              opacity: disabled ? 0 : (isHovered ? 0.7 : 0.5),
+              opacity: disabled ? 0 : isHovered ? 0.7 : 0.5,
               width: w * 0.45,
               height: h * 0.089,
             }}
@@ -326,7 +361,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </div>
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

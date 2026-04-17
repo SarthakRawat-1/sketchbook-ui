@@ -158,7 +158,15 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem", padding: "2rem", maxWidth: 420 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2.5rem",
+        padding: "2rem",
+        maxWidth: 420,
+      }}
+    >
       <Progress size="sm" value={30} label="Small" />
       <Progress size="md" value={55} label="Medium" />
       <Progress size="lg" value={80} label="Large" />
@@ -175,7 +183,15 @@ export const Sizes: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem", padding: "2rem", maxWidth: 420 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2.5rem",
+        padding: "2rem",
+        maxWidth: 420,
+      }}
+    >
       <Progress variant="scribble" value={60} label="Scribble" />
       <Progress variant="hatching" value={60} label="Hatching" />
       <Progress variant="crosshatch" value={60} label="Crosshatch" />
@@ -185,7 +201,9 @@ export const Variants: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "All five fill-pattern variants at the same progress." },
+      description: {
+        story: "All five fill-pattern variants at the same progress.",
+      },
     },
   },
 };
@@ -246,13 +264,27 @@ export const Animated: Story = {
   render: function AnimatedStory() {
     const [val, setVal] = useState(10);
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", padding: "2rem", maxWidth: 420 }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+          padding: "2rem",
+          maxWidth: 420,
+        }}
+      >
         <Progress value={val} label="Transfer" animated />
         <div style={{ display: "flex", gap: "0.75rem" }}>
-          <button onClick={() => setVal((v) => Math.max(0, v - 15))} style={{ cursor: "pointer" }}>
+          <button
+            onClick={() => setVal((v) => Math.max(0, v - 15))}
+            style={{ cursor: "pointer" }}
+          >
             − 15
           </button>
-          <button onClick={() => setVal((v) => Math.min(100, v + 15))} style={{ cursor: "pointer" }}>
+          <button
+            onClick={() => setVal((v) => Math.min(100, v + 15))}
+            style={{ cursor: "pointer" }}
+          >
             + 15
           </button>
         </div>
@@ -261,7 +293,9 @@ export const Animated: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Click buttons to see the animated progress transition." },
+      description: {
+        story: "Click buttons to see the animated progress transition.",
+      },
     },
   },
 };

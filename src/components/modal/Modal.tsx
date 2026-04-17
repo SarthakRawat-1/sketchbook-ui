@@ -162,7 +162,9 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       const t = setTimeout(() => {
         const modal = modalRef.current;
         if (!modal) return;
-        const closeBtn = modal.querySelector<HTMLElement>(".sketch-modal__close");
+        const closeBtn = modal.querySelector<HTMLElement>(
+          ".sketch-modal__close",
+        );
         if (closeBtn) closeBtn.focus();
         else modal.focus();
       }, 50);
@@ -214,7 +216,8 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       (node: HTMLDivElement | null) => {
         modalRef.current = node;
         if (typeof ref === "function") ref(node);
-        else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        else if (ref)
+          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
       },
       [ref],
     );
@@ -236,18 +239,31 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           return (
             <>
               <SketchPaper
-                d={PAPER_BG} w={VB_W} h={VB_H}
-                bg={c.bg} overlay={c.bgOverlay}
-                overlayOpacity={0.5} noiseOpacity={0.12}
+                d={PAPER_BG}
+                w={VB_W}
+                h={VB_H}
+                bg={c.bg}
+                overlay={c.bgOverlay}
+                overlayOpacity={0.5}
+                noiseOpacity={0.12}
               />
 
               {/* Corner fold doodle */}
-              <path d="M 565 4 L 580 4 L 580 20 Z" fill="#e8e4db" opacity="0.6" />
+              <path
+                d="M 565 4 L 580 4 L 580 20 Z"
+                fill="#e8e4db"
+                opacity="0.6"
+              />
 
               <SketchBorder
-                d1={PAPER_BG} d2={PAPER_BD2}
-                stroke={c.stroke} show={showBorder}
-                w1={2.5} o1={0.85} o2={0.3} dash="1,0.5"
+                d1={PAPER_BG}
+                d2={PAPER_BD2}
+                stroke={c.stroke}
+                show={showBorder}
+                w1={2.5}
+                o1={0.85}
+                o2={0.3}
+                dash="1,0.5"
               />
             </>
           );
@@ -257,39 +273,81 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           return (
             <>
               <SketchPaper
-                d={NB_BG} w={VB_W} h={VB_H}
-                bg={c.bg} overlay={c.bgOverlay}
-                overlayOpacity={0.4} noiseOpacity={0.1}
+                d={NB_BG}
+                w={VB_W}
+                h={VB_H}
+                bg={c.bg}
+                overlay={c.bgOverlay}
+                overlayOpacity={0.4}
+                noiseOpacity={0.1}
               />
 
               {/* Spiral binding holes */}
               {Array.from({ length: 10 }, (_, i) => (
                 <g key={i}>
-                  <circle cx="30" cy={50 + i * 42} r="4" fill="#e8e4db" opacity="0.7" />
                   <circle
-                    cx="30" cy={50 + i * 42} r="3"
-                    fill="none" stroke={c.stroke} strokeWidth="1" opacity="0.4"
+                    cx="30"
+                    cy={50 + i * 42}
+                    r="4"
+                    fill="#e8e4db"
+                    opacity="0.7"
+                  />
+                  <circle
+                    cx="30"
+                    cy={50 + i * 42}
+                    r="3"
+                    fill="none"
+                    stroke={c.stroke}
+                    strokeWidth="1"
+                    opacity="0.4"
                   />
                 </g>
               ))}
 
               {/* Red margin line */}
-              <line x1="90" y1="20" x2="90" y2="480" stroke="#e85d75" strokeWidth="2" opacity="0.4" />
-              <line x1="91" y1="20" x2="91" y2="480" stroke="#e85d75" strokeWidth="1" opacity="0.2" />
+              <line
+                x1="90"
+                y1="20"
+                x2="90"
+                y2="480"
+                stroke="#e85d75"
+                strokeWidth="2"
+                opacity="0.4"
+              />
+              <line
+                x1="91"
+                y1="20"
+                x2="91"
+                y2="480"
+                stroke="#e85d75"
+                strokeWidth="1"
+                opacity="0.2"
+              />
 
               {/* Blue ruled lines */}
               {Array.from({ length: 15 }, (_, i) => (
                 <line
                   key={i}
-                  x1="95" y1={60 + i * 30} x2="580" y2={60 + i * 30}
-                  stroke="#a8d5e2" strokeWidth="1" opacity="0.3" strokeDasharray="2,1"
+                  x1="95"
+                  y1={60 + i * 30}
+                  x2="580"
+                  y2={60 + i * 30}
+                  stroke="#a8d5e2"
+                  strokeWidth="1"
+                  opacity="0.3"
+                  strokeDasharray="2,1"
                 />
               ))}
 
               <SketchBorder
-                d1={NB_BG} d2={NB_BD2}
-                stroke={c.stroke} show={showBorder}
-                w1={2.5} o1={0.8} o2={0.25} dash="1,0.5"
+                d1={NB_BG}
+                d2={NB_BD2}
+                stroke={c.stroke}
+                show={showBorder}
+                w1={2.5}
+                o1={0.8}
+                o2={0.25}
+                dash="1,0.5"
               />
             </>
           );
@@ -299,23 +357,62 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
           return (
             <>
               <SketchPaper
-                d={STICKY_BG} w={VB_W} h={VB_H}
-                bg={c.bg} overlay={c.bgOverlay}
-                overlayOpacity={0.5} noiseOpacity={0.08}
+                d={STICKY_BG}
+                w={VB_W}
+                h={VB_H}
+                bg={c.bg}
+                overlay={c.bgOverlay}
+                overlayOpacity={0.5}
+                noiseOpacity={0.08}
               />
 
               {/* Decorative tape at top */}
               <g opacity="0.6">
-                <rect x="260" y="-5" width="80" height="20" fill="#f5f5dc" rx="2" />
-                <rect x="260" y="-5" width="80" height="20" fill="#e8e8d0" opacity="0.4" rx="2" />
-                <line x1="265" y1="0" x2="335" y2="0" stroke="#d0d0b8" strokeWidth="0.5" opacity="0.5" />
-                <line x1="265" y1="10" x2="335" y2="10" stroke="#d0d0b8" strokeWidth="0.5" opacity="0.5" />
+                <rect
+                  x="260"
+                  y="-5"
+                  width="80"
+                  height="20"
+                  fill="#f5f5dc"
+                  rx="2"
+                />
+                <rect
+                  x="260"
+                  y="-5"
+                  width="80"
+                  height="20"
+                  fill="#e8e8d0"
+                  opacity="0.4"
+                  rx="2"
+                />
+                <line
+                  x1="265"
+                  y1="0"
+                  x2="335"
+                  y2="0"
+                  stroke="#d0d0b8"
+                  strokeWidth="0.5"
+                  opacity="0.5"
+                />
+                <line
+                  x1="265"
+                  y1="10"
+                  x2="335"
+                  y2="10"
+                  stroke="#d0d0b8"
+                  strokeWidth="0.5"
+                  opacity="0.5"
+                />
               </g>
 
               <SketchBorder
-                d1={STICKY_BG} d2={STICKY_BD2}
-                stroke={c.stroke} show={showBorder}
-                w1={2} o1={0.5} o2={0.2}
+                d1={STICKY_BG}
+                d2={STICKY_BD2}
+                stroke={c.stroke}
+                show={showBorder}
+                w1={2}
+                o1={0.5}
+                o2={0.2}
               />
             </>
           );
@@ -325,10 +422,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const sizeStyles = SIZE_CONFIG[size];
 
     const modal = (
-      <div
-        className="sketch-modal-backdrop"
-        onClick={handleBackdropClick}
-      >
+      <div className="sketch-modal-backdrop" onClick={handleBackdropClick}>
         {/* Backdrop overlay */}
         <div
           className="sketch-modal-backdrop__overlay"
@@ -363,7 +457,8 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             style={{
               fontFamily: font,
               color: c.text,
-              paddingLeft: variant === "notebook" ? "calc(15% + 1rem)" : undefined,
+              paddingLeft:
+                variant === "notebook" ? "calc(15% + 1rem)" : undefined,
             }}
           >
             {/* Close button */}

@@ -42,13 +42,13 @@ npm install react react-dom
 Import the Sketchbook UI styles in your main entry file (e.g., `main.tsx` or `App.tsx`):
 
 ```tsx
-import 'sketchbook-ui/style.css';
+import "sketchbook-ui/style.css";
 ```
 
 ### 2. Use Components
 
 ```tsx
-import { Button, Input, Card, SketchProvider } from 'sketchbook-ui';
+import { Button, Input, Card, SketchProvider } from "sketchbook-ui";
 
 function App() {
   return (
@@ -68,21 +68,21 @@ function App() {
 Every component accepts `colors` and `typography` props for customization:
 
 ```tsx
-import { Button } from 'sketchbook-ui';
+import { Button } from "sketchbook-ui";
 
-<Button 
+<Button
   colors={{
-    bg: '#ffeb3b',
-    stroke: '#000',
-    text: '#000'
+    bg: "#ffeb3b",
+    stroke: "#000",
+    text: "#000",
   }}
   typography={{
-    fontSize: '2rem',
-    fontFamily: 'Caveat, cursive'
+    fontSize: "2rem",
+    fontFamily: "Caveat, cursive",
   }}
 >
   Custom Button
-</Button>
+</Button>;
 ```
 
 ## Available Components
@@ -102,7 +102,7 @@ The library is built with tree-shaking support. Only the components you import w
 
 ```tsx
 // Only Button will be bundled
-import { Button } from 'sketchbook-ui';
+import { Button } from "sketchbook-ui";
 ```
 
 ## Contributing
