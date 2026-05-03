@@ -43,7 +43,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       className = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const [imageError, setImageError] = useState(false);
@@ -61,13 +61,15 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     // Use custom width if provided, otherwise use size configuration
     const actualWidth = width || sizeConfig[size].width;
     const actualHeight = width ? width : sizeConfig[size].height; // Keep it square
-    const config = { 
-      width: actualWidth, 
-      height: actualHeight, 
+    const config = {
+      width: actualWidth,
+      height: actualHeight,
       fontSize: width ? `${width / 30}rem` : sizeConfig[size].fontSize, // Scale font size based on custom width
-      strokeWidth: width ? Math.max(1, Math.floor(width / 20)) : sizeConfig[size].strokeWidth, // Scale stroke width based on custom width
+      strokeWidth: width
+        ? Math.max(1, Math.floor(width / 20))
+        : sizeConfig[size].strokeWidth, // Scale stroke width based on custom width
     };
-    
+
     const center = config.width / 2;
     const radius = center - 8;
 
@@ -126,13 +128,22 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         role={onClick ? "button" : "img"}
         aria-label={alt}
         tabIndex={onClick ? 0 : undefined}
-        onKeyDown={onClick ? (e: React.KeyboardEvent<HTMLDivElement>) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); }
-        } : undefined}
+        onKeyDown={
+          onClick
+            ? (e: React.KeyboardEvent<HTMLDivElement>) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onClick();
+                }
+              }
+            : undefined
+        }
         style={{
           width: actualWidth,
           height: actualHeight,
-          transform: isHovered ? "translate(-1px, -1px) rotate(-1deg)" : "rotate(0.5deg)",
+          transform: isHovered
+            ? "translate(-1px, -1px) rotate(-1deg)"
+            : "rotate(0.5deg)",
           filter: isHovered
             ? "drop-shadow(3px 4px 0px rgba(0,0,0,0.12)) drop-shadow(4px 6px 8px rgba(0,0,0,0.1))"
             : "drop-shadow(2px 2px 0px rgba(0,0,0,0.1)) drop-shadow(2px 4px 6px rgba(0,0,0,0.08))",
@@ -190,11 +201,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           </defs>
 
           {/* Paper background */}
-          <path
-            d={borderPath}
-            fill={avatarColors.bg}
-            opacity="0.8"
-          />
+          <path d={borderPath} fill={avatarColors.bg} opacity="0.8" />
 
           <rect
             x="0"
@@ -206,11 +213,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           />
 
           {/* Pencil shading layer */}
-          <path
-            d={borderPath}
-            fill={`url(#${shadingId})`}
-            opacity="0.15"
-          />
+          <path d={borderPath} fill={`url(#${shadingId})`} opacity="0.15" />
 
           {/* Content: Image or Initials */}
           <g clipPath={`url(#${clipId})`}>
@@ -346,7 +349,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 Avatar.displayName = "Avatar";

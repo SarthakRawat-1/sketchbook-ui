@@ -13,17 +13,21 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 .sketch-button:hover {
   transform: translate(-2px, -2px) rotate(-1.5deg);
-  filter: drop-shadow(4px 5px 0px rgba(0,0,0,0.15)) drop-shadow(6px 8px 10px rgba(0,0,0,0.1)) saturate(1.1);
+  filter: drop-shadow(4px 5px 0px rgba(0, 0, 0, 0.15))
+    drop-shadow(6px 8px 10px rgba(0, 0, 0, 0.1)) saturate(1.1);
 }
 
 .sketch-button:not(:hover) {
   transform: rotate(-0.8deg);
-  filter: drop-shadow(2px 3px 0px rgba(0,0,0,0.12)) drop-shadow(4px 6px 8px rgba(0,0,0,0.08));
+  filter: drop-shadow(2px 3px 0px rgba(0, 0, 0, 0.12))
+    drop-shadow(4px 6px 8px rgba(0, 0, 0, 0.08));
 }
 
 .sketch-button:focus {
@@ -41,7 +45,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   font-size: 1.75rem;
   color: #2a2a2a;
   padding-top: 4px;
@@ -208,7 +212,9 @@
   padding: 0;
   margin: 0;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 .sketch-select-trigger:disabled {
@@ -226,7 +232,7 @@
   align-items: center;
   padding: 0 20px;
   pointer-events: none;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   color: #2a2a2a;
 }
 
@@ -245,7 +251,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   color: #2a2a2a;
   transition: transform 0.2s ease;
 }
@@ -347,7 +353,7 @@
   left: 0;
   right: 0;
   padding: 24px 24px 24px 55px;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   font-size: 1.25rem;
   color: #3a3a3a;
   line-height: 1.8;
@@ -369,7 +375,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   white-space: nowrap;
   padding-top: 2px;
   font-weight: 600;
@@ -380,7 +386,9 @@
   position: relative;
   display: inline-block;
   transform: rotate(-0.8deg);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
   animation: toastSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -webkit-tap-highlight-color: transparent;
 }
@@ -417,7 +425,7 @@
 
 .sketch-toast-message {
   flex: 1;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   color: #2a2a2a;
   line-height: 1.4;
   pointer-events: none;
@@ -452,7 +460,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
   pointer-events: auto;
   border-radius: 4px;
   -webkit-tap-highlight-color: transparent;
@@ -511,7 +521,11 @@
 
 /* Toast bounce animation for emphasis */
 @keyframes toastBounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: rotate(-0.8deg) translateY(0);
   }
   40% {
@@ -521,7 +535,6 @@
     transform: rotate(-0.8deg) translateY(-5px);
   }
 }
-
 
 /* Sketch Dropdown Styles */
 .sketch-dropdown {
@@ -538,7 +551,9 @@
   padding: 0;
   margin: 0;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 .sketch-dropdown-trigger:disabled {
@@ -567,7 +582,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   height: 60px;
   padding: 16px 20px;
   transition: transform 0.2s ease;
@@ -609,7 +624,9 @@
 .sketch-avatar {
   position: relative;
   display: inline-block;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -622,7 +639,8 @@
 }
 
 .sketch-avatar.cursor-pointer:hover {
-  filter: drop-shadow(3px 4px 0px rgba(0,0,0,0.12)) drop-shadow(4px 6px 8px rgba(0,0,0,0.1)) !important;
+  filter: drop-shadow(3px 4px 0px rgba(0, 0, 0, 0.12))
+    drop-shadow(4px 6px 8px rgba(0, 0, 0, 0.1)) !important;
 }
 
 .sketch-avatar.cursor-pointer:active {
@@ -642,7 +660,8 @@
 
 /* Avatar pulse animation for loading states */
 @keyframes avatarPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.8;
   }
   50% {

@@ -1,6 +1,15 @@
 import React, { useId, useState, useRef, useEffect } from "react";
 import type { ReactNode } from "react";
-import { cn, SketchPaper, SketchBorder, SK, SK_DISABLED, useSketchSize, useVirtualizer, useListNavigation } from "../../lib";
+import {
+  cn,
+  SketchPaper,
+  SketchBorder,
+  SK,
+  SK_DISABLED,
+  useSketchSize,
+  useVirtualizer,
+  useListNavigation,
+} from "../../lib";
 
 export interface DropdownItem {
   label: string;
@@ -51,15 +60,17 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       className = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isOpen, setIsOpen] = useState(false);
     const [triggerHovered, setTriggerHovered] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const mergedRef = (node: HTMLDivElement | null) => {
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
+        node;
+      if (typeof ref === "function") ref(node);
+      else if (ref)
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
     };
 
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -71,7 +82,14 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       overscan: 2,
     });
 
-    const { activeIndex, setActiveIndex, itemRefs, triggerRef, handleTriggerKeyDown, handleListKeyDown } = useListNavigation<HTMLElement>({
+    const {
+      activeIndex,
+      setActiveIndex,
+      itemRefs,
+      triggerRef,
+      handleTriggerKeyDown,
+      handleListKeyDown,
+    } = useListNavigation<HTMLElement>({
       isOpen,
       setIsOpen,
       itemCount: items.length,
@@ -88,7 +106,6 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const config = sizeConfig[size];
     const uid = useId();
     const hoverId = `dh${uid}`;
-
 
     // Default colors with customization support
     const dropdownColors = {
@@ -109,7 +126,8 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
     // Dynamic sizing: measure trigger content and grow beyond default if needed
     const isTextOrEmoji = triggerText || triggerEmoji;
-    const { ref: triggerSizerRef, w: triggerContentW } = useSketchSize<HTMLSpanElement>();
+    const { ref: triggerSizerRef, w: triggerContentW } =
+      useSketchSize<HTMLSpanElement>();
     const hPad = config.padding * 2;
     const dynamicButtonWidth = isTextOrEmoji
       ? Math.max(config.buttonSize, triggerContentW + hPad)
@@ -118,13 +136,13 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     // Disabled state overrides
     const finalColors = disabled
       ? {
-        bg: SK_DISABLED.bg,
-        bgOverlay: SK_DISABLED.bgOverlay,
-        stroke: SK_DISABLED.stroke,
-        text: SK_DISABLED.text,
-        hoverBg: SK_DISABLED.bg,
-        dangerText: SK_DISABLED.text,
-      }
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+          hoverBg: SK_DISABLED.bg,
+          dangerText: SK_DISABLED.text,
+        }
       : dropdownColors;
 
     // Click outside handler
@@ -175,8 +193,10 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             aria-expanded={isOpen}
             onClick={handleToggle}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleToggle(); }
-              else handleTriggerKeyDown(e);
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleToggle();
+              } else handleTriggerKeyDown(e);
             }}
             style={{ cursor: disabled ? "not-allowed" : "pointer" }}
           >
@@ -217,7 +237,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   pointerEvents: "none",
                   fontSize: dropdownTypography.fontSize,
                   fontWeight: dropdownTypography.fontWeight,
-                  fontFamily: triggerEmoji ? "system-ui, -apple-system, sans-serif" : dropdownTypography.fontFamily,
+                  fontFamily: triggerEmoji
+                    ? "system-ui, -apple-system, sans-serif"
+                    : dropdownTypography.fontFamily,
                 }}
               >
                 {triggerText || triggerEmoji}
@@ -240,30 +262,41 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               }}
             >
               {(() => {
-                const bw = dynamicButtonWidth, bs = config.buttonSize;
+                const bw = dynamicButtonWidth,
+                  bs = config.buttonSize;
                 const btnPath = `M ${bw * 0.107} ${bs * 0.143} C ${bw * 0.125} ${bs * 0.107}, ${bw * 0.161} ${bs * 0.089}, ${bw * 0.196} ${bs * 0.089} L ${bw * 0.304} ${bs * 0.081} C ${bw * 0.375} ${bs * 0.081}, ${bw * 0.625} ${bs * 0.081}, ${bw * 0.696} ${bs * 0.089} L ${bw * 0.804} ${bs * 0.107} C ${bw * 0.839} ${bs * 0.116}, ${bw * 0.875} ${bs * 0.143}, ${bw * 0.893} ${bs * 0.179} C ${bw * 0.911} ${bs * 0.214}, ${bw * 0.92} ${bs * 0.25}, ${bw * 0.92} ${bs * 0.286} L ${bw * 0.92} ${bs * 0.714} C ${bw * 0.92} ${bs * 0.75}, ${bw * 0.911} ${bs * 0.786}, ${bw * 0.893} ${bs * 0.821} C ${bw * 0.875} ${bs * 0.857}, ${bw * 0.839} ${bs * 0.884}, ${bw * 0.804} ${bs * 0.893} L ${bw * 0.696} ${bs * 0.911} C ${bw * 0.625} ${bs * 0.92}, ${bw * 0.375} ${bs * 0.92}, ${bw * 0.304} ${bs * 0.92} L ${bw * 0.196} ${bs * 0.911} C ${bw * 0.161} ${bs * 0.911}, ${bw * 0.125} ${bs * 0.893}, ${bw * 0.107} ${bs * 0.857} C ${bw * 0.089} ${bs * 0.821}, ${bw * 0.08} ${bs * 0.786}, ${bw * 0.08} ${bs * 0.714} L ${bw * 0.08} ${bs * 0.286} C ${bw * 0.08} ${bs * 0.25}, ${bw * 0.089} ${bs * 0.214}, ${bw * 0.107} ${bs * 0.143} Z`;
                 return (
-                  <SketchPaper d={btnPath} w={bw} h={bs} fine
-                    bg={finalColors.bg} overlay={finalColors.bgOverlay}
-                    overlayOpacity={disabled ? 0.4 : 0.6} />
+                  <SketchPaper
+                    d={btnPath}
+                    w={bw}
+                    h={bs}
+                    fine
+                    bg={finalColors.bg}
+                    overlay={finalColors.bgOverlay}
+                    overlayOpacity={disabled ? 0.4 : 0.6}
+                  />
                 );
               })()}
 
               {/* Button border */}
-              {showBorder && (() => {
-                const bw = dynamicButtonWidth, bs = config.buttonSize;
-                return (
-                  <path
-                    d={`M ${bw * 0.105} ${bs * 0.147} C ${bw * 0.123} ${bs * 0.111}, ${bw * 0.159} ${bs * 0.093}, ${bw * 0.194} ${bs * 0.093} L ${bw * 0.302} ${bs * 0.085} C ${bw * 0.373} ${bs * 0.085}, ${bw * 0.627} ${bs * 0.085}, ${bw * 0.698} ${bs * 0.093} L ${bw * 0.806} ${bs * 0.111} C ${bw * 0.841} ${bs * 0.12}, ${bw * 0.877} ${bs * 0.147}, ${bw * 0.895} ${bs * 0.183} C ${bw * 0.913} ${bs * 0.218}, ${bw * 0.922} ${bs * 0.254}, ${bw * 0.922} ${bs * 0.29} L ${bw * 0.922} ${bs * 0.718} C ${bw * 0.922} ${bs * 0.754}, ${bw * 0.913} ${bs * 0.79}, ${bw * 0.895} ${bs * 0.825} C ${bw * 0.877} ${bs * 0.861}, ${bw * 0.841} ${bs * 0.888}, ${bw * 0.806} ${bs * 0.897} L ${bw * 0.698} ${bs * 0.915} C ${bw * 0.627} ${bs * 0.924}, ${bw * 0.373} ${bs * 0.924}, ${bw * 0.302} ${bs * 0.924} L ${bw * 0.194} ${bs * 0.915} C ${bw * 0.159} ${bs * 0.915}, ${bw * 0.123} ${bs * 0.897}, ${bw * 0.105} ${bs * 0.861} C ${bw * 0.087} ${bs * 0.825}, ${bw * 0.078} ${bs * 0.79}, ${bw * 0.078} ${bs * 0.718} L ${bw * 0.078} ${bs * 0.29} C ${bw * 0.078} ${bs * 0.254}, ${bw * 0.087} ${bs * 0.218}, ${bw * 0.105} ${bs * 0.147} Z`}
-                    stroke={finalColors.stroke}
-                    strokeWidth={triggerHovered ? "3" : "2.2"}
-                    fill="none" strokeLinecap="round" strokeLinejoin="round"
-                    opacity={disabled ? 0.3 : triggerHovered ? 0.9 : 0.85}
-                    strokeDasharray="1.5,0.8"
-                    style={{ transition: "all 0.3s ease" }}
-                  />
-                );
-              })()}
+              {showBorder &&
+                (() => {
+                  const bw = dynamicButtonWidth,
+                    bs = config.buttonSize;
+                  return (
+                    <path
+                      d={`M ${bw * 0.105} ${bs * 0.147} C ${bw * 0.123} ${bs * 0.111}, ${bw * 0.159} ${bs * 0.093}, ${bw * 0.194} ${bs * 0.093} L ${bw * 0.302} ${bs * 0.085} C ${bw * 0.373} ${bs * 0.085}, ${bw * 0.627} ${bs * 0.085}, ${bw * 0.698} ${bs * 0.093} L ${bw * 0.806} ${bs * 0.111} C ${bw * 0.841} ${bs * 0.12}, ${bw * 0.877} ${bs * 0.147}, ${bw * 0.895} ${bs * 0.183} C ${bw * 0.913} ${bs * 0.218}, ${bw * 0.922} ${bs * 0.254}, ${bw * 0.922} ${bs * 0.29} L ${bw * 0.922} ${bs * 0.718} C ${bw * 0.922} ${bs * 0.754}, ${bw * 0.913} ${bs * 0.79}, ${bw * 0.895} ${bs * 0.825} C ${bw * 0.877} ${bs * 0.861}, ${bw * 0.841} ${bs * 0.888}, ${bw * 0.806} ${bs * 0.897} L ${bw * 0.698} ${bs * 0.915} C ${bw * 0.627} ${bs * 0.924}, ${bw * 0.373} ${bs * 0.924}, ${bw * 0.302} ${bs * 0.924} L ${bw * 0.194} ${bs * 0.915} C ${bw * 0.159} ${bs * 0.915}, ${bw * 0.123} ${bs * 0.897}, ${bw * 0.105} ${bs * 0.861} C ${bw * 0.087} ${bs * 0.825}, ${bw * 0.078} ${bs * 0.79}, ${bw * 0.078} ${bs * 0.718} L ${bw * 0.078} ${bs * 0.29} C ${bw * 0.078} ${bs * 0.254}, ${bw * 0.087} ${bs * 0.218}, ${bw * 0.105} ${bs * 0.147} Z`}
+                      stroke={finalColors.stroke}
+                      strokeWidth={triggerHovered ? "3" : "2.2"}
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      opacity={disabled ? 0.3 : triggerHovered ? 0.9 : 0.85}
+                      strokeDasharray="1.5,0.8"
+                      style={{ transition: "all 0.3s ease" }}
+                    />
+                  );
+                })()}
 
               {/* Icon, Text, or Emoji based on trigger type */}
               {triggerText ? (
@@ -308,8 +341,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 <g
                   style={{
                     transform: `scale(${config.iconScale})`,
-                    transformOrigin: `${dynamicButtonWidth / 2}px ${config.buttonSize / 2
-                      }px`,
+                    transformOrigin: `${dynamicButtonWidth / 2}px ${
+                      config.buttonSize / 2
+                    }px`,
                   }}
                 >
                   {triggerIcon === "dots" ? (
@@ -339,27 +373,33 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   ) : triggerIcon === "menu" ? (
                     <g>
                       <path
-                        d={`M ${config.buttonSize * 0.25} ${config.buttonSize * 0.357
-                          } L ${config.buttonSize * 0.75} ${config.buttonSize * 0.357
-                          }`}
+                        d={`M ${config.buttonSize * 0.25} ${
+                          config.buttonSize * 0.357
+                        } L ${config.buttonSize * 0.75} ${
+                          config.buttonSize * 0.357
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.25} ${config.buttonSize * 0.5
-                          } L ${config.buttonSize * 0.75} ${config.buttonSize * 0.5
-                          }`}
+                        d={`M ${config.buttonSize * 0.25} ${
+                          config.buttonSize * 0.5
+                        } L ${config.buttonSize * 0.75} ${
+                          config.buttonSize * 0.5
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.25} ${config.buttonSize * 0.643
-                          } L ${config.buttonSize * 0.75} ${config.buttonSize * 0.643
-                          }`}
+                        d={`M ${config.buttonSize * 0.25} ${
+                          config.buttonSize * 0.643
+                        } L ${config.buttonSize * 0.75} ${
+                          config.buttonSize * 0.643
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2.5"
                         strokeLinecap="round"
@@ -369,18 +409,22 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   ) : triggerIcon === "plus" ? (
                     <g>
                       <path
-                        d={`M ${config.buttonSize / 2} ${config.buttonSize * 0.25
-                          } L ${config.buttonSize / 2} ${config.buttonSize * 0.75
-                          }`}
+                        d={`M ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.25
+                        } L ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.75
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.25} ${config.buttonSize / 2
-                          } L ${config.buttonSize * 0.75} ${config.buttonSize / 2
-                          }`}
+                        d={`M ${config.buttonSize * 0.25} ${
+                          config.buttonSize / 2
+                        } L ${config.buttonSize * 0.75} ${
+                          config.buttonSize / 2
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2.5"
                         strokeLinecap="round"
@@ -399,14 +443,21 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.286} ${config.buttonSize * 0.714
-                          } C ${config.buttonSize * 0.286} ${config.buttonSize * 0.643
-                          }, ${config.buttonSize * 0.357} ${config.buttonSize * 0.571
-                          }, ${config.buttonSize * 0.5} ${config.buttonSize * 0.571
-                          } C ${config.buttonSize * 0.643} ${config.buttonSize * 0.571
-                          }, ${config.buttonSize * 0.714} ${config.buttonSize * 0.643
-                          }, ${config.buttonSize * 0.714} ${config.buttonSize * 0.714
-                          }`}
+                        d={`M ${config.buttonSize * 0.286} ${
+                          config.buttonSize * 0.714
+                        } C ${config.buttonSize * 0.286} ${
+                          config.buttonSize * 0.643
+                        }, ${config.buttonSize * 0.357} ${
+                          config.buttonSize * 0.571
+                        }, ${config.buttonSize * 0.5} ${
+                          config.buttonSize * 0.571
+                        } C ${config.buttonSize * 0.643} ${
+                          config.buttonSize * 0.571
+                        }, ${config.buttonSize * 0.714} ${
+                          config.buttonSize * 0.643
+                        }, ${config.buttonSize * 0.714} ${
+                          config.buttonSize * 0.714
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         strokeLinecap="round"
@@ -423,36 +474,44 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize / 2} ${config.buttonSize * 0.25
-                          } L ${config.buttonSize / 2} ${config.buttonSize * 0.357
-                          }`}
+                        d={`M ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.25
+                        } L ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.357
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize / 2} ${config.buttonSize * 0.643
-                          } L ${config.buttonSize / 2} ${config.buttonSize * 0.75
-                          }`}
+                        d={`M ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.643
+                        } L ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.75
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.75} ${config.buttonSize / 2
-                          } L ${config.buttonSize * 0.643} ${config.buttonSize / 2
-                          }`}
+                        d={`M ${config.buttonSize * 0.75} ${
+                          config.buttonSize / 2
+                        } L ${config.buttonSize * 0.643} ${
+                          config.buttonSize / 2
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         strokeLinecap="round"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.357} ${config.buttonSize / 2
-                          } L ${config.buttonSize * 0.25} ${config.buttonSize / 2
-                          }`}
+                        d={`M ${config.buttonSize * 0.357} ${
+                          config.buttonSize / 2
+                        } L ${config.buttonSize * 0.25} ${
+                          config.buttonSize / 2
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         strokeLinecap="round"
@@ -461,10 +520,13 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                     </g>
                   ) : triggerIcon === "chevron" ? (
                     <path
-                      d={`M ${config.buttonSize * 0.357} ${config.buttonSize * 0.429
-                        } L ${config.buttonSize / 2} ${config.buttonSize * 0.571
-                        } L ${config.buttonSize * 0.643} ${config.buttonSize * 0.429
-                        }`}
+                      d={`M ${config.buttonSize * 0.357} ${
+                        config.buttonSize * 0.429
+                      } L ${config.buttonSize / 2} ${
+                        config.buttonSize * 0.571
+                      } L ${config.buttonSize * 0.643} ${
+                        config.buttonSize * 0.429
+                      }`}
                       stroke={finalColors.stroke}
                       strokeWidth="2.5"
                       fill="none"
@@ -475,31 +537,48 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   ) : triggerIcon === "bell" ? (
                     <g>
                       <path
-                        d={`M ${config.buttonSize * 0.357} ${config.buttonSize * 0.464
-                          } C ${config.buttonSize * 0.357} ${config.buttonSize * 0.393
-                          }, ${config.buttonSize * 0.429} ${config.buttonSize * 0.321
-                          }, ${config.buttonSize / 2} ${config.buttonSize * 0.321
-                          } C ${config.buttonSize * 0.571} ${config.buttonSize * 0.321
-                          }, ${config.buttonSize * 0.643} ${config.buttonSize * 0.393
-                          }, ${config.buttonSize * 0.643} ${config.buttonSize * 0.464
-                          } L ${config.buttonSize * 0.643} ${config.buttonSize * 0.571
-                          } L ${config.buttonSize * 0.357} ${config.buttonSize * 0.571
-                          } L ${config.buttonSize * 0.357} ${config.buttonSize * 0.464
-                          } Z`}
+                        d={`M ${config.buttonSize * 0.357} ${
+                          config.buttonSize * 0.464
+                        } C ${config.buttonSize * 0.357} ${
+                          config.buttonSize * 0.393
+                        }, ${config.buttonSize * 0.429} ${
+                          config.buttonSize * 0.321
+                        }, ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.321
+                        } C ${config.buttonSize * 0.571} ${
+                          config.buttonSize * 0.321
+                        }, ${config.buttonSize * 0.643} ${
+                          config.buttonSize * 0.393
+                        }, ${config.buttonSize * 0.643} ${
+                          config.buttonSize * 0.464
+                        } L ${config.buttonSize * 0.643} ${
+                          config.buttonSize * 0.571
+                        } L ${config.buttonSize * 0.357} ${
+                          config.buttonSize * 0.571
+                        } L ${config.buttonSize * 0.357} ${
+                          config.buttonSize * 0.464
+                        } Z`}
                         stroke={finalColors.stroke}
                         strokeWidth="2"
                         fill="none"
                         opacity={disabled ? 0.4 : 0.75}
                       />
                       <path
-                        d={`M ${config.buttonSize * 0.464} ${config.buttonSize * 0.679
-                          } C ${config.buttonSize * 0.464} ${config.buttonSize * 0.714
-                          }, ${config.buttonSize * 0.482} ${config.buttonSize * 0.714
-                          }, ${config.buttonSize / 2} ${config.buttonSize * 0.714
-                          } C ${config.buttonSize * 0.518} ${config.buttonSize * 0.714
-                          }, ${config.buttonSize * 0.536} ${config.buttonSize * 0.714
-                          }, ${config.buttonSize * 0.536} ${config.buttonSize * 0.679
-                          }`}
+                        d={`M ${config.buttonSize * 0.464} ${
+                          config.buttonSize * 0.679
+                        } C ${config.buttonSize * 0.464} ${
+                          config.buttonSize * 0.714
+                        }, ${config.buttonSize * 0.482} ${
+                          config.buttonSize * 0.714
+                        }, ${config.buttonSize / 2} ${
+                          config.buttonSize * 0.714
+                        } C ${config.buttonSize * 0.518} ${
+                          config.buttonSize * 0.714
+                        }, ${config.buttonSize * 0.536} ${
+                          config.buttonSize * 0.714
+                        }, ${config.buttonSize * 0.536} ${
+                          config.buttonSize * 0.679
+                        }`}
                         stroke={finalColors.stroke}
                         strokeWidth="1.5"
                         strokeLinecap="round"
@@ -539,12 +618,36 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               viewBox={`0 0 220 ${Math.min(items.length * itemHeight + 16, 350)}`}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ filter: "drop-shadow(4px 5px 0px rgba(0,0,0,0.3)) drop-shadow(6px 8px 12px rgba(0,0,0,0.1))", position: "absolute", inset: 0, pointerEvents: "none" }}
+              style={{
+                filter:
+                  "drop-shadow(4px 5px 0px rgba(0,0,0,0.3)) drop-shadow(6px 8px 12px rgba(0,0,0,0.1))",
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
+              }}
             >
               <defs>
-                <pattern id={hoverId} x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-                  <rect width="4" height="4" fill={finalColors.hoverBg} opacity="0.6" />
-                  <circle cx="2" cy="2" r="0.5" fill={finalColors.stroke} opacity="0.2" />
+                <pattern
+                  id={hoverId}
+                  x="0"
+                  y="0"
+                  width="4"
+                  height="4"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect
+                    width="4"
+                    height="4"
+                    fill={finalColors.hoverBg}
+                    opacity="0.6"
+                  />
+                  <circle
+                    cx="2"
+                    cy="2"
+                    r="0.5"
+                    fill={finalColors.stroke}
+                    opacity="0.2"
+                  />
                 </pattern>
               </defs>
 
@@ -554,10 +657,23 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 const borderPath = `M 7.5 4.2 C 9.5 2.2, 14.5 1.2, 19.5 1.2 L 79 0.8 C 99 0.8, 119 0.8, 139 1.2 L 199 2.2 C 209 3.2, 215 4.2, 217 6.2 C 218 8.2, 219 10.2, 219 12.2 L 219 ${ph - 11.8} C 218.5 ${ph - 8.8}, 216 ${ph - 5.8}, 211 ${ph - 3.8} L 199 ${ph - 2.2} C 179 ${ph - 1.8}, 159 ${ph - 1.8}, 139 ${ph - 1.8} L 79 ${ph - 2.2} C 59 ${ph - 2.2}, 39 ${ph - 2.8}, 19 ${ph - 3.2} L 14.5 ${ph - 3.8} C 9.5 ${ph - 4.8}, 5.5 ${ph - 6.8}, 3.5 ${ph - 9.8} L 2.5 6.2 C 3 4.2, 4.5 3.2, 7.5 4.2 Z`;
                 return (
                   <>
-                    <SketchPaper d={panelPath} w={220} h={ph} fine
-                      bg={finalColors.bg} overlay={finalColors.bgOverlay} overlayOpacity={0.7} />
-                    <SketchBorder d1={borderPath} stroke={finalColors.stroke}
-                      w1={2.5} o1={0.85} dash="1.8,1" show={showBorder} />
+                    <SketchPaper
+                      d={panelPath}
+                      w={220}
+                      h={ph}
+                      fine
+                      bg={finalColors.bg}
+                      overlay={finalColors.bgOverlay}
+                      overlayOpacity={0.7}
+                    />
+                    <SketchBorder
+                      d1={borderPath}
+                      stroke={finalColors.stroke}
+                      w1={2.5}
+                      o1={0.85}
+                      dash="1.8,1"
+                      show={showBorder}
+                    />
                   </>
                 );
               })()}
@@ -599,7 +715,13 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               role="menu"
               onKeyDown={handleListKeyDown}
             >
-              <div style={{ height: totalHeight + 16, position: "relative", width: "100%" }}>
+              <div
+                style={{
+                  height: totalHeight + 16,
+                  position: "relative",
+                  width: "100%",
+                }}
+              >
                 {virtualItems.map(({ index: i, offsetTop }) => {
                   const item = items[i];
                   return (
@@ -626,12 +748,38 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                           }}
                         >
                           <defs>
-                            <pattern id={`${hoverId}-${i}`} x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-                              <rect width="4" height="4" fill={finalColors.hoverBg} opacity="0.6" />
-                              <circle cx="2" cy="2" r="0.5" fill={finalColors.stroke} opacity="0.2" />
+                            <pattern
+                              id={`${hoverId}-${i}`}
+                              x="0"
+                              y="0"
+                              width="4"
+                              height="4"
+                              patternUnits="userSpaceOnUse"
+                            >
+                              <rect
+                                width="4"
+                                height="4"
+                                fill={finalColors.hoverBg}
+                                opacity="0.6"
+                              />
+                              <circle
+                                cx="2"
+                                cy="2"
+                                r="0.5"
+                                fill={finalColors.stroke}
+                                opacity="0.2"
+                              />
                             </pattern>
                           </defs>
-                          <rect x="12" y="0" width="196" height={itemHeight - 12} fill={`url(#${hoverId}-${i})`} opacity="0.9" rx="6" />
+                          <rect
+                            x="12"
+                            y="0"
+                            width="196"
+                            height={itemHeight - 12}
+                            fill={`url(#${hoverId}-${i})`}
+                            opacity="0.9"
+                            rx="6"
+                          />
                         </svg>
                       )}
 
@@ -648,12 +796,20 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                           }}
                           opacity="0.25"
                         >
-                          <path d={`M 20 ${itemHeight} L 200 ${itemHeight}`} stroke={finalColors.stroke} strokeWidth="1" strokeDasharray="4,3" strokeLinecap="round" />
+                          <path
+                            d={`M 20 ${itemHeight} L 200 ${itemHeight}`}
+                            stroke={finalColors.stroke}
+                            strokeWidth="1"
+                            strokeDasharray="4,3"
+                            strokeLinecap="round"
+                          />
                         </svg>
                       )}
 
                       <button
-                        ref={el => { itemRefs.current[i] = el; }}
+                        ref={(el) => {
+                          itemRefs.current[i] = el;
+                        }}
                         role="menuitem"
                         tabIndex={-1}
                         onClick={() => handleItemClick(item)}
@@ -707,7 +863,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                         {/* Hover indicator */}
                         {activeIndex === i && (
                           <div className="sketch-dropdown-item-checkmark">
-                            <span style={{ fontSize: "12px", opacity: 0.5 }}>→</span>
+                            <span style={{ fontSize: "12px", opacity: 0.5 }}>
+                              →
+                            </span>
                           </div>
                         )}
                       </button>
@@ -720,7 +878,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Dropdown.displayName = "Dropdown";

@@ -152,14 +152,17 @@ export const Variants: Story = {
   ),
 };
 
-
-
 /* ── Custom Colours ───────────────────────────────────────── */
 
 export const CustomColors: Story = {
   args: {
     variant: "paper",
-    colors: { bg: "#e8f5e9", bgOverlay: "#c8e6c9", stroke: "#2e7d32", text: "#1b5e20" },
+    colors: {
+      bg: "#e8f5e9",
+      bgOverlay: "#c8e6c9",
+      stroke: "#2e7d32",
+      text: "#1b5e20",
+    },
     children: <p>Operation completed successfully.</p>,
     style: { width: 420 },
   },
@@ -207,7 +210,14 @@ export const CardGrid: Story = {
 export const ProductCard: Story = {
   args: { children: "" },
   render: () => (
-    <div style={{ display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 32,
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+    >
       {(["paper", "notebook"] as const).map((v) => (
         <Card key={v} variant={v} style={{ width: 320 }}>
           {/* Placeholder image */}
@@ -231,7 +241,14 @@ export const ProductCard: Story = {
 
           {/* Text */}
           <h3 style={{ margin: "0 0 8px" }}>Sketch Notebook ({v})</h3>
-          <p style={{ margin: "0 0 16px", fontSize: "1.1rem", lineHeight: 1.5, opacity: 0.8 }}>
+          <p
+            style={{
+              margin: "0 0 16px",
+              fontSize: "1.1rem",
+              lineHeight: 1.5,
+              opacity: 0.8,
+            }}
+          >
             A beautifully hand-drawn notebook for your daily sketches and notes.
           </p>
 
@@ -248,7 +265,14 @@ export const ProductCard: Story = {
 export const Sizes: Story = {
   args: { children: "" },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 32, alignItems: "flex-start" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 32,
+        alignItems: "flex-start",
+      }}
+    >
       <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
         {[320, 480, 640].map((w) => (
           <Card key={w} style={{ width: w }}>

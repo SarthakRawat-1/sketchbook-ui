@@ -20,12 +20,14 @@ Be respectful, constructive, and kind. We're all here to build something cool to
 
 1. Fork the repository on GitHub
 2. Clone your fork locally:
+
    ```bash
    git clone https://github.com/SarthakRawat-1/sketchbook-ui.git
    cd sketchbook-ui
    ```
 
 3. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -71,6 +73,7 @@ sketchbook-ui/
 ### Reporting Bugs
 
 Found a bug? Please open an issue with:
+
 - A clear, descriptive title
 - Steps to reproduce the issue
 - Expected vs actual behavior
@@ -80,6 +83,7 @@ Found a bug? Please open an issue with:
 ### Suggesting Features
 
 Have an idea? Open an issue with:
+
 - A clear description of the feature
 - Why it would be useful
 - Any implementation ideas you have
@@ -88,6 +92,7 @@ Have an idea? Open an issue with:
 ### Submitting Changes
 
 1. Create a new branch from `main`:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -100,11 +105,13 @@ Have an idea? Open an issue with:
    - Run `npm run lint` to check for issues
 
 4. Commit your changes with a clear message:
+
    ```bash
    git commit -m "feat: add new tooltip positioning options"
    ```
 
 5. Push to your fork:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -122,6 +129,7 @@ Have an idea? Open an issue with:
 1. **TypeScript First**: All components must be written in TypeScript with proper type definitions
 
 2. **Props Interface**: Export a clear props interface:
+
    ```typescript
    export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
      size?: "sm" | "md" | "lg";
@@ -130,6 +138,7 @@ Have an idea? Open an issue with:
    ```
 
 3. **Customization**: Support `colors` and `typography` props for theming:
+
    ```typescript
    colors?: {
      bg?: string;
@@ -144,7 +153,7 @@ Have an idea? Open an issue with:
    };
    ```
 
-4. **Accessibility**: 
+4. **Accessibility**:
    - Use semantic HTML
    - Support keyboard navigation
    - Include proper ARIA attributes
@@ -161,6 +170,7 @@ Have an idea? Open an issue with:
 ### Storybook Stories
 
 Every component needs Storybook stories covering:
+
 - Default state
 - All size variants
 - All color variants

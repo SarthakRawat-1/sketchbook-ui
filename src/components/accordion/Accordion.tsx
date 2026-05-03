@@ -48,7 +48,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
       className = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const [isHovered, setIsHovered] = useState(false);
@@ -61,7 +61,11 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
 
     // Dynamic sizing: measure header width and content dimensions
     const { ref: headerSizeRef, w: hdrW } = useSketchSize<SVGSVGElement>(300);
-    const { ref: contentSizeRef, w: cntW, h: cntH } = useSketchSize<HTMLDivElement>(300, 100);
+    const {
+      ref: contentSizeRef,
+      w: cntW,
+      h: cntH,
+    } = useSketchSize<HTMLDivElement>(300, 100);
 
     // Default colors with customization support
     const accordionColors = {
@@ -120,12 +124,22 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
               const hdrBd2 = `M ${w * 0.015} 7 C ${w * 0.0183} 5.5, ${w * 0.0267} 5, ${w * 0.035} 5 L ${w * 0.2517} 4.5 C ${w * 0.335} 4.3, ${w * 0.4183} 4.5, ${w * 0.5017} 4.8 L ${w * 0.7517} 5.2 C ${w * 0.835} 5.5, ${w * 0.9183} 6, ${w * 0.9683} 7 C ${w * 0.9817} 8, ${w * 0.9917} 10, ${w * 0.995} 14 L ${w * 0.9967} 48 C ${w * 0.9958} 52, ${w * 0.99} 55, ${w * 0.9817} 56 L ${w * 0.935} 57 C ${w * 0.8517} 57.5, ${w * 0.7683} 57.8, ${w * 0.685} 57.5 L ${w * 0.3183} 57 C ${w * 0.235} 56.8, ${w * 0.1517} 56.5, ${w * 0.0683} 56 L ${w * 0.0267} 55.5 C ${w * 0.0183} 55, ${w * 0.0117} 53, ${w * 0.0083} 49 L ${w * 0.0067} 13 C ${w * 0.0075} 9.5, ${w * 0.01} 7.5, ${w * 0.015} 7 Z`;
               return (
                 <>
-                  <SketchPaper d={hdrBg} w={w} h={60}
-                    bg={accordionColors.bg} overlay={accordionColors.bgOverlay} />
-                  <SketchBorder d1={hdrBd1} d2={hdrBd2}
-                    stroke={accordionColors.stroke} show={showBorder} dash="1,0.5"
+                  <SketchPaper
+                    d={hdrBg}
+                    w={w}
+                    h={60}
+                    bg={accordionColors.bg}
+                    overlay={accordionColors.bgOverlay}
+                  />
+                  <SketchBorder
+                    d1={hdrBd1}
+                    d2={hdrBd2}
+                    stroke={accordionColors.stroke}
+                    show={showBorder}
+                    dash="1,0.5"
                     w1={isFocused ? 3.5 : undefined}
-                    o1={isFocused ? 1 : undefined} />
+                    o1={isFocused ? 1 : undefined}
+                  />
                 </>
               );
             })()}
@@ -242,103 +256,164 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
           style={{
             display: "grid",
             gridTemplateRows: isOpen ? "1fr" : "0fr",
-            transition: "grid-template-rows 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+            transition:
+              "grid-template-rows 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
           }}
         >
           <div style={{ overflow: "hidden" }}>
-          <div
-            className="sketch-accordion-content"
-            ref={contentSizeRef}
-            style={{
-              opacity: isOpen ? 1 : 0,
-              transition: "opacity 0.3s ease",
-              position: "relative",
-            }}
-          >
-
-            {/* Content SVG container with paper texture — proportional paths */}
-            <svg
-              width="100%"
-              height="100%"
-              viewBox={`0 0 ${cntW} ${cntH}`}
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="sketch-accordion-content-svg"
-              style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-            >
-              {(() => {
-                const w = cntW;
-                const h = cntH;
-                const cntBg = `M ${w * 0.005} 0 L ${w * 0.25} ${h * 0.0025} C ${w * 0.3333} ${h * 0.004}, ${w * 0.4167} ${h * 0.0025}, ${w * 0.5} ${h * 0.0015} L ${w * 0.75} ${h * 0.004} C ${w * 0.8333} ${h * 0.005}, ${w * 0.9167} ${h * 0.0075}, ${w * 0.995} ${h * 0.01} L ${w * 0.9967} ${h * 0.65} C ${w * 0.9958} ${h * 0.75}, ${w * 0.995} ${h * 0.85}, ${w * 0.9933} ${h * 0.95} C ${w * 0.99} ${h * 0.97}, ${w * 0.9833} ${h * 0.985}, ${w * 0.975} ${h * 0.99} L ${w * 0.75} ${h * 0.995} C ${w * 0.6667} ${h * 0.9975}, ${w * 0.5833} ${h * 0.999}, ${w * 0.5} ${h * 0.9975} L ${w * 0.25} ${h * 0.995} C ${w * 0.1667} ${h * 0.994}, ${w * 0.0833} ${h * 0.9925}, ${w * 0.025} ${h * 0.99} C ${w * 0.0167} ${h * 0.9875}, ${w * 0.01} ${h * 0.975}, ${w * 0.0067} ${h * 0.955} L ${w * 0.005} ${h * 0.6} C ${w * 0.0042} ${h * 0.4}, ${w * 0.0047} ${h * 0.2}, ${w * 0.005} 0 Z`;
-                const cntBd1 = `M ${w * 0.0058} ${h * 0.005} L ${w * 0.2508} ${h * 0.0075} C ${w * 0.3342} ${h * 0.009}, ${w * 0.4175} ${h * 0.0075}, ${w * 0.5008} ${h * 0.0065} L ${w * 0.7508} ${h * 0.009} C ${w * 0.8342} ${h * 0.01}, ${w * 0.9175} ${h * 0.0125}, ${w * 0.9942} ${h * 0.015} L ${w * 0.9958} ${h * 0.6525} C ${w * 0.995} ${h * 0.7525}, ${w * 0.9942} ${h * 0.8525}, ${w * 0.9925} ${h * 0.9525} C ${w * 0.9892} ${h * 0.9725}, ${w * 0.9825} ${h * 0.9875}, ${w * 0.9742} ${h * 0.9925} L ${w * 0.7508} ${h * 0.9975} C ${w * 0.6675} ${h * 1}, ${w * 0.5842} ${h * 1.0015}, ${w * 0.5008} ${h * 1} L ${w * 0.2508} ${h * 0.9975} C ${w * 0.1675} ${h * 0.9965}, ${w * 0.0842} ${h * 0.995}, ${w * 0.0258} ${h * 0.9925} C ${w * 0.0175} ${h * 0.99}, ${w * 0.0108} ${h * 0.9775}, ${w * 0.0075} ${h * 0.9575} L ${w * 0.0058} ${h * 0.6025} C ${w * 0.005} ${h * 0.4025}, ${w * 0.0055} ${h * 0.2025}, ${w * 0.0058} ${h * 0.005} Z`;
-                const cntBd2 = `M ${w * 0.0067} ${h * 0.0075} L ${w * 0.2517} ${h * 0.01} C ${w * 0.335} ${h * 0.0115}, ${w * 0.4183} ${h * 0.01}, ${w * 0.5017} ${h * 0.009} L ${w * 0.7517} ${h * 0.0115} C ${w * 0.835} ${h * 0.0125}, ${w * 0.9183} ${h * 0.015}, ${w * 0.995} ${h * 0.0175} L ${w * 0.9967} ${h * 0.655} C ${w * 0.9958} ${h * 0.755}, ${w * 0.995} ${h * 0.855}, ${w * 0.9933} ${h * 0.955} C ${w * 0.99} ${h * 0.975}, ${w * 0.9833} ${h * 0.99}, ${w * 0.975} ${h * 0.995} L ${w * 0.7517} ${h * 1} C ${w * 0.6683} ${h * 1.0025}, ${w * 0.585} ${h * 1.004}, ${w * 0.5017} ${h * 1.0025} L ${w * 0.2517} ${h * 1} C ${w * 0.1683} ${h * 0.999}, ${w * 0.085} ${h * 0.9975}, ${w * 0.0267} ${h * 0.995} C ${w * 0.0183} ${h * 0.9925}, ${w * 0.0117} ${h * 0.98}, ${w * 0.0083} ${h * 0.96} L ${w * 0.0067} ${h * 0.605} C ${w * 0.0058} ${h * 0.405}, ${w * 0.0063} ${h * 0.205}, ${w * 0.0067} ${h * 0.0075} Z`;
-                return (
-                  <>
-                    <defs>
-                      {showLines && (
-                        <pattern id={linesId} x="0" y="0" width={w} height="30" patternUnits="userSpaceOnUse">
-                          <path d={`M 0 30 L ${w * 0.1667} 29.8 L ${w * 0.3333} 30.1 L ${w * 0.5} 29.9 L ${w * 0.6667} 30.2 L ${w * 0.8333} 29.7 L ${w} 30`}
-                            stroke={accordionColors.lineColor} strokeWidth="1" opacity="0.35" fill="none" strokeLinecap="round" />
-                        </pattern>
-                      )}
-                      <linearGradient id={shadowId} x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor={accordionColors.stroke} stopOpacity="0.15" />
-                        <stop offset="100%" stopColor={accordionColors.stroke} stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-
-                    <SketchPaper d={cntBg} w={w} h={h}
-                      bg="#fef9f0" overlay={accordionColors.bgOverlay} overlayOpacity={0.5} noiseOpacity={0.15} />
-
-                    {showLines && (
-                      <rect x="0" y="0" width={w} height={h} fill={`url(#${linesId})`} />
-                    )}
-
-                    {/* Left margin line */}
-                    {showLines && (
-                      <path
-                        d={`M ${w * 0.0667} ${h * 0.04} L ${w * 0.0675} ${h * 0.2} L ${w * 0.0663} ${h * 0.35} L ${w * 0.0672} ${h * 0.5} L ${w * 0.0667} ${h * 0.65} L ${w * 0.0677} ${h * 0.8} L ${w * 0.0683} ${h * 0.96}`}
-                        stroke="#e8a5a5"
-                        strokeWidth="1.5"
-                        opacity="0.4"
-                        strokeLinecap="round"
-                        strokeDasharray="3,1.5"
-                      />
-                    )}
-
-                    <SketchBorder d1={cntBd1} d2={cntBd2}
-                      stroke={accordionColors.stroke} show={showBorder} dash="1,0.5" />
-
-                    {/* Subtle inner shadow at top */}
-                    <rect x="0" y="0" width={w} height={h * 0.1}
-                      fill={`url(#${shadowId})`} opacity="0.1" />
-
-                    {/* Subtle shadow beneath */}
-                    <ellipse cx={w * 0.5} cy={h * 1.01} rx={w * 0.4833} ry={h * 0.02}
-                      fill={accordionColors.stroke} opacity="0.08" />
-                  </>
-                );
-              })()}
-            </svg>
-
-            {/* Actual content text — flows naturally to determine height */}
             <div
-              className="sketch-accordion-content-text"
+              className="sketch-accordion-content"
+              ref={contentSizeRef}
               style={{
-                fontFamily: accordionTypography.fontFamily,
-                fontSize: accordionTypography.contentSize,
-                color: accordionColors.text,
+                opacity: isOpen ? 1 : 0,
+                transition: "opacity 0.3s ease",
                 position: "relative",
               }}
             >
-              {children}
+              {/* Content SVG container with paper texture — proportional paths */}
+              <svg
+                width="100%"
+                height="100%"
+                viewBox={`0 0 ${cntW} ${cntH}`}
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="sketch-accordion-content-svg"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  pointerEvents: "none",
+                }}
+              >
+                {(() => {
+                  const w = cntW;
+                  const h = cntH;
+                  const cntBg = `M ${w * 0.005} 0 L ${w * 0.25} ${h * 0.0025} C ${w * 0.3333} ${h * 0.004}, ${w * 0.4167} ${h * 0.0025}, ${w * 0.5} ${h * 0.0015} L ${w * 0.75} ${h * 0.004} C ${w * 0.8333} ${h * 0.005}, ${w * 0.9167} ${h * 0.0075}, ${w * 0.995} ${h * 0.01} L ${w * 0.9967} ${h * 0.65} C ${w * 0.9958} ${h * 0.75}, ${w * 0.995} ${h * 0.85}, ${w * 0.9933} ${h * 0.95} C ${w * 0.99} ${h * 0.97}, ${w * 0.9833} ${h * 0.985}, ${w * 0.975} ${h * 0.99} L ${w * 0.75} ${h * 0.995} C ${w * 0.6667} ${h * 0.9975}, ${w * 0.5833} ${h * 0.999}, ${w * 0.5} ${h * 0.9975} L ${w * 0.25} ${h * 0.995} C ${w * 0.1667} ${h * 0.994}, ${w * 0.0833} ${h * 0.9925}, ${w * 0.025} ${h * 0.99} C ${w * 0.0167} ${h * 0.9875}, ${w * 0.01} ${h * 0.975}, ${w * 0.0067} ${h * 0.955} L ${w * 0.005} ${h * 0.6} C ${w * 0.0042} ${h * 0.4}, ${w * 0.0047} ${h * 0.2}, ${w * 0.005} 0 Z`;
+                  const cntBd1 = `M ${w * 0.0058} ${h * 0.005} L ${w * 0.2508} ${h * 0.0075} C ${w * 0.3342} ${h * 0.009}, ${w * 0.4175} ${h * 0.0075}, ${w * 0.5008} ${h * 0.0065} L ${w * 0.7508} ${h * 0.009} C ${w * 0.8342} ${h * 0.01}, ${w * 0.9175} ${h * 0.0125}, ${w * 0.9942} ${h * 0.015} L ${w * 0.9958} ${h * 0.6525} C ${w * 0.995} ${h * 0.7525}, ${w * 0.9942} ${h * 0.8525}, ${w * 0.9925} ${h * 0.9525} C ${w * 0.9892} ${h * 0.9725}, ${w * 0.9825} ${h * 0.9875}, ${w * 0.9742} ${h * 0.9925} L ${w * 0.7508} ${h * 0.9975} C ${w * 0.6675} ${h * 1}, ${w * 0.5842} ${h * 1.0015}, ${w * 0.5008} ${h * 1} L ${w * 0.2508} ${h * 0.9975} C ${w * 0.1675} ${h * 0.9965}, ${w * 0.0842} ${h * 0.995}, ${w * 0.0258} ${h * 0.9925} C ${w * 0.0175} ${h * 0.99}, ${w * 0.0108} ${h * 0.9775}, ${w * 0.0075} ${h * 0.9575} L ${w * 0.0058} ${h * 0.6025} C ${w * 0.005} ${h * 0.4025}, ${w * 0.0055} ${h * 0.2025}, ${w * 0.0058} ${h * 0.005} Z`;
+                  const cntBd2 = `M ${w * 0.0067} ${h * 0.0075} L ${w * 0.2517} ${h * 0.01} C ${w * 0.335} ${h * 0.0115}, ${w * 0.4183} ${h * 0.01}, ${w * 0.5017} ${h * 0.009} L ${w * 0.7517} ${h * 0.0115} C ${w * 0.835} ${h * 0.0125}, ${w * 0.9183} ${h * 0.015}, ${w * 0.995} ${h * 0.0175} L ${w * 0.9967} ${h * 0.655} C ${w * 0.9958} ${h * 0.755}, ${w * 0.995} ${h * 0.855}, ${w * 0.9933} ${h * 0.955} C ${w * 0.99} ${h * 0.975}, ${w * 0.9833} ${h * 0.99}, ${w * 0.975} ${h * 0.995} L ${w * 0.7517} ${h * 1} C ${w * 0.6683} ${h * 1.0025}, ${w * 0.585} ${h * 1.004}, ${w * 0.5017} ${h * 1.0025} L ${w * 0.2517} ${h * 1} C ${w * 0.1683} ${h * 0.999}, ${w * 0.085} ${h * 0.9975}, ${w * 0.0267} ${h * 0.995} C ${w * 0.0183} ${h * 0.9925}, ${w * 0.0117} ${h * 0.98}, ${w * 0.0083} ${h * 0.96} L ${w * 0.0067} ${h * 0.605} C ${w * 0.0058} ${h * 0.405}, ${w * 0.0063} ${h * 0.205}, ${w * 0.0067} ${h * 0.0075} Z`;
+                  return (
+                    <>
+                      <defs>
+                        {showLines && (
+                          <pattern
+                            id={linesId}
+                            x="0"
+                            y="0"
+                            width={w}
+                            height="30"
+                            patternUnits="userSpaceOnUse"
+                          >
+                            <path
+                              d={`M 0 30 L ${w * 0.1667} 29.8 L ${w * 0.3333} 30.1 L ${w * 0.5} 29.9 L ${w * 0.6667} 30.2 L ${w * 0.8333} 29.7 L ${w} 30`}
+                              stroke={accordionColors.lineColor}
+                              strokeWidth="1"
+                              opacity="0.35"
+                              fill="none"
+                              strokeLinecap="round"
+                            />
+                          </pattern>
+                        )}
+                        <linearGradient
+                          id={shadowId}
+                          x1="0%"
+                          y1="0%"
+                          x2="0%"
+                          y2="100%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor={accordionColors.stroke}
+                            stopOpacity="0.15"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor={accordionColors.stroke}
+                            stopOpacity="0"
+                          />
+                        </linearGradient>
+                      </defs>
+
+                      <SketchPaper
+                        d={cntBg}
+                        w={w}
+                        h={h}
+                        bg="#fef9f0"
+                        overlay={accordionColors.bgOverlay}
+                        overlayOpacity={0.5}
+                        noiseOpacity={0.15}
+                      />
+
+                      {showLines && (
+                        <rect
+                          x="0"
+                          y="0"
+                          width={w}
+                          height={h}
+                          fill={`url(#${linesId})`}
+                        />
+                      )}
+
+                      {/* Left margin line */}
+                      {showLines && (
+                        <path
+                          d={`M ${w * 0.0667} ${h * 0.04} L ${w * 0.0675} ${h * 0.2} L ${w * 0.0663} ${h * 0.35} L ${w * 0.0672} ${h * 0.5} L ${w * 0.0667} ${h * 0.65} L ${w * 0.0677} ${h * 0.8} L ${w * 0.0683} ${h * 0.96}`}
+                          stroke="#e8a5a5"
+                          strokeWidth="1.5"
+                          opacity="0.4"
+                          strokeLinecap="round"
+                          strokeDasharray="3,1.5"
+                        />
+                      )}
+
+                      <SketchBorder
+                        d1={cntBd1}
+                        d2={cntBd2}
+                        stroke={accordionColors.stroke}
+                        show={showBorder}
+                        dash="1,0.5"
+                      />
+
+                      {/* Subtle inner shadow at top */}
+                      <rect
+                        x="0"
+                        y="0"
+                        width={w}
+                        height={h * 0.1}
+                        fill={`url(#${shadowId})`}
+                        opacity="0.1"
+                      />
+
+                      {/* Subtle shadow beneath */}
+                      <ellipse
+                        cx={w * 0.5}
+                        cy={h * 1.01}
+                        rx={w * 0.4833}
+                        ry={h * 0.02}
+                        fill={accordionColors.stroke}
+                        opacity="0.08"
+                      />
+                    </>
+                  );
+                })()}
+              </svg>
+
+              {/* Actual content text — flows naturally to determine height */}
+              <div
+                className="sketch-accordion-content-text"
+                style={{
+                  fontFamily: accordionTypography.fontFamily,
+                  fontSize: accordionTypography.contentSize,
+                  color: accordionColors.text,
+                  position: "relative",
+                }}
+              >
+                {children}
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
     );
-  }
+  },
 );
 
 AccordionItem.displayName = "AccordionItem";
@@ -355,7 +430,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 Accordion.displayName = "Accordion";

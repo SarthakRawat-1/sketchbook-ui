@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
 
-export interface SliderProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+export interface SliderProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange" | "defaultValue"
+> {
   min?: number;
   max?: number;
   step?: number;
@@ -31,9 +33,30 @@ export interface SliderProps
 
 /* ── Size configs ───────────────────────────── */
 const SIZE_CONFIG = {
-  sm: { h: 36, viewH: 36, thumb: 10, trackW: 2, fontSize: "1.1rem", valSize: "0.95rem" },
-  md: { h: 48, viewH: 48, thumb: 14, trackW: 2.5, fontSize: "1.4rem", valSize: "1.2rem" },
-  lg: { h: 60, viewH: 60, thumb: 18, trackW: 3, fontSize: "1.7rem", valSize: "1.4rem" },
+  sm: {
+    h: 36,
+    viewH: 36,
+    thumb: 10,
+    trackW: 2,
+    fontSize: "1.1rem",
+    valSize: "0.95rem",
+  },
+  md: {
+    h: 48,
+    viewH: 48,
+    thumb: 14,
+    trackW: 2.5,
+    fontSize: "1.4rem",
+    valSize: "1.2rem",
+  },
+  lg: {
+    h: 60,
+    viewH: 60,
+    thumb: 18,
+    trackW: 3,
+    fontSize: "1.7rem",
+    valSize: "1.4rem",
+  },
 } as const;
 
 const TRACK_VIEWBOX_W = 300;
@@ -66,7 +89,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     const containerRef = useRef<HTMLDivElement>(null);
 
     const currentValue = isControlled ? controlledValue : internalValue;
-    const percentage = Math.min(100, Math.max(0, ((currentValue - min) / (max - min)) * 100));
+    const percentage = Math.min(
+      100,
+      Math.max(0, ((currentValue - min) / (max - min)) * 100),
+    );
 
     const sc = SIZE_CONFIG[size];
 
@@ -96,7 +122,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       (e: MouseEvent | TouchEvent | React.MouseEvent | React.TouchEvent) => {
         if (disabled || !containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
-        const clientX = "touches" in e ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
+        const clientX =
+          "touches" in e
+            ? (e as TouchEvent).touches[0].clientX
+            : (e as MouseEvent).clientX;
 
         let rawPercent = (clientX - rect.left) / rect.width;
         rawPercent = Math.max(0, Math.min(1, rawPercent));
@@ -259,7 +288,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                     : isHovered
                       ? "scale(1.05)"
                       : "scale(1)",
-                  transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                  transition:
+                    "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                 }}
               >
                 {/* Drop shadow */}

@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Divider } from './Divider';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Divider } from "./Divider";
 
 const meta: Meta<typeof Divider> = {
-  title: 'Components/Divider',
+  title: "Components/Divider",
   component: Divider,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -98,18 +98,18 @@ Plus all standard HTML div attributes.
   },
   argTypes: {
     orientation: {
-      control: { type: 'radio' },
-      options: ['horizontal', 'vertical'],
+      control: { type: "radio" },
+      options: ["horizontal", "vertical"],
     },
     variant: {
-      control: { type: 'radio' },
-      options: ['scribble', 'dashed', 'dots', 'zigzag'],
+      control: { type: "radio" },
+      options: ["scribble", "dashed", "dots", "zigzag"],
     },
     color: {
-      control: { type: 'color' },
+      control: { type: "color" },
     },
     strokeWidth: {
-      control: { type: 'range', min: 1, max: 6, step: 0.5 },
+      control: { type: "range", min: 1, max: 6, step: 0.5 },
     },
   },
 } satisfies Meta<typeof Divider>;
@@ -122,38 +122,54 @@ export const Default: Story = {
 };
 
 export const Scribble: Story = {
-  args: { variant: 'scribble' },
+  args: { variant: "scribble" },
 };
 
 export const Dashed: Story = {
-  args: { variant: 'dashed' },
+  args: { variant: "dashed" },
 };
 
 export const Dots: Story = {
-  args: { variant: 'dots' },
+  args: { variant: "dots" },
 };
 
 export const Zigzag: Story = {
-  args: { variant: 'zigzag' },
+  args: { variant: "zigzag" },
 };
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem', width: '100%' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        padding: "2rem",
+        width: "100%",
+      }}
+    >
       <div>
-        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Scribble</p>
+        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: "0.5rem" }}>
+          Scribble
+        </p>
         <Divider variant="scribble" />
       </div>
       <div>
-        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Dashed</p>
+        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: "0.5rem" }}>
+          Dashed
+        </p>
         <Divider variant="dashed" />
       </div>
       <div>
-        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Dots</p>
+        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: "0.5rem" }}>
+          Dots
+        </p>
         <Divider variant="dots" />
       </div>
       <div>
-        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: '0.5rem' }}>Zigzag</p>
+        <p style={{ fontFamily: "'Caveat', cursive", marginBottom: "0.5rem" }}>
+          Zigzag
+        </p>
         <Divider variant="zigzag" />
       </div>
     </div>
@@ -161,7 +177,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All four divider variants side by side.',
+        story: "All four divider variants side by side.",
       },
     },
   },
@@ -169,7 +185,9 @@ export const AllVariants: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '2rem', padding: '2rem', height: '300px' }}>
+    <div
+      style={{ display: "flex", gap: "2rem", padding: "2rem", height: "300px" }}
+    >
       <Divider orientation="vertical" variant="scribble" />
       <Divider orientation="vertical" variant="dashed" />
       <Divider orientation="vertical" variant="dots" />
@@ -179,7 +197,8 @@ export const Vertical: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Vertical dividers — useful for separating side-by-side content.',
+        story:
+          "Vertical dividers — useful for separating side-by-side content.",
       },
     },
   },
@@ -187,7 +206,15 @@ export const Vertical: Story = {
 
 export const Customization: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem', width: '100%' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        padding: "2rem",
+        width: "100%",
+      }}
+    >
       <Divider color="#e74c3c" variant="scribble" />
       <Divider color="#3498db" variant="dashed" />
       <Divider color="#2ecc71" variant="dots" />
@@ -199,7 +226,7 @@ export const Customization: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dividers with custom colors and stroke widths.',
+        story: "Dividers with custom colors and stroke widths.",
       },
     },
   },

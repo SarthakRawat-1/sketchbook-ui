@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { cn, SketchPaper, SketchBorder, SK, SK_DISABLED } from "../../lib";
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'> {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size" | "onChange"
+> {
   size?: "sm" | "md" | "lg";
   label?: string;
   // Customization props
@@ -40,14 +43,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       onMouseLeave,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
     const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
     // Use controlled checked if provided, otherwise use internal state
-    const isChecked = controlledChecked !== undefined ? controlledChecked : internalChecked;
+    const isChecked =
+      controlledChecked !== undefined ? controlledChecked : internalChecked;
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLLabelElement>) => {
       if (!disabled) {
@@ -75,7 +79,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const sizeConfig = {
       sm: { width: 32, height: 32, fontSize: "1.1rem" },
       md: { width: 40, height: 40, fontSize: "1.35rem" },
-      lg: { width: 48, height: 48, fontSize: "1.6rem" }
+      lg: { width: 48, height: 48, fontSize: "1.6rem" },
     };
 
     const config = sizeConfig[size];
@@ -97,13 +101,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     };
 
     // Disabled state overrides
-    const finalColors = disabled ? {
-      bg: SK_DISABLED.bg,
-      bgOverlay: SK_DISABLED.bgOverlay,
-      stroke: SK_DISABLED.stroke,
-      text: SK_DISABLED.text,
-      check: SK_DISABLED.text,
-    } : checkboxColors;
+    const finalColors = disabled
+      ? {
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+          check: SK_DISABLED.text,
+        }
+      : checkboxColors;
 
     const w = config.width;
     const h = config.height;
@@ -181,7 +187,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         />
 
         {/* Custom checkbox visual */}
-        <div style={{ position: "relative", display: "inline-block", width: `${w}px`, height: `${h}px` }}>
+        <div
+          style={{
+            position: "relative",
+            display: "inline-block",
+            width: `${w}px`,
+            height: `${h}px`,
+          }}
+        >
           <svg
             width={w}
             height={h}
@@ -192,27 +205,50 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               filter: disabled
                 ? "drop-shadow(1px 1px 0px rgba(0,0,0,0.06)) grayscale(0.3) opacity(0.7)"
                 : isHovered
-                  ? 'drop-shadow(2px 2px 0px rgba(0,0,0,0.15)) drop-shadow(3px 4px 6px rgba(0,0,0,0.08))'
-                  : 'drop-shadow(1px 1px 0px rgba(0,0,0,0.1)) drop-shadow(2px 3px 4px rgba(0,0,0,0.06))',
-              transition: 'filter 0.3s ease',
+                  ? "drop-shadow(2px 2px 0px rgba(0,0,0,0.15)) drop-shadow(3px 4px 6px rgba(0,0,0,0.08))"
+                  : "drop-shadow(1px 1px 0px rgba(0,0,0,0.1)) drop-shadow(2px 3px 4px rgba(0,0,0,0.06))",
+              transition: "filter 0.3s ease",
             }}
           >
-            <SketchPaper d={bgPath} w={w} h={h}
-              bg={finalColors.bg} overlay={finalColors.bgOverlay}
-              overlayOpacity={disabled ? "0.3" : "0.6"} noiseOpacity={0.12} />
+            <SketchPaper
+              d={bgPath}
+              w={w}
+              h={h}
+              bg={finalColors.bg}
+              overlay={finalColors.bgOverlay}
+              overlayOpacity={disabled ? "0.3" : "0.6"}
+              noiseOpacity={0.12}
+            />
 
             {/* Focus ring */}
             {isFocused && !disabled && (
-              <path d={bgPath} fill="none" stroke={finalColors.stroke}
-                strokeWidth="2.5" strokeDasharray="3,2.5" opacity="0.45"
-                strokeLinecap="round" />
+              <path
+                d={bgPath}
+                fill="none"
+                stroke={finalColors.stroke}
+                strokeWidth="2.5"
+                strokeDasharray="3,2.5"
+                opacity="0.45"
+                strokeLinecap="round"
+              />
             )}
 
-            <SketchBorder d1={borderPath1} d2={borderPath2} stroke={finalColors.stroke}
-              w1={isFocused ? 3 : (isHovered || isChecked ? 2.5 : 2)}
-              o1={disabled ? 0.3 : (isFocused || isHovered || isChecked ? 0.9 : 0.75)}
-              o2={disabled ? 0.15 : 0.25} show={showBorder}
-              style={{ transition: 'all 0.3s ease' }} />
+            <SketchBorder
+              d1={borderPath1}
+              d2={borderPath2}
+              stroke={finalColors.stroke}
+              w1={isFocused ? 3 : isHovered || isChecked ? 2.5 : 2}
+              o1={
+                disabled
+                  ? 0.3
+                  : isFocused || isHovered || isChecked
+                    ? 0.9
+                    : 0.75
+              }
+              o2={disabled ? 0.15 : 0.25}
+              show={showBorder}
+              style={{ transition: "all 0.3s ease" }}
+            />
 
             {/* Hover state: Light pencil pressure mark */}
             {isHovered && !isChecked && !disabled && (
@@ -224,14 +260,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 fill={finalColors.stroke}
                 opacity="0.025"
                 style={{
-                  transition: 'opacity 0.3s ease',
+                  transition: "opacity 0.3s ease",
                 }}
               />
             )}
 
             {/* Checked state: Hand-drawn checkmark */}
             {isChecked && (
-              <g style={{ animation: 'checkDraw 0.4s ease' }}>
+              <g style={{ animation: "checkDraw 0.4s ease" }}>
                 <path
                   d={`M ${w * 0.25} ${h * 0.475} 
                      L ${w * 0.275} ${h * 0.5}
@@ -278,8 +314,20 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                   opacity={disabled ? 0.25 : 0.4}
                 />
 
-                <circle cx={w * 0.375} cy={h * 0.6} r="1.5" fill={finalColors.check} opacity={disabled ? 0.08 : 0.15} />
-                <circle cx={w * 0.75} cy={h * 0.25} r="1.5" fill={finalColors.check} opacity={disabled ? 0.08 : 0.15} />
+                <circle
+                  cx={w * 0.375}
+                  cy={h * 0.6}
+                  r="1.5"
+                  fill={finalColors.check}
+                  opacity={disabled ? 0.08 : 0.15}
+                />
+                <circle
+                  cx={w * 0.75}
+                  cy={h * 0.25}
+                  r="1.5"
+                  fill={finalColors.check}
+                  opacity={disabled ? 0.08 : 0.15}
+                />
               </g>
             )}
 
@@ -306,18 +354,18 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               fontSize: checkboxTypography.fontSize,
               fontWeight: checkboxTypography.fontWeight,
               color: finalColors.text,
-              userSelect: 'none',
-              transform: isHovered && !disabled ? 'translateX(2px)' : 'translateX(0)',
-              transition: 'transform 0.3s ease',
+              userSelect: "none",
+              transform:
+                isHovered && !disabled ? "translateX(2px)" : "translateX(0)",
+              transition: "transform 0.3s ease",
             }}
           >
             {label}
           </span>
         )}
-
       </label>
     );
-  }
+  },
 );
 
 Checkbox.displayName = "Checkbox";

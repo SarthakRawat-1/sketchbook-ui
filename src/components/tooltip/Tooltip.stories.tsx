@@ -148,7 +148,9 @@ The \`children\` prop must be a single React element (not text or multiple eleme
   },
   decorators: [
     (Story) => (
-      <div style={{ padding: "6rem", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ padding: "6rem", display: "flex", justifyContent: "center" }}
+      >
         <Story />
       </div>
     ),
@@ -214,7 +216,19 @@ export const CustomColors: Story = {
       stroke: "#1a6fb5",
       text: "#1a6fb5",
     },
-    children: <Button size="sm" colors={{ bg: "#e8f4fd", bgOverlay: "#d1e8fa", stroke: "#1a6fb5", text: "#1a6fb5" }}>Hover</Button>,
+    children: (
+      <Button
+        size="sm"
+        colors={{
+          bg: "#e8f4fd",
+          bgOverlay: "#d1e8fa",
+          stroke: "#1a6fb5",
+          text: "#1a6fb5",
+        }}
+      >
+        Hover
+      </Button>
+    ),
   },
   parameters: {
     docs: {
@@ -234,7 +248,9 @@ export const AlwaysOpen: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Controlled mode with `open={true}` — always visible." },
+      description: {
+        story: "Controlled mode with `open={true}` — always visible.",
+      },
     },
   },
 };
@@ -299,17 +315,17 @@ export const LongContent: Story = {
       >
         <Button size="sm">Long bottom</Button>
       </Tooltip>
-      <Tooltip
-        content="Expanded sideways tooltip"
-        placement="right"
-      >
+      <Tooltip content="Expanded sideways tooltip" placement="right">
         <Button size="sm">Long right</Button>
       </Tooltip>
     </div>
   ),
   parameters: {
     docs: {
-      description: { story: "Longer content to demonstrate how the speech bubble grows to fit." },
+      description: {
+        story:
+          "Longer content to demonstrate how the speech bubble grows to fit.",
+      },
     },
   },
 };

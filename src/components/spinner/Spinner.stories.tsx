@@ -149,7 +149,10 @@ export const Variants: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "All four animation variants: circle (arc rotation), spiral (draw-on doodle), hourglass (flipping sand timer), and dots (pulsing blobs)." },
+      description: {
+        story:
+          "All four animation variants: circle (arc rotation), spiral (draw-on doodle), hourglass (flipping sand timer), and dots (pulsing blobs).",
+      },
     },
   },
 };
@@ -178,7 +181,9 @@ export const Sizes: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "Three size presets: sm (24 px), md (36 px), and lg (48 px)." },
+      description: {
+        story: "Three size presets: sm (24 px), md (36 px), and lg (48 px).",
+      },
     },
   },
 };
@@ -192,7 +197,9 @@ export const CustomColor: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Override the stroke colour via the `colors` prop." },
+      description: {
+        story: "Override the stroke colour via the `colors` prop.",
+      },
     },
   },
 };
@@ -221,7 +228,10 @@ export const SpeedComparison: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "The `speed` prop multiplies animation speed — 0.4× (slow), 1× (default), 2.5× (fast)." },
+      description: {
+        story:
+          "The `speed` prop multiplies animation speed — 0.4× (slow), 1× (default), 2.5× (fast).",
+      },
     },
   },
 };
@@ -232,7 +242,9 @@ export const Disabled: Story = {
   args: { disabled: true, size: "lg" },
   parameters: {
     docs: {
-      description: { story: "Greyed-out disabled state using `SK_DISABLED` colours." },
+      description: {
+        story: "Greyed-out disabled state using `SK_DISABLED` colours.",
+      },
     },
   },
 };

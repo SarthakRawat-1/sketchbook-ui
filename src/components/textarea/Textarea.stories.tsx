@@ -187,7 +187,15 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", padding: "2rem", maxWidth: 500 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        padding: "2rem",
+        maxWidth: 500,
+      }}
+    >
       <Textarea size="sm" label="Small" placeholder="Quick note..." />
       <Textarea size="md" label="Medium" placeholder="Write something..." />
       <Textarea size="lg" label="Large" placeholder="Tell us everything..." />
@@ -195,7 +203,10 @@ export const Sizes: Story = {
   ),
   parameters: {
     docs: {
-      description: { story: "Small, medium, and large textarea sizes with proportional ruling height." },
+      description: {
+        story:
+          "Small, medium, and large textarea sizes with proportional ruling height.",
+      },
     },
   },
 };
@@ -221,7 +232,9 @@ export const NoLinesNoMargin: Story = {
   },
   parameters: {
     docs: {
-      description: { story: "Textarea without notebook lines or the red margin line." },
+      description: {
+        story: "Textarea without notebook lines or the red margin line.",
+      },
     },
   },
 };
@@ -230,7 +243,15 @@ export const NoLinesNoMargin: Story = {
 
 export const CustomColors: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", padding: "2rem", maxWidth: 500 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        padding: "2rem",
+        maxWidth: 500,
+      }}
+    >
       <Textarea
         label="Blue theme"
         placeholder="Write with blue ink..."

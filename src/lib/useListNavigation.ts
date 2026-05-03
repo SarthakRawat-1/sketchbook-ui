@@ -12,12 +12,9 @@ export interface UseListNavigationOptions {
  * Shared keyboard navigation hook for list-like popups (Select, Dropdown).
  * Handles Arrow up/down, Home, End, Escape, and focus management.
  */
-export function useListNavigation<TriggerElement extends HTMLElement = HTMLButtonElement>({
-  isOpen,
-  setIsOpen,
-  itemCount,
-  scrollToIndex,
-}: UseListNavigationOptions) {
+export function useListNavigation<
+  TriggerElement extends HTMLElement = HTMLButtonElement,
+>({ isOpen, setIsOpen, itemCount, scrollToIndex }: UseListNavigationOptions) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const triggerRef = useRef<TriggerElement>(null);
@@ -43,7 +40,7 @@ export function useListNavigation<TriggerElement extends HTMLElement = HTMLButto
   }, [isOpen, itemCount]);
 
   const handleTriggerKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       if (!isOpen) setIsOpen(true);
     }
@@ -51,31 +48,32 @@ export function useListNavigation<TriggerElement extends HTMLElement = HTMLButto
 
   const handleListKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
-      case 'ArrowDown': {
+      case "ArrowDown": {
         e.preventDefault();
-        const next = activeIndex === null ? 0 : Math.min(activeIndex + 1, itemCount - 1);
+        const next =
+          activeIndex === null ? 0 : Math.min(activeIndex + 1, itemCount - 1);
         setActiveIndex(next);
         focusItem(next);
         break;
       }
-      case 'ArrowUp': {
+      case "ArrowUp": {
         e.preventDefault();
         const prev = activeIndex === null ? 0 : Math.max(activeIndex - 1, 0);
         setActiveIndex(prev);
         focusItem(prev);
         break;
       }
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
         setIsOpen(false);
         triggerRef.current?.focus();
         break;
-      case 'Home':
+      case "Home":
         e.preventDefault();
         setActiveIndex(0);
         focusItem(0);
         break;
-      case 'End':
+      case "End":
         e.preventDefault();
         setActiveIndex(itemCount - 1);
         focusItem(itemCount - 1);

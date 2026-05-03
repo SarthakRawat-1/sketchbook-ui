@@ -1,7 +1,17 @@
 import React, { useId, useState } from "react";
-import { cn, SketchPaper, SketchBorder, useSketchSize, SK, SK_DISABLED } from "../../lib";
+import {
+  cn,
+  SketchPaper,
+  SketchBorder,
+  useSketchSize,
+  SK,
+  SK_DISABLED,
+} from "../../lib";
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> {
   size?: "sm" | "md" | "lg";
   label?: string;
   // Customization props
@@ -39,13 +49,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       style: externalStyle,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(defaultValue || "");
 
     // Use controlled value if provided, otherwise use internal state
-    const value = controlledValue !== undefined ? controlledValue : internalValue;
+    const value =
+      controlledValue !== undefined ? controlledValue : internalValue;
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
@@ -66,15 +77,36 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     // Size configurations
     const sizeConfig = {
-      sm: { width: 200, height: 50, fontSize: "1rem", labelSize: "1.1rem", padding: "8px 16px" },
-      md: { width: 280, height: 60, fontSize: "1.2rem", labelSize: "1.25rem", padding: "12px 20px" },
-      lg: { width: 360, height: 70, fontSize: "1.4rem", labelSize: "1.4rem", padding: "16px 24px" }
+      sm: {
+        width: 200,
+        height: 50,
+        fontSize: "1rem",
+        labelSize: "1.1rem",
+        padding: "8px 16px",
+      },
+      md: {
+        width: 280,
+        height: 60,
+        fontSize: "1.2rem",
+        labelSize: "1.25rem",
+        padding: "12px 20px",
+      },
+      lg: {
+        width: 360,
+        height: 70,
+        fontSize: "1.4rem",
+        labelSize: "1.4rem",
+        padding: "16px 24px",
+      },
     };
 
     const config = sizeConfig[size];
 
     // Dynamic sizing: measure container and grow beyond default if needed
-    const { ref: containerRef, w: measuredW } = useSketchSize<HTMLDivElement>(config.width, config.height);
+    const { ref: containerRef, w: measuredW } = useSketchSize<HTMLDivElement>(
+      config.width,
+      config.height,
+    );
     const w = measuredW;
     const h = config.height;
 
@@ -96,13 +128,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     // Disabled state overrides
-    const finalColors = disabled ? {
-      bg: SK_DISABLED.bg,
-      bgOverlay: SK_DISABLED.bgOverlay,
-      stroke: SK_DISABLED.stroke,
-      text: SK_DISABLED.text,
-      label: SK_DISABLED.text,
-    } : inputColors;
+    const finalColors = disabled
+      ? {
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+          label: SK_DISABLED.text,
+        }
+      : inputColors;
 
     const uid = useId();
     const linesId = `notebookLines${uid}`;
@@ -209,9 +243,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               filter: disabled
                 ? "drop-shadow(1px 2px 0px rgba(0,0,0,0.06)) grayscale(0.3) opacity(0.7)"
                 : isFocused
-                  ? 'drop-shadow(2px 3px 0px rgba(0,0,0,0.12)) drop-shadow(3px 5px 8px rgba(0,0,0,0.08))'
-                  : 'drop-shadow(1px 2px 0px rgba(0,0,0,0.08)) drop-shadow(2px 3px 6px rgba(0,0,0,0.05))',
-              transition: 'filter 0.3s ease',
+                  ? "drop-shadow(2px 3px 0px rgba(0,0,0,0.12)) drop-shadow(3px 5px 8px rgba(0,0,0,0.08))"
+                  : "drop-shadow(1px 2px 0px rgba(0,0,0,0.08)) drop-shadow(2px 3px 6px rgba(0,0,0,0.05))",
+              transition: "filter 0.3s ease",
             }}
           >
             <defs>
@@ -237,18 +271,31 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               </pattern>
             </defs>
 
-            <SketchPaper d={bgPath} w={w} h={h} fine
-              bg={finalColors.bg} overlay={finalColors.bgOverlay}
-              overlayOpacity={disabled ? "0.3" : "0.6"} noiseOpacity={0.12} />
+            <SketchPaper
+              d={bgPath}
+              w={w}
+              h={h}
+              fine
+              bg={finalColors.bg}
+              overlay={finalColors.bgOverlay}
+              overlayOpacity={disabled ? "0.3" : "0.6"}
+              noiseOpacity={0.12}
+            />
 
             {/* Notebook line */}
             <rect x="0" y="0" width={w} height={h} fill={`url(#${linesId})`} />
 
-            <SketchBorder d1={borderPath1} d2={borderPath2} stroke={finalColors.stroke}
-              w1={isFocused ? 3 : 2.2} dash="1.5,0.8"
-              o1={disabled ? 0.3 : (isFocused ? 0.9 : 0.75)}
-              o2={disabled ? 0.15 : 0.25} show={showBorder}
-              style={{ transition: 'all 0.3s ease' }} />
+            <SketchBorder
+              d1={borderPath1}
+              d2={borderPath2}
+              stroke={finalColors.stroke}
+              w1={isFocused ? 3 : 2.2}
+              dash="1.5,0.8"
+              o1={disabled ? 0.3 : isFocused ? 0.9 : 0.75}
+              o2={disabled ? 0.15 : 0.25}
+              show={showBorder}
+              style={{ transition: "all 0.3s ease" }}
+            />
 
             {/* Focus state: Extra emphasized stroke */}
             {showBorder && isFocused && !disabled && (
@@ -328,7 +375,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

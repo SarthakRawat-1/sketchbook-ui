@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { cn, SketchPaper, SK, SK_DISABLED, DISP_BADGE_ID, useSketchSize } from "../../lib";
+import {
+  cn,
+  SketchPaper,
+  SK,
+  SK_DISABLED,
+  DISP_BADGE_ID,
+  useSketchSize,
+} from "../../lib";
 
 export interface BadgeProps {
   children: React.ReactNode;
@@ -42,7 +49,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -66,24 +73,28 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     // Default typography with customization support
     const badgeTypography = {
-      fontSize: typography?.fontSize || (size === "sm" ? "1.1rem" : size === "md" ? "1.4rem" : "1.7rem"),
+      fontSize:
+        typography?.fontSize ||
+        (size === "sm" ? "1.1rem" : size === "md" ? "1.4rem" : "1.7rem"),
       fontWeight: typography?.fontWeight || "600",
       fontFamily: typography?.fontFamily || SK.font,
     };
 
     // Disabled state overrides
-    const disabledColors = disabled ? {
-      bg: SK_DISABLED.bg,
-      bgOverlay: SK_DISABLED.bg,
-      text: SK_DISABLED.text,
-      stroke: "#cccccc",
-    } : finalColors;
+    const disabledColors = disabled
+      ? {
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bg,
+          text: SK_DISABLED.text,
+          stroke: "#cccccc",
+        }
+      : finalColors;
 
     // --- Dynamic sizing: measure content and grow beyond minimum ---
     const defaultSizes = {
       sm: { width: 70, height: 60 },
       md: { width: 90, height: 78 },
-      lg: { width: 110, height: 96 }
+      lg: { width: 110, height: 96 },
     };
     const baseW = width || defaultSizes[size].width;
     const baseH = height || defaultSizes[size].height;
@@ -97,7 +108,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     const cx = w / 2;
 
     const irregularOffset = Math.min(w, h) * 0.05;
-    const wo = [0.3, -0.4, 0.2, -0.3, 0.4, -0.2, 0.1, -0.35, 0.25, -0.15, 0.35, -0.45];
+    const wo = [
+      0.3, -0.4, 0.2, -0.3, 0.4, -0.2, 0.1, -0.35, 0.25, -0.15, 0.35, -0.45,
+    ];
 
     // Top point
     const p1x = cx + wo[0] * irregularOffset;
@@ -145,7 +158,6 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         onMouseLeave={() => !disabled && setIsHovered(false)}
         {...props}
       >
-
         <span
           ref={sizerRef}
           aria-hidden="true"
@@ -171,12 +183,18 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           xmlns="http://www.w3.org/2000/svg"
           style={{
             display: "block",
-            filter: disabled ? "grayscale(0.3) opacity(0.7)" : "none"
+            filter: disabled ? "grayscale(0.3) opacity(0.7)" : "none",
           }}
         >
-          <SketchPaper d={mainPath} w={finalWidth} h={finalHeight}
-            bg={disabledColors.bg} overlay={disabledColors.bgOverlay}
-            overlayOpacity={0.5} noiseOpacity={0.15} />
+          <SketchPaper
+            d={mainPath}
+            w={finalWidth}
+            h={finalHeight}
+            bg={disabledColors.bg}
+            overlay={disabledColors.bgOverlay}
+            overlayOpacity={0.5}
+            noiseOpacity={0.15}
+          />
 
           {/* Primary sketchy border - main thick stroke */}
           <path
@@ -235,7 +253,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         </span>
       </span>
     );
-  }
+  },
 );
 
 Badge.displayName = "Badge";

@@ -1,8 +1,17 @@
 import React, { useId, useState } from "react";
-import { cn, SketchPaper, SketchBorder, useSketchSize, SK, SK_DISABLED } from "../../lib";
+import {
+  cn,
+  SketchPaper,
+  SketchBorder,
+  useSketchSize,
+  SK,
+  SK_DISABLED,
+} from "../../lib";
 
-export interface TextareaProps
-  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
+export interface TextareaProps extends Omit<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "size"
+> {
   size?: "sm" | "md" | "lg";
   label?: string;
   /** Show pencil-drawn notebook ruling lines. */
@@ -30,18 +39,27 @@ export interface TextareaProps
 /* ── Size configs ───────────────────────────── */
 const SIZE_CONFIG = {
   sm: {
-    minW: 260, minH: 120, lineH: 24,
-    fontSize: "1.1rem", labelSize: "1.15rem",
+    minW: 260,
+    minH: 120,
+    lineH: 24,
+    fontSize: "1.1rem",
+    labelSize: "1.15rem",
     padding: "10px 16px 10px 52px",
   },
   md: {
-    minW: 340, minH: 180, lineH: 30,
-    fontSize: "1.3rem", labelSize: "1.4rem",
+    minW: 340,
+    minH: 180,
+    lineH: 30,
+    fontSize: "1.3rem",
+    labelSize: "1.4rem",
     padding: "12px 20px 12px 60px",
   },
   lg: {
-    minW: 420, minH: 240, lineH: 36,
-    fontSize: "1.5rem", labelSize: "1.6rem",
+    minW: 420,
+    minH: 240,
+    lineH: 36,
+    fontSize: "1.5rem",
+    labelSize: "1.6rem",
     padding: "14px 24px 14px 68px",
   },
 } as const;
@@ -79,28 +97,31 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const sc = SIZE_CONFIG[size];
 
     // Dynamic sizing — width grows with container, height is fixed from size config
-    const { ref: containerRef, w } = useSketchSize<HTMLDivElement>(sc.minW, sc.minH);
+    const { ref: containerRef, w } = useSketchSize<HTMLDivElement>(
+      sc.minW,
+      sc.minH,
+    );
     const h = sc.minH;
 
     const c = disabled
       ? {
-        bg: SK_DISABLED.bg,
-        bgOverlay: SK_DISABLED.bgOverlay,
-        stroke: SK_DISABLED.stroke,
-        text: SK_DISABLED.text,
-        label: SK_DISABLED.text,
-        lineColor: colors?.lineColor ?? "#ccc",
-        marginColor: colors?.marginColor ?? "#ccc",
-      }
+          bg: SK_DISABLED.bg,
+          bgOverlay: SK_DISABLED.bgOverlay,
+          stroke: SK_DISABLED.stroke,
+          text: SK_DISABLED.text,
+          label: SK_DISABLED.text,
+          lineColor: colors?.lineColor ?? "#ccc",
+          marginColor: colors?.marginColor ?? "#ccc",
+        }
       : {
-        bg: colors?.bg ?? SK.bg,
-        bgOverlay: colors?.bgOverlay ?? SK.bgOverlay,
-        stroke: colors?.stroke ?? SK.stroke,
-        text: colors?.text ?? SK.text,
-        label: colors?.label ?? SK.text,
-        lineColor: colors?.lineColor ?? "#d0c9bc",
-        marginColor: colors?.marginColor ?? "#e8a5a5",
-      };
+          bg: colors?.bg ?? SK.bg,
+          bgOverlay: colors?.bgOverlay ?? SK.bgOverlay,
+          stroke: colors?.stroke ?? SK.stroke,
+          text: colors?.text ?? SK.text,
+          label: colors?.label ?? SK.text,
+          lineColor: colors?.lineColor ?? "#d0c9bc",
+          marginColor: colors?.marginColor ?? "#e8a5a5",
+        };
 
     const font = typography?.fontFamily ?? SK.font;
 
@@ -252,7 +273,13 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
             {/* Notebook ruling lines */}
             {showLines && (
-              <rect x="0" y="0" width={w} height={h} fill={`url(#${linesPatternId})`} />
+              <rect
+                x="0"
+                y="0"
+                width={w}
+                height={h}
+                fill={`url(#${linesPatternId})`}
+              />
             )}
 
             {/* Red margin line — wobbly vertical */}

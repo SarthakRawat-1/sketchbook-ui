@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "react-rough-notation": "^1.0.8",
     "tailwind-merge": "^3.3.1"
   },
   "peerDependencies": {
@@ -82,6 +83,7 @@
     "eslint-plugin-storybook": "^9.1.13",
     "globals": "^16.4.0",
     "playwright": "^1.56.1",
+    "prettier": "^3.8.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "rimraf": "^6.1.3",

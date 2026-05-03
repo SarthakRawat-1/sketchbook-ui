@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { cn, SketchPaper, SketchBorder, useSketchSize, SK } from "../../lib";
 
-export interface TooltipProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "color"> {
+export interface TooltipProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "content" | "color"
+> {
   content: React.ReactNode;
   placement?: "top" | "bottom" | "left" | "right";
   openDelay?: number;
@@ -186,18 +188,34 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     const tail = tailPath(w, h, placement);
 
     /* ── positioning offset for the bubble ── */
-    const gapTB = TAIL_H + 4;        // top/bottom tail + breathing room
-    const gapLR = TAIL_H * 0.7 + 4;  // left/right uses shorter tail
+    const gapTB = TAIL_H + 4; // top/bottom tail + breathing room
+    const gapLR = TAIL_H * 0.7 + 4; // left/right uses shorter tail
     const posStyle: React.CSSProperties = (() => {
       switch (placement) {
         case "top":
-          return { bottom: "100%", left: "50%", transform: `translateX(-50%) translateY(-${gapTB}px)` };
+          return {
+            bottom: "100%",
+            left: "50%",
+            transform: `translateX(-50%) translateY(-${gapTB}px)`,
+          };
         case "bottom":
-          return { top: "100%", left: "50%", transform: `translateX(-50%) translateY(${gapTB}px)` };
+          return {
+            top: "100%",
+            left: "50%",
+            transform: `translateX(-50%) translateY(${gapTB}px)`,
+          };
         case "left":
-          return { right: "100%", top: "50%", transform: `translateY(-50%) translateX(-${gapLR}px)` };
+          return {
+            right: "100%",
+            top: "50%",
+            transform: `translateY(-50%) translateX(-${gapLR}px)`,
+          };
         case "right":
-          return { left: "100%", top: "50%", transform: `translateY(-50%) translateX(${gapLR}px)` };
+          return {
+            left: "100%",
+            top: "50%",
+            transform: `translateY(-50%) translateX(${gapLR}px)`,
+          };
       }
     })();
 
@@ -245,10 +263,22 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
             viewBox={`0 0 ${w} ${h}`}
           >
             {/* Paper background */}
-            <SketchPaper d={bgD} w={w} h={h} bg={c.bg} overlay={c.bgOverlay} fine />
+            <SketchPaper
+              d={bgD}
+              w={w}
+              h={h}
+              bg={c.bg}
+              overlay={c.bgOverlay}
+              fine
+            />
 
             {/* Border */}
-            <SketchBorder d1={bd1} d2={bd2} stroke={c.stroke} show={showBorder} />
+            <SketchBorder
+              d1={bd1}
+              d2={bd2}
+              stroke={c.stroke}
+              show={showBorder}
+            />
 
             {/* Speech-bubble tail — bg fill covers the border at junction,
                 then overlay tints to match paper, then outline strokes the outer edge */}

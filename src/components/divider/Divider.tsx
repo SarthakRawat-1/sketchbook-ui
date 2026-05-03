@@ -1,7 +1,10 @@
 import React from "react";
 import { cn, SK, DISP_DIVIDER_ID } from "../../lib";
 
-export interface DividerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+export interface DividerProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "color"
+> {
   orientation?: "horizontal" | "vertical";
   variant?: "scribble" | "dashed" | "dots" | "zigzag";
   /** Stroke / dot fill color. Defaults to the sketch theme stroke color. */
@@ -19,7 +22,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       className = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     // Dimensions based on orientation
     const width = orientation === "horizontal" ? 600 : 40;
@@ -28,7 +31,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     // Base paths
     const getPath = (
       v: "scribble" | "dashed" | "dots" | "zigzag",
-      o: "horizontal" | "vertical"
+      o: "horizontal" | "vertical",
     ) => {
       if (o === "horizontal") {
         switch (v) {
@@ -237,7 +240,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 Divider.displayName = "Divider";
