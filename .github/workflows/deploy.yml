@@ -34,6 +34,10 @@ jobs:
         env:
           CI: true
 
+      - run: npm run build:lib
+        env:
+          CI: true
+
       - run: npm run build-storybook -- --output-dir storybook-static
 
       - run: |
