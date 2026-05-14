@@ -138,7 +138,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
     // Click outside handler
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
+      const handleClickOutside = (event: PointerEvent) => {
         if (
           containerRef.current &&
           !containerRef.current.contains(event.target as Node)
@@ -148,12 +148,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       };
 
       if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
+        const id = requestAnimationFrame(() => {
+          document.addEventListener("pointerdown", handleClickOutside);
+        });
+        return () => {
+          cancelAnimationFrame(id);
+          document.removeEventListener("pointerdown", handleClickOutside);
+        };
       }
 
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+      return undefined;
     }, [isOpen]);
 
     const handleSelect = (value: string) => {

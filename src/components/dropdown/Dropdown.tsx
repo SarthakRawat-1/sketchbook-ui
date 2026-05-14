@@ -147,7 +147,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
     // Click outside handler
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
+      const handleClickOutside = (event: PointerEvent) => {
         if (
           containerRef.current &&
           !containerRef.current.contains(event.target as Node)
@@ -157,12 +157,16 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       };
 
       if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
+        const id = requestAnimationFrame(() => {
+          document.addEventListener("pointerdown", handleClickOutside);
+        });
+        return () => {
+          cancelAnimationFrame(id);
+          document.removeEventListener("pointerdown", handleClickOutside);
+        };
       }
 
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+      return undefined;
     }, [isOpen]);
 
     const handleItemClick = (item: DropdownItem) => {
