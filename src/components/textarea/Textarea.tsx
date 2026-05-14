@@ -188,6 +188,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {/* ── Label ── */}
         {label && (
           <label
+            htmlFor={uid}
             className="sketch-textarea__label"
             style={{
               fontFamily: font,
@@ -318,6 +319,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           {/* ── Actual textarea ── */}
           <textarea
             ref={ref}
+            id={uid}
             value={currentValue}
             onChange={(e) => {
               if (!isControlled) setInternalValue(e.target.value);
