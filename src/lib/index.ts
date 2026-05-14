@@ -7,6 +7,8 @@ export {
   SketchPaper,
   SketchBorder,
   noiseUrl,
+  useNoiseUrl,
+  useDispFilterId,
   useSketchSize,
   NOISE_ID,
   NOISE_FINE_ID,
