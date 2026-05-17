@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import {
   Accordion,
@@ -40,9 +40,49 @@ export default function App() {
     setNewsletterEmail("");
   };
 
+  const themes: Record<string, any> = {
+    paper: {
+      bg: "#faf7f0",
+      text: "#2a2a2a",
+      navBg: "#faf7f0",
+      navBorder: "#e8e0d0",
+      newsletterBg: "#2a2a2a",
+      newsletterText: "#faf7f0",
+      heading: "#1a1a1a",
+      subtext: "#6b6460",
+    },
+    notebook: {
+      bg: "#fdf6e3",
+      text: "#657b83",
+      navBg: "#fdf6e3",
+      navBorder: "#eee8d5",
+      newsletterBg: "#073642",
+      newsletterText: "#fdf6e3",
+      heading: "#002b36",
+      subtext: "#839496",
+    },
+    blueprint: {
+      bg: "#1e3a8a",
+      text: "#bfdbfe",
+      navBg: "#1e3a8a",
+      navBorder: "#1e40af",
+      newsletterBg: "#172554",
+      newsletterText: "#bfdbfe",
+      heading: "#eff6ff",
+      subtext: "#93c5fd",
+    },
+  };
+  const activeTheme = themes[theme] || themes.paper;
+
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+        minHeight: "100vh",
+        background: activeTheme.bg,
+        color: activeTheme.text,
+        fontSize: `${fontSize}px`,
+        transition: "background 0.3s, color 0.3s, font-size 0.3s",
+      }}
     >
       <ToastContainer
         toasts={toasts}
@@ -57,11 +97,12 @@ export default function App() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "16px 48px",
-          background: "#faf7f0",
-          borderBottom: "2px solid #e8e0d0",
+          background: activeTheme.navBg,
+          borderBottom: `2px solid ${activeTheme.navBorder}`,
           position: "sticky",
           top: 0,
           zIndex: 100,
+          transition: "background 0.3s, border-color 0.3s",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -155,7 +196,7 @@ export default function App() {
             fontWeight: 700,
             lineHeight: 1.1,
             margin: "0 0 24px",
-            color: "#1a1a1a",
+            color: activeTheme.heading,
           }}
         >
           <RoughNotationGroup show>
@@ -186,7 +227,7 @@ export default function App() {
         <p
           style={{
             fontSize: "1.1rem",
-            color: "#6b6460",
+            color: activeTheme.subtext,
             lineHeight: 1.8,
             maxWidth: 540,
             margin: "0 auto 40px",
@@ -333,7 +374,7 @@ export default function App() {
                 style={{
                   fontSize: "0.92rem",
                   lineHeight: 1.7,
-                  color: "#6b6460",
+                  color: activeTheme.subtext,
                   margin: 0,
                 }}
               >
@@ -405,7 +446,7 @@ export default function App() {
         >
           Make it yours
         </h2>
-        <p style={{ color: "#6b6460", lineHeight: 1.75, margin: "0 0 40px" }}>
+        <p style={{ color: activeTheme.subtext, lineHeight: 1.75, margin: "0 0 40px" }}>
           Every control below is a live Sketchbook UI component. Tweak them —
           they actually work.
         </p>
@@ -553,9 +594,10 @@ export default function App() {
       {/* NEWSLETTER */}
       <section
         style={{
-          background: "#2a2a2a",
+          background: activeTheme.newsletterBg,
           padding: "80px 32px",
           textAlign: "center",
+          transition: "background 0.3s",
         }}
       >
         <div style={{ maxWidth: 520, margin: "0 auto" }}>
@@ -564,13 +606,13 @@ export default function App() {
               fontFamily: "'Caveat', cursive",
               fontSize: "2.3rem",
               fontWeight: 700,
-              color: "#faf7f0",
+              color: activeTheme.newsletterText,
               margin: "0 0 12px",
             }}
           >
             Stay in the loop
           </h2>
-          <p style={{ color: "#a09890", lineHeight: 1.75, margin: "0 0 32px" }}>
+          <p style={{ color: activeTheme.newsletterText, opacity: 0.8, lineHeight: 1.75, margin: "0 0 32px" }}>
             Release notes, new components, and the occasional design tip — no
             more than twice a month. No spam, ever.
           </p>
@@ -594,7 +636,7 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer style={{ padding: "40px 48px", background: activeTheme.navBg, transition: "background 0.3s" }}>
         <Divider style={{ marginBottom: 32 }} />
         <div
           style={{
