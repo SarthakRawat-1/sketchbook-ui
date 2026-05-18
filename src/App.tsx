@@ -66,7 +66,7 @@ export default function App() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <img
-            src="./logo.png"
+            src="/logo.png"
             alt="Sketchbook UI Logo"
             style={{ width: "32px", height: "32px", objectFit: "contain" }}
           />
@@ -607,7 +607,7 @@ export default function App() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <img
-              src="./logo.png"
+              src="/logo.png"
               alt="Sketchbook UI Logo"
               style={{ width: "24px", height: "24px", objectFit: "contain" }}
             />
