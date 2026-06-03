@@ -191,7 +191,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             role="button"
             tabIndex={0}
             aria-haspopup="menu"
-            aria-controls={menuId}
+            aria-controls={isOpen ? menuId : undefined}
             aria-expanded={isOpen}
             onClick={handleToggle}
             onKeyDown={(e) => {
@@ -210,7 +210,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             onClick={handleToggle}
             disabled={disabled}
             aria-haspopup="menu"
-            aria-controls={menuId}
+            aria-controls={isOpen ? menuId : undefined}
             aria-expanded={isOpen}
             onKeyDown={handleTriggerKeyDown}
             onMouseEnter={() => setTriggerHovered(true)}
