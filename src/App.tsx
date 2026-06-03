@@ -30,6 +30,30 @@ export default function App() {
 
   const { toasts, showToast, dismissToast } = useToast();
 
+  const themeStyles = {
+paper: {
+background: "#faf7f0",
+color: "#2a2a2a",
+navBackground: "#faf7f0",
+border: "#e8e0d0",
+},
+notebook: {
+background: "#f4ecd8",
+color: "#4a4035",
+navBackground: "#f4ecd8",
+border: "#d8cbb2",
+},
+blueprint: {
+background: "#1e293b",
+color: "#f8fafc",
+navBackground: "#0f172a",
+border: "#334155",
+},
+};
+
+const currentTheme = themeStyles[theme as keyof typeof themeStyles];
+
+
   /* handlers */
   const handleNewsletter = () => {
     if (!newsletterEmail) {
@@ -42,7 +66,12 @@ export default function App() {
 
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+  minHeight: "100vh",
+  background: currentTheme.background,
+  color: currentTheme.color,
+  transition: "all 0.3s ease",
+}}
     >
       <ToastContainer
         toasts={toasts}
@@ -57,8 +86,8 @@ export default function App() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "16px 48px",
-          background: "#faf7f0",
-          borderBottom: "2px solid #e8e0d0",
+          background: currentTheme.navBackground,
+borderBottom: `2px solid ${currentTheme.border}`,
           position: "sticky",
           top: 0,
           zIndex: 100,
@@ -594,7 +623,12 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer
+  style={{
+    padding: "40px 48px",
+    background: currentTheme.navBackground,
+  }}
+>
         <Divider style={{ marginBottom: 32 }} />
         <div
           style={{
