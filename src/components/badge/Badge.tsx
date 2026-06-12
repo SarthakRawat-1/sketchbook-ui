@@ -53,6 +53,12 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    if (process.env.NODE_ENV !== "production" && colors?.border) {
+      console.warn(
+        'Badge: the "border" prop is deprecated. Use "stroke" instead.',
+      );
+    }
+
     // Default variant color mappings
     const defaultVariants = {
       default: { bg: SK.bg, text: SK.text, border: SK.stroke },
