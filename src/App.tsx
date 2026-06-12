@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import {
   Accordion,
