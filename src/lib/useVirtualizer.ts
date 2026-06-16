@@ -21,6 +21,8 @@ export function useVirtualizer({
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
   const rafId = useRef(0);
+  const overscanRef = useRef(overscan);
+  overscanRef.current = overscan;
 
   // Re-run whenever the container element changes (e.g. conditional rendering)
   useEffect(() => {
@@ -51,14 +53,15 @@ export function useVirtualizer({
       container.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId.current);
     };
-  }, [count, itemHeight, containerRef, overscan]);
+  }, [count, itemHeight, containerRef]);
 
+  const currentOverscan = overscanRef.current;
   const totalHeight = count * itemHeight;
 
-  const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
+  const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - currentOverscan);
   const endIndex = Math.min(
     count - 1,
-    Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,
+    Math.ceil((scrollTop + containerHeight) / itemHeight) + currentOverscan,
   );
 
   const virtualItems: VirtualItem[] = [];
