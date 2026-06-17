@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useId } from "react";
 import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
 
 export interface SliderProps extends Omit<
@@ -87,6 +87,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     const [isDragging, setIsDragging] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const uid = useId();
 
     const currentValue = isControlled ? controlledValue : internalValue;
     const percentage = Math.min(
@@ -197,6 +198,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         {label && (
           <div className="sketch-slider__label">
             <label
+              htmlFor={uid}
               style={{
                 fontFamily: font,
                 fontSize: typography?.fontSize ?? sc.fontSize,
@@ -232,6 +234,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
           {/* Hidden native input for keyboard / a11y */}
           <input
             type="range"
+            id={uid}
             min={min}
             max={max}
             step={step}
