@@ -95,6 +95,9 @@ function CloseIcon({ stroke }: { stroke: string }) {
   );
 }
 
+let openModalCount = 0;
+const openModalsStack: string[] = [];
+
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   (
     {
@@ -135,24 +138,44 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     /* ── Body scroll lock ─────────────────────────────────── */
     useEffect(() => {
       if (isOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
+        openModalCount++;
+        if (openModalCount === 1) {
+          document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+          openModalCount--;
+          if (openModalCount === 0) {
+            document.body.style.overflow = "";
+          }
+        };
       }
-      return () => {
-        document.body.style.overflow = "";
-      };
     }, [isOpen]);
 
     /* ── Escape key ───────────────────────────────────────── */
     useEffect(() => {
-      if (!isOpen || !closeOnEscape) return;
+      if (!isOpen) return;
+
+      openModalsStack.push(uid);
+
       const handler = (e: KeyboardEvent) => {
-        if (e.key === "Escape") onClose();
+        if (e.key === "Escape" && closeOnEscape) {
+          if (openModalsStack[openModalsStack.length - 1] === uid) {
+            onClose();
+          }
+        }
       };
+
       window.addEventListener("keydown", handler);
-      return () => window.removeEventListener("keydown", handler);
-    }, [isOpen, closeOnEscape, onClose]);
+
+      return () => {
+        window.removeEventListener("keydown", handler);
+        const index = openModalsStack.indexOf(uid);
+        if (index !== -1) {
+          openModalsStack.splice(index, 1);
+        }
+      };
+    }, [isOpen, closeOnEscape, onClose, uid]);
 
     /* ── Focus management: save previous, auto-focus modal ── */
     useEffect(() => {
