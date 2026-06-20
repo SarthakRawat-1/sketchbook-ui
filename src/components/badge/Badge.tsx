@@ -4,7 +4,7 @@ import {
   SketchPaper,
   SK,
   SK_DISABLED,
-  DISP_BADGE_ID,
+  useDispFilterId,
   useSketchSize,
 } from "../../lib";
 
@@ -52,6 +52,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
+    const dispBadgeId = useDispFilterId("dispBadge");
 
     // Default variant color mappings
     const defaultVariants = {
@@ -206,7 +207,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             strokeLinejoin="round"
             opacity={disabled ? "0.4" : "0.85"}
             strokeDasharray="1,0.5"
-            filter={`url(#${DISP_BADGE_ID})`}
+            filter={`url(#${dispBadgeId})`}
           />
 
           {/* Secondary sketchy border - offset thinner stroke */}

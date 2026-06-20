@@ -1,5 +1,21 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useId, createContext, useContext } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
+
+type SketchIds = {
+  noise: string;
+  noiseFine: string;
+  dispAvatar: string;
+  dispBadge: string;
+  dispDivider: string;
+  dispSlider: string;
+  dispProgress: string;
+};
+
+const SketchIdContext = createContext<SketchIds | null>(null);
+
+function useSketchIds(): SketchIds | null {
+  return useContext(SketchIdContext);
+}
 
 export const NOISE_ID = "sk-n";
 export const NOISE_FINE_ID = "sk-nf";
@@ -9,10 +25,47 @@ export const DISP_DIVIDER_ID = "sk-dd";
 export const DISP_SLIDER_ID = "sk-ds";
 export const DISP_PROGRESS_ID = "sk-dp";
 
+const defaultIds: SketchIds = {
+  noise: NOISE_ID,
+  noiseFine: NOISE_FINE_ID,
+  dispAvatar: DISP_AVATAR_ID,
+  dispBadge: DISP_BADGE_ID,
+  dispDivider: DISP_DIVIDER_ID,
+  dispSlider: DISP_SLIDER_ID,
+  dispProgress: DISP_PROGRESS_ID,
+};
+
+type DispType = keyof Pick<SketchIds, "dispAvatar" | "dispBadge" | "dispDivider" | "dispSlider" | "dispProgress">;
+
+/** @internal resolves the current noise pattern URL. */
+// eslint-disable-next-line react-refresh/only-export-components
+export function useNoiseUrl(fine = false): string {
+  const ids = useSketchIds() ?? defaultIds;
+  return `url(#${fine ? ids.noiseFine : ids.noise}-np)`;
+}
+
+/** @internal resolves the displacement filter ID for a given type. */
+// eslint-disable-next-line react-refresh/only-export-components
+export function useDispFilterId(type: DispType): string {
+  const ids = useSketchIds() ?? defaultIds;
+  return ids[type];
+}
+
 /** Place once at app root. Provides shared SVG noise filters and patterns. */
 export function SketchProvider({ children }: { children: ReactNode }) {
+  const uid = useId();
+  const ids: SketchIds = {
+    noise: `sk-${uid}-n`,
+    noiseFine: `sk-${uid}-nf`,
+    dispAvatar: `sk-${uid}-da`,
+    dispBadge: `sk-${uid}-db`,
+    dispDivider: `sk-${uid}-dd`,
+    dispSlider: `sk-${uid}-ds`,
+    dispProgress: `sk-${uid}-dp`,
+  };
+
   return (
-    <>
+    <SketchIdContext.Provider value={ids}>
       <svg
         width="0"
         height="0"
@@ -20,7 +73,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
         aria-hidden="true"
       >
         <defs>
-          <filter id={`${NOISE_ID}-n`}>
+          <filter id={`${ids.noise}-n`}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.9}
@@ -30,7 +83,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feColorMatrix type="saturate" values="0" />
           </filter>
           <pattern
-            id={`${NOISE_ID}-np`}
+            id={`${ids.noise}-np`}
             x="0"
             y="0"
             width="100"
@@ -40,12 +93,12 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <rect
               width="100"
               height="100"
-              filter={`url(#${NOISE_ID}-n)`}
+              filter={`url(#${ids.noise}-n)`}
               opacity="0.4"
             />
           </pattern>
 
-          <filter id={`${NOISE_FINE_ID}-n`}>
+          <filter id={`${ids.noiseFine}-n`}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.85}
@@ -55,7 +108,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feColorMatrix type="saturate" values="0" />
           </filter>
           <pattern
-            id={`${NOISE_FINE_ID}-np`}
+            id={`${ids.noiseFine}-np`}
             x="0"
             y="0"
             width="100"
@@ -65,12 +118,12 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <rect
               width="100"
               height="100"
-              filter={`url(#${NOISE_FINE_ID}-n)`}
+              filter={`url(#${ids.noiseFine}-n)`}
               opacity="0.4"
             />
           </pattern>
 
-          <filter id={DISP_AVATAR_ID}>
+          <filter id={ids.dispAvatar}>
             <feTurbulence
               baseFrequency={0.03}
               numOctaves={3}
@@ -86,7 +139,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             />
           </filter>
 
-          <filter id={DISP_BADGE_ID}>
+          <filter id={ids.dispBadge}>
             <feTurbulence
               baseFrequency={0.03}
               numOctaves={2}
@@ -100,7 +153,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             />
           </filter>
 
-          <filter id={DISP_DIVIDER_ID}>
+          <filter id={ids.dispDivider}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.08}
@@ -110,7 +163,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale={2} />
           </filter>
 
-          <filter id={DISP_SLIDER_ID}>
+          <filter id={ids.dispSlider}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.8}
@@ -120,7 +173,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale={2} />
           </filter>
 
-          <filter id={DISP_PROGRESS_ID}>
+          <filter id={ids.dispProgress}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.05}
@@ -132,7 +185,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
         </defs>
       </svg>
       {children}
-    </>
+    </SketchIdContext.Provider>
   );
 }
 
