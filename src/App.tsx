@@ -20,15 +20,51 @@ import {
   Tooltip,
 } from "./components";
 
+const THEME_STYLES = {
+  paper: {
+    pageBg: "#faf7f0",
+    pageText: "#2a2a2a",
+    surfaceBg: "#faf7f0",
+    surfaceAlt: "#fffdf8",
+    border: "#e8e0d0",
+  },
+  notebook: {
+    pageBg: "#f7f4ee",
+    pageText: "#282420",
+    surfaceBg: "#f7f4ee",
+    surfaceAlt: "#fffef8",
+    border: "#ddd5c6",
+  },
+  blueprint: {
+    pageBg: "#172033",
+    pageText: "#edf4ff",
+    surfaceBg: "#1c2840",
+    surfaceAlt: "#22314d",
+    border: "#31496f",
+  },
+} as const;
+
 export default function App() {
-  const [theme, setTheme] = useState("paper");
+  const [theme, setTheme] = useState<keyof typeof THEME_STYLES>("paper");
   const [fontSize, setFontSize] = useState(16);
+  const [wobble, setWobble] = useState(0.6);
+  const [shadow, setShadow] = useState(0.55);
+  const [noise, setNoise] = useState(0.2);
+  const [strokeWeight, setStrokeWeight] = useState(2.2);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const { toasts, showToast, dismissToast } = useToast();
+  const themeStyles = THEME_STYLES[theme];
+  const wobbleDeg = (wobble - 0.5) * 1.8;
+  const shadowStrength = 0.12 + shadow * 0.14;
+  const noiseOpacity = 0.04 + noise * 0.18;
+  const previewFrameStyle = {
+    transform: `rotate(${wobbleDeg}deg)`,
+    filter: `drop-shadow(${3 + shadow * 5}px ${4 + shadow * 6}px ${6 + shadow * 16}px rgba(0, 0, 0, ${shadowStrength}))`,
+  } as const;
 
   /* handlers */
   const handleNewsletter = () => {
@@ -344,6 +380,198 @@ export default function App() {
         </div>
       </section>
 
+      {/* PLAYGROUND */}
+      <section
+        style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px 88px" }}
+      >
+        <h2
+          style={{
+            fontFamily: "'Caveat', cursive",
+            fontSize: "2.3rem",
+            fontWeight: 700,
+            textAlign: "center",
+            marginBottom: 16,
+          }}
+        >
+          Sketch Intensity Playground
+        </h2>
+        <p
+          style={{
+            textAlign: "center",
+            maxWidth: 760,
+            margin: "0 auto 40px",
+            lineHeight: 1.75,
+            color: themeStyles.pageText,
+            opacity: 0.74,
+          }}
+        >
+          Tune the wobble, stroke, shadow, and paper noise in real time to see
+          how the library feels when the sketch energy moves up or down.
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(280px, 360px) minmax(0, 1fr)",
+            gap: 28,
+            alignItems: "start",
+          }}
+        >
+          <Card style={{ padding: 28 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
+                marginBottom: 24,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
+                }}
+              >
+                Control panel
+              </span>
+              <Button
+                size="sm"
+                onClick={() => {
+                  setWobble(0.6);
+                  setShadow(0.55);
+                  setNoise(0.2);
+                  setStrokeWeight(2.2);
+                }}
+              >
+                Reset
+              </Button>
+            </div>
+
+            <div style={{ display: "grid", gap: 24 }}>
+              <div>
+                <p style={{ margin: "0 0 10px", color: "#5a5248" }}>
+                  Wobble intensity
+                </p>
+                <Slider min={0} max={1} step={0.01} value={wobble} onChange={setWobble} />
+              </div>
+              <div>
+                <p style={{ margin: "0 0 10px", color: "#5a5248" }}>
+                  Shadow roughness
+                </p>
+                <Slider min={0} max={1} step={0.01} value={shadow} onChange={setShadow} />
+              </div>
+              <div>
+                <p style={{ margin: "0 0 10px", color: "#5a5248" }}>
+                  Paper noise
+                </p>
+                <Slider min={0} max={1} step={0.01} value={noise} onChange={setNoise} />
+              </div>
+              <div>
+                <p style={{ margin: "0 0 10px", color: "#5a5248" }}>
+                  Stroke thickness
+                </p>
+                <Slider
+                  min={1.2}
+                  max={4}
+                  step={0.1}
+                  value={strokeWeight}
+                  onChange={setStrokeWeight}
+                />
+              </div>
+            </div>
+          </Card>
+
+          <div style={{ display: "grid", gap: 24 }}>
+            <Card style={{ padding: 28 }}>
+              <div
+                style={{
+                  ...previewFrameStyle,
+                  background: `linear-gradient(135deg, rgba(255,255,255,${noiseOpacity}), rgba(255,255,255,${noiseOpacity / 2}))`,
+                  border: `${strokeWeight}px solid ${themeStyles.border}`,
+                  borderRadius: 24,
+                  padding: 24,
+                  display: "grid",
+                  gap: 18,
+                }}
+              >
+                <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                  <Button
+                    size="md"
+                    style={{
+                      transform: `rotate(${wobbleDeg * 0.6}deg)`,
+                      filter: `drop-shadow(${2 + shadow * 3}px ${3 + shadow * 4}px ${5 + shadow * 8}px rgba(0,0,0,${shadowStrength}))`,
+                    }}
+                  >
+                    Live button
+                  </Button>
+                  <div
+                    style={{
+                      transform: `rotate(${-wobbleDeg * 0.5}deg)`,
+                      boxShadow: `0 0 0 ${strokeWeight - 1}px ${themeStyles.border}`,
+                      borderRadius: 999,
+                    }}
+                  >
+                    <Badge variant="info" size="sm">
+                      {strokeWeight.toFixed(1)} px stroke
+                    </Badge>
+                  </div>
+                </div>
+                <Input
+                  label="Preview note"
+                  defaultValue="This is what the texture feels like."
+                  style={{
+                    width: "100%",
+                    maxWidth: 420,
+                    transform: `rotate(${wobbleDeg * 0.35}deg)`,
+                  }}
+                />
+              </div>
+            </Card>
+
+            <Card style={{ padding: 28 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gap: 16,
+                }}
+              >
+                {[
+                  ["Wobble", `${(wobble * 100).toFixed(0)}%`],
+                  ["Shadow", `${(shadow * 100).toFixed(0)}%`],
+                  ["Noise", `${(noise * 100).toFixed(0)}%`],
+                  ["Stroke", `${strokeWeight.toFixed(1)} px`],
+                ].map(([label, value]) => (
+                  <div
+                    key={label}
+                    style={{
+                      padding: 16,
+                      border: `2px dashed ${themeStyles.border}`,
+                      borderRadius: 18,
+                      background: themeStyles.surfaceAlt,
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "'Caveat', cursive",
+                        fontSize: "1.3rem",
+                        fontWeight: 700,
+                        marginBottom: 4,
+                      }}
+                    >
+                      {label}
+                    </div>
+                    <div style={{ opacity: 0.75 }}>{value}</div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* TESTIMONIALS */}
       <section
         style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 32px" }}
@@ -428,7 +656,9 @@ export default function App() {
                 { label: "Blueprint (dark)", value: "blueprint" },
               ]}
               defaultValue={theme}
-              onChange={setTheme}
+              onChange={(value) =>
+                setTheme(value as keyof typeof THEME_STYLES)
+              }
               placeholder="Choose a theme…"
             />
           </div>
