@@ -3,6 +3,7 @@ export * from "./avatar";
 export * from "./badge";
 export * from "./button";
 export * from "./card";
+export * from "./sticky-note";
 export * from "./checkbox";
 export * from "./divider";
 export * from "./dropdown";
