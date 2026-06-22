@@ -82,12 +82,22 @@ function App() {
 </Button>
 \`\`\`
 
+If your app loads a local font, pass its family name through
+\`typography.fontFamily\` and the button will use it directly.
+
+## Full Width
+
+\`\`\`tsx
+<Button fullWidth>Stretch to container</Button>
+\`\`\`
+
 ## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | \`size\` | \`"sm" \\| "md" \\| "lg"\` | \`"md"\` | Button size |
 | \`iconOnly\` | \`boolean\` | \`false\` | Square button for icons |
+| \`fullWidth\` | \`boolean\` | \`false\` | Stretch the button to fill its container |
 | \`disabled\` | \`boolean\` | \`false\` | Disabled state |
 | \`showBorder\` | \`boolean\` | \`true\` | Show sketchy border |
 | \`colors\` | \`object\` | - | Custom color scheme |
@@ -226,6 +236,25 @@ export const DisabledStates: Story = {
       description: {
         story:
           "Disabled buttons have faded colors, reduced opacity, and no hover effects.",
+      },
+    },
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    children: "Stretch to container",
+    fullWidth: true,
+  },
+  render: (args) => (
+    <div style={{ width: "100%", maxWidth: 520, padding: "2rem" }}>
+      <Button {...args} />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Buttons can stretch to the full width of their parent container.",
       },
     },
   },
