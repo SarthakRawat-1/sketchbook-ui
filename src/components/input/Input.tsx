@@ -139,6 +139,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       : inputColors;
 
     const uid = useId();
+    const inputId = `input-${uid}`;
     const linesId = `notebookLines${uid}`;
 
     const bgPath = `M 8 6
@@ -200,6 +201,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {/* Label */}
         {label && (
           <label
+            htmlFor={inputId}
             style={{
               display: "block",
               marginBottom: "0.5rem",
@@ -341,6 +343,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
           {/* Actual input element - absolutely positioned over the SVG */}
           <input
+            id={inputId}
             ref={ref}
             value={value}
             onChange={handleChange}
