@@ -208,6 +208,9 @@ const SketchRating = React.forwardRef<HTMLDivElement, SketchRatingProps>(
         <div
           role="radiogroup"
           aria-label={label ?? "Rating"}
+          aria-valuetext={`${displayValue.toFixed(
+            precision === 0.5 ? 1 : 0,
+          )} out of ${max} stars`}
           tabIndex={disabled ? -1 : 0}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
