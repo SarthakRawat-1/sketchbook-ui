@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useId, useState, useRef, useEffect, useCallback } from "react";
 import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
 
 export interface SliderProps extends Omit<
@@ -83,6 +83,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     ref,
   ) => {
     const isControlled = controlledValue !== undefined;
+    const sliderId = useId();
     const [internalValue, setInternalValue] = useState(defaultValue);
     const [isDragging, setIsDragging] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -197,6 +198,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         {label && (
           <div className="sketch-slider__label">
             <label
+              htmlFor={sliderId}
               style={{
                 fontFamily: font,
                 fontSize: typography?.fontSize ?? sc.fontSize,
@@ -231,6 +233,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         >
           {/* Hidden native input for keyboard / a11y */}
           <input
+            id={sliderId}
             type="range"
             min={min}
             max={max}
