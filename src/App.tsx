@@ -20,8 +20,71 @@ import {
   Tooltip,
 } from "./components";
 
+type ThemeName = "paper" | "notebook" | "blueprint";
+
+const THEME_TOKENS: Record<
+  ThemeName,
+  {
+    pageBg: string;
+    pageText: string;
+    mutedText: string;
+    surfaceBg: string;
+    surfaceBorder: string;
+    navBg: string;
+    navBorder: string;
+    footerBg: string;
+    footerText: string;
+    newsletterBg: string;
+    newsletterText: string;
+    newsletterMuted: string;
+  }
+> = {
+  paper: {
+    pageBg: "#faf7f0",
+    pageText: "#2a2a2a",
+    mutedText: "#6b6460",
+    surfaceBg: "#fffdf8",
+    surfaceBorder: "#e8e0d0",
+    navBg: "#faf7f0",
+    navBorder: "#e8e0d0",
+    footerBg: "#faf7f0",
+    footerText: "#5a5248",
+    newsletterBg: "#2a2a2a",
+    newsletterText: "#faf7f0",
+    newsletterMuted: "#a09890",
+  },
+  notebook: {
+    pageBg: "#fff8ea",
+    pageText: "#2e241a",
+    mutedText: "#6e6154",
+    surfaceBg: "#fffef8",
+    surfaceBorder: "#e6d4b9",
+    navBg: "#fff9ee",
+    navBorder: "#e0cda9",
+    footerBg: "#fff9ee",
+    footerText: "#6b5d50",
+    newsletterBg: "#3a2f27",
+    newsletterText: "#fff9ef",
+    newsletterMuted: "#d0bfae",
+  },
+  blueprint: {
+    pageBg: "#1f2735",
+    pageText: "#f5f7fb",
+    mutedText: "#c4cfdf",
+    surfaceBg: "#273244",
+    surfaceBorder: "#506078",
+    navBg: "#232d3d",
+    navBorder: "#44576f",
+    footerBg: "#232d3d",
+    footerText: "#d6deea",
+    newsletterBg: "#121824",
+    newsletterText: "#f1f4fa",
+    newsletterMuted: "#aebbd0",
+  },
+};
+
 export default function App() {
-  const [theme, setTheme] = useState("paper");
+  const [theme, setTheme] = useState<ThemeName>("paper");
   const [fontSize, setFontSize] = useState(16);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
@@ -29,6 +92,7 @@ export default function App() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const { toasts, showToast, dismissToast } = useToast();
+  const themeTokens = THEME_TOKENS[theme];
 
   /* handlers */
   const handleNewsletter = () => {
@@ -42,7 +106,12 @@ export default function App() {
 
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+        minHeight: "100vh",
+        background: themeTokens.pageBg,
+        color: themeTokens.pageText,
+        transition: "background 240ms ease, color 240ms ease",
+      }}
     >
       <ToastContainer
         toasts={toasts}
@@ -57,11 +126,12 @@ export default function App() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "16px 48px",
-          background: "#faf7f0",
-          borderBottom: "2px solid #e8e0d0",
+          background: themeTokens.navBg,
+          borderBottom: `2px solid ${themeTokens.navBorder}`,
           position: "sticky",
           top: 0,
           zIndex: 100,
+          transition: "background 240ms ease, border-color 240ms ease",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -141,6 +211,11 @@ export default function App() {
           margin: "0 auto",
           padding: "96px 32px 72px",
           textAlign: "center",
+          background: themeTokens.surfaceBg,
+          border: `2px solid ${themeTokens.surfaceBorder}`,
+          borderRadius: 32,
+          boxShadow: "6px 8px 0px rgba(0,0,0,0.08)",
+          transition: "background 240ms ease, border-color 240ms ease",
         }}
       >
         <span style={{ marginBottom: 20, display: "inline-block" }}>
@@ -155,7 +230,7 @@ export default function App() {
             fontWeight: 700,
             lineHeight: 1.1,
             margin: "0 0 24px",
-            color: "#1a1a1a",
+            color: themeTokens.pageText,
           }}
         >
           <RoughNotationGroup show>
@@ -186,7 +261,7 @@ export default function App() {
         <p
           style={{
             fontSize: "1.1rem",
-            color: "#6b6460",
+            color: themeTokens.mutedText,
             lineHeight: 1.8,
             maxWidth: 540,
             margin: "0 auto 40px",
@@ -237,7 +312,7 @@ export default function App() {
                 style={{
                   fontFamily: "'Caveat', cursive",
                   fontSize: "0.95rem",
-                  color: "#8a8078",
+                  color: themeTokens.mutedText,
                 }}
               >
                 {label}
@@ -260,6 +335,7 @@ export default function App() {
             fontWeight: 700,
             textAlign: "center",
             marginBottom: 48,
+            color: themeTokens.pageText,
           }}
         >
           Everything you need, nothing you do not have
@@ -333,7 +409,7 @@ export default function App() {
                 style={{
                   fontSize: "0.92rem",
                   lineHeight: 1.7,
-                  color: "#6b6460",
+                  color: themeTokens.mutedText,
                   margin: 0,
                 }}
               >
@@ -355,6 +431,7 @@ export default function App() {
             fontWeight: 700,
             textAlign: "center",
             marginBottom: 48,
+            color: themeTokens.pageText,
           }}
         >
           What developers are saying
@@ -393,7 +470,16 @@ export default function App() {
 
       {/* PREFERENCES PANEL */}
       <section
-        style={{ maxWidth: 720, margin: "0 auto", padding: "80px 32px" }}
+        style={{
+          maxWidth: 720,
+          margin: "0 auto",
+          padding: "80px 32px",
+          background: themeTokens.surfaceBg,
+          border: `2px solid ${themeTokens.surfaceBorder}`,
+          borderRadius: 32,
+          boxShadow: "4px 6px 0px rgba(0,0,0,0.06)",
+          transition: "background 240ms ease, border-color 240ms ease",
+        }}
       >
         <h2
           style={{
@@ -401,11 +487,18 @@ export default function App() {
             fontSize: "2.3rem",
             fontWeight: 700,
             margin: "0 0 12px",
+            color: themeTokens.pageText,
           }}
         >
           Make it yours
         </h2>
-        <p style={{ color: "#6b6460", lineHeight: 1.75, margin: "0 0 40px" }}>
+        <p
+          style={{
+            color: themeTokens.mutedText,
+            lineHeight: 1.75,
+            margin: "0 0 40px",
+          }}
+        >
           Every control below is a live Sketchbook UI component. Tweak them —
           they actually work.
         </p>
@@ -416,7 +509,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 10px",
-                color: "#5a5248",
+                color: themeTokens.pageText,
               }}
             >
               Interface theme
@@ -427,8 +520,8 @@ export default function App() {
                 { label: "Notebook (warm)", value: "notebook" },
                 { label: "Blueprint (dark)", value: "blueprint" },
               ]}
-              defaultValue={theme}
-              onChange={setTheme}
+              value={theme}
+              onChange={(value) => setTheme(value as ThemeName)}
               placeholder="Choose a theme…"
             />
           </div>
@@ -438,7 +531,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 10px",
-                color: "#5a5248",
+                color: themeTokens.pageText,
               }}
             >
               Base font size — {fontSize} px
@@ -461,7 +554,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 2px",
-                color: "#5a5248",
+                color: themeTokens.pageText,
               }}
             >
               Notifications
@@ -483,7 +576,16 @@ export default function App() {
 
       {/* FAQ */}
       <section
-        style={{ maxWidth: 740, margin: "0 auto", padding: "80px 32px" }}
+        style={{
+          maxWidth: 740,
+          margin: "0 auto",
+          padding: "80px 32px",
+          background: themeTokens.surfaceBg,
+          border: `2px solid ${themeTokens.surfaceBorder}`,
+          borderRadius: 32,
+          boxShadow: "4px 6px 0px rgba(0,0,0,0.06)",
+          transition: "background 240ms ease, border-color 240ms ease",
+        }}
       >
         <h2
           style={{
@@ -491,34 +593,35 @@ export default function App() {
             fontSize: "2.3rem",
             fontWeight: 700,
             marginBottom: 40,
+            color: themeTokens.pageText,
           }}
         >
           Frequently asked questions
         </h2>
         <Accordion>
           <AccordionItem title="Is Sketchbook UI production-ready?">
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p style={{ lineHeight: 1.75, margin: 0, color: themeTokens.pageText }}>
               It is in beta but stable enough for side projects and non-critical
               production use. We follow semantic versioning, no surprise
               breaking changes. It will soon be ready for production use.
             </p>
           </AccordionItem>
           <AccordionItem title="Does it work with Next.js, Vite, or Remix?">
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p style={{ lineHeight: 1.75, margin: 0, color: themeTokens.pageText }}>
               Yes. Sketchbook UI is framework-agnostic React. It works with any
               build tool that supports JSX — Vite, Next.js, Remix, Parcel, or a
               plain CRA setup.
             </p>
           </AccordionItem>
           <AccordionItem title="Can I use it without Tailwind CSS?">
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p style={{ lineHeight: 1.75, margin: 0, color: themeTokens.pageText }}>
               Sketchbook UI ships with its own CSS that has no Tailwind runtime
               dependency. Tailwind is only used internally during library
               development. Your consumers do not need Tailwind installed.
             </p>
           </AccordionItem>
           <AccordionItem title="How do I customise the hand-drawn intensity?">
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p style={{ lineHeight: 1.75, margin: 0, color: themeTokens.pageText }}>
               Currently, the sketch intensity (wobble and noise) is built into
               the SVG paths and internal primitives to ensure a consistent
               aesthetic. You can toggle the sketchy borders off by passing{" "}
@@ -527,19 +630,31 @@ export default function App() {
             </p>
           </AccordionItem>
           <AccordionItem title="Is there a dark mode?">
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p style={{ lineHeight: 1.75, margin: 0, color: themeTokens.pageText }}>
               Not yet, however, we are aware that it indeed is a necessary
               feature and hence will be added soon. In the meantime you can
               fully override the color tokens to ship your own dark theme.
             </p>
           </AccordionItem>
           <AccordionItem title="How can I use the components right now?">
-            <p style={{ lineHeight: 1.75, margin: "0 0 12px" }}>
+            <p
+              style={{
+                lineHeight: 1.75,
+                margin: "0 0 12px",
+                color: themeTokens.pageText,
+              }}
+            >
               We are planning to release the npm package in 2 days and the CLI
               package next week. Soon, you will be able to simply install and
               import them directly into your projects!
             </p>
-            <p style={{ lineHeight: 1.75, margin: 0 }}>
+            <p
+              style={{
+                lineHeight: 1.75,
+                margin: 0,
+                color: themeTokens.pageText,
+              }}
+            >
               Until then, you can easily use them by copying the{" "}
               <code>src/components/</code> and <code>src/lib/</code> directories
               directly into your project, along with the{" "}
@@ -553,9 +668,10 @@ export default function App() {
       {/* NEWSLETTER */}
       <section
         style={{
-          background: "#2a2a2a",
+          background: themeTokens.newsletterBg,
           padding: "80px 32px",
           textAlign: "center",
+          transition: "background 240ms ease",
         }}
       >
         <div style={{ maxWidth: 520, margin: "0 auto" }}>
@@ -564,13 +680,19 @@ export default function App() {
               fontFamily: "'Caveat', cursive",
               fontSize: "2.3rem",
               fontWeight: 700,
-              color: "#faf7f0",
+              color: themeTokens.newsletterText,
               margin: "0 0 12px",
             }}
           >
             Stay in the loop
           </h2>
-          <p style={{ color: "#a09890", lineHeight: 1.75, margin: "0 0 32px" }}>
+          <p
+            style={{
+              color: themeTokens.newsletterMuted,
+              lineHeight: 1.75,
+              margin: "0 0 32px",
+            }}
+          >
             Release notes, new components, and the occasional design tip — no
             more than twice a month. No spam, ever.
           </p>
@@ -594,7 +716,13 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer
+        style={{
+          padding: "40px 48px",
+          background: themeTokens.footerBg,
+          transition: "background 240ms ease",
+        }}
+      >
         <Divider style={{ marginBottom: 32 }} />
         <div
           style={{
@@ -615,7 +743,7 @@ export default function App() {
               style={{
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.2rem",
-                color: "#5a5248",
+                color: themeTokens.footerText,
               }}
             >
               Sketchbook UI · {new Date().getFullYear()}
