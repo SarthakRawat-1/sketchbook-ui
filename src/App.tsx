@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import {
   Accordion,
@@ -20,6 +20,42 @@ import {
   Tooltip,
 } from "./components";
 
+const THEME_MAP = {
+  paper: {
+    bg: "#faf7f0",
+    text: "#2a2a2a",
+    muted: "#6b6460",
+    border: "#e8e0d0",
+    accent: "#3b82f6",
+    accentSoft: "#93c5fd",
+    inverseBg: "#2a2a2a",
+    inverseText: "#faf7f0",
+    inverseMuted: "#a09890",
+  },
+  notebook: {
+    bg: "#f7f2e8",
+    text: "#30261d",
+    muted: "#75695d",
+    border: "#dfcfb8",
+    accent: "#d97706",
+    accentSoft: "#f4b860",
+    inverseBg: "#2f241d",
+    inverseText: "#fffdf8",
+    inverseMuted: "#c8b8aa",
+  },
+  blueprint: {
+    bg: "#101827",
+    text: "#f8fafc",
+    muted: "#cbd5e1",
+    border: "#324258",
+    accent: "#38bdf8",
+    accentSoft: "#7dd3fc",
+    inverseBg: "#0b1220",
+    inverseText: "#f8fafc",
+    inverseMuted: "#94a3b8",
+  },
+} as const;
+
 export default function App() {
   const [theme, setTheme] = useState("paper");
   const [fontSize, setFontSize] = useState(16);
@@ -29,6 +65,15 @@ export default function App() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const { toasts, showToast, dismissToast } = useToast();
+  const activeTheme =
+    THEME_MAP[theme as keyof typeof THEME_MAP] ?? THEME_MAP.paper;
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontSize}px`;
+    return () => {
+      document.documentElement.style.fontSize = "";
+    };
+  }, [fontSize]);
 
   /* handlers */
   const handleNewsletter = () => {
@@ -42,7 +87,12 @@ export default function App() {
 
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+        minHeight: "100vh",
+        background: activeTheme.bg,
+        color: activeTheme.text,
+        transition: "background-color 0.3s ease, color 0.3s ease",
+      }}
     >
       <ToastContainer
         toasts={toasts}
@@ -57,11 +107,12 @@ export default function App() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "16px 48px",
-          background: "#faf7f0",
-          borderBottom: "2px solid #e8e0d0",
+          background: activeTheme.bg,
+          borderBottom: `2px solid ${activeTheme.border}`,
           position: "sticky",
           top: 0,
           zIndex: 100,
+          color: activeTheme.text,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -75,12 +126,13 @@ export default function App() {
               fontFamily: "'Caveat', cursive",
               fontSize: "1.75rem",
               fontWeight: 700,
+              color: activeTheme.text,
             }}
           >
             <RoughNotation
               type="underline"
               show
-              color="#3b82f6"
+              color={activeTheme.accent}
               strokeWidth={2.5}
               animationDelay={300}
             >
@@ -155,14 +207,14 @@ export default function App() {
             fontWeight: 700,
             lineHeight: 1.1,
             margin: "0 0 24px",
-            color: "#1a1a1a",
+            color: activeTheme.text,
           }}
         >
           <RoughNotationGroup show>
             A{" "}
             <RoughNotation
               type="highlight"
-              color="#93c5fd"
+              color={activeTheme.accentSoft}
               order={1}
               animationDelay={400}
               multiline
@@ -174,7 +226,7 @@ export default function App() {
             it was{" "}
             <RoughNotation
               type="highlight"
-              color="#fde68a"
+              color={theme === "blueprint" ? "#7dd3fc" : "#fde68a"}
               order={2}
               animationDelay={800}
               multiline
@@ -186,7 +238,7 @@ export default function App() {
         <p
           style={{
             fontSize: "1.1rem",
-            color: "#6b6460",
+            color: activeTheme.muted,
             lineHeight: 1.8,
             maxWidth: 540,
             margin: "0 auto 40px",
@@ -225,21 +277,22 @@ export default function App() {
           ].map(([stat, label]) => (
             <div key={label}>
               <div
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  fontSize: "2rem",
-                  fontWeight: 700,
-                }}
-              >
+              style={{
+                fontFamily: "'Caveat', cursive",
+                fontSize: "2rem",
+                fontWeight: 700,
+                color: activeTheme.text,
+              }}
+            >
                 {stat}
               </div>
               <div
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  fontSize: "0.95rem",
-                  color: "#8a8078",
-                }}
-              >
+              style={{
+                fontFamily: "'Caveat', cursive",
+                fontSize: "0.95rem",
+                color: activeTheme.muted,
+              }}
+            >
                 {label}
               </div>
             </div>
@@ -393,7 +446,12 @@ export default function App() {
 
       {/* PREFERENCES PANEL */}
       <section
-        style={{ maxWidth: 720, margin: "0 auto", padding: "80px 32px" }}
+        style={{
+          maxWidth: 720,
+          margin: "0 auto",
+          padding: "80px 32px",
+          color: activeTheme.text,
+        }}
       >
         <h2
           style={{
@@ -401,11 +459,12 @@ export default function App() {
             fontSize: "2.3rem",
             fontWeight: 700,
             margin: "0 0 12px",
+            color: activeTheme.text,
           }}
         >
           Make it yours
         </h2>
-        <p style={{ color: "#6b6460", lineHeight: 1.75, margin: "0 0 40px" }}>
+        <p style={{ color: activeTheme.muted, lineHeight: 1.75, margin: "0 0 40px" }}>
           Every control below is a live Sketchbook UI component. Tweak them —
           they actually work.
         </p>
@@ -416,7 +475,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 10px",
-                color: "#5a5248",
+                color: activeTheme.muted,
               }}
             >
               Interface theme
@@ -438,7 +497,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 10px",
-                color: "#5a5248",
+                color: activeTheme.muted,
               }}
             >
               Base font size — {fontSize} px
@@ -461,7 +520,7 @@ export default function App() {
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.1rem",
                 margin: "0 0 2px",
-                color: "#5a5248",
+                color: activeTheme.muted,
               }}
             >
               Notifications
@@ -483,7 +542,12 @@ export default function App() {
 
       {/* FAQ */}
       <section
-        style={{ maxWidth: 740, margin: "0 auto", padding: "80px 32px" }}
+        style={{
+          maxWidth: 740,
+          margin: "0 auto",
+          padding: "80px 32px",
+          color: activeTheme.text,
+        }}
       >
         <h2
           style={{
@@ -491,6 +555,7 @@ export default function App() {
             fontSize: "2.3rem",
             fontWeight: 700,
             marginBottom: 40,
+            color: activeTheme.text,
           }}
         >
           Frequently asked questions
@@ -553,7 +618,7 @@ export default function App() {
       {/* NEWSLETTER */}
       <section
         style={{
-          background: "#2a2a2a",
+          background: activeTheme.inverseBg,
           padding: "80px 32px",
           textAlign: "center",
         }}
@@ -564,13 +629,19 @@ export default function App() {
               fontFamily: "'Caveat', cursive",
               fontSize: "2.3rem",
               fontWeight: 700,
-              color: "#faf7f0",
+              color: activeTheme.inverseText,
               margin: "0 0 12px",
             }}
           >
             Stay in the loop
           </h2>
-          <p style={{ color: "#a09890", lineHeight: 1.75, margin: "0 0 32px" }}>
+          <p
+            style={{
+              color: activeTheme.inverseMuted,
+              lineHeight: 1.75,
+              margin: "0 0 32px",
+            }}
+          >
             Release notes, new components, and the occasional design tip — no
             more than twice a month. No spam, ever.
           </p>
@@ -594,7 +665,13 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer
+        style={{
+          padding: "40px 48px",
+          background: activeTheme.bg,
+          color: activeTheme.text,
+        }}
+      >
         <Divider style={{ marginBottom: 32 }} />
         <div
           style={{
@@ -615,7 +692,7 @@ export default function App() {
               style={{
                 fontFamily: "'Caveat', cursive",
                 fontSize: "1.2rem",
-                color: "#5a5248",
+                color: activeTheme.muted,
               }}
             >
               Sketchbook UI · {new Date().getFullYear()}
