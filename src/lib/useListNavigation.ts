@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 
 export interface UseListNavigationOptions {
@@ -19,12 +19,15 @@ export function useListNavigation<
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const triggerRef = useRef<TriggerElement>(null);
 
-  const focusItem = (index: number) => {
-    scrollToIndex?.(index);
-    requestAnimationFrame(() => {
-      itemRefs.current[index]?.focus();
-    });
-  };
+  const focusItem = useCallback(
+    (index: number) => {
+      scrollToIndex?.(index);
+      requestAnimationFrame(() => {
+        itemRefs.current[index]?.focus();
+      });
+    },
+    [scrollToIndex],
+  );
 
   // Focus first item when list opens, reset when closed
   useEffect(() => {
@@ -36,8 +39,7 @@ export function useListNavigation<
     } else {
       setActiveIndex(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, itemCount]);
+  }, [focusItem, isOpen, itemCount]);
 
   const handleTriggerKeyDown = (e: KeyboardEvent) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
