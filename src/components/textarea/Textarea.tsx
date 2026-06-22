@@ -89,6 +89,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(defaultValue ?? "");
     const uid = useId();
+    const textareaId = `textarea-${uid}`;
     const linesPatternId = `tal${uid}`;
 
     const isControlled = value !== undefined;
@@ -189,6 +190,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             className="sketch-textarea__label"
+            htmlFor={textareaId}
             style={{
               fontFamily: font,
               fontSize: typography?.labelSize ?? sc.labelSize,
@@ -317,6 +319,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
           {/* ── Actual textarea ── */}
           <textarea
+            id={textareaId}
             ref={ref}
             value={currentValue}
             onChange={(e) => {
