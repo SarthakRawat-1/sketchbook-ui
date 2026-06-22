@@ -69,6 +69,55 @@
   opacity: 0.7;
 }
 
+/* Home navbar */
+.sketch-home-nav {
+  width: 100%;
+  box-sizing: border-box;
+  gap: 16px;
+  padding: 16px 48px;
+}
+
+.sketch-home-nav__brand {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.sketch-home-nav__actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.sketch-home-nav__button {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .sketch-home-nav {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 20px;
+  }
+
+  .sketch-home-nav__brand,
+  .sketch-home-nav__actions {
+    width: 100%;
+  }
+
+  .sketch-home-nav__actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .sketch-home-nav__actions {
+    gap: 10px;
+  }
+
+  .sketch-home-nav__button {
+    flex: 1 1 140px;
+  }
+}
+
 /* Size variants */
 .sketch-button-sm {
   font-size: 1.25rem;

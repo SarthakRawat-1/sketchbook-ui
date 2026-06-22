@@ -52,11 +52,11 @@ export default function App() {
 
       {/* NAV */}
       <nav
+        className="sketch-home-nav"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "16px 48px",
           background: "#faf7f0",
           borderBottom: "2px solid #e8e0d0",
           position: "sticky",
@@ -64,7 +64,10 @@ export default function App() {
           zIndex: 100,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div
+          className="sketch-home-nav__brand"
+          style={{ display: "flex", alignItems: "center", gap: 10 }}
+        >
           <img
             src="./logo.png"
             alt="Sketchbook UI Logo"
@@ -92,9 +95,13 @@ export default function App() {
           </Badge>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div
+          className="sketch-home-nav__actions"
+          style={{ display: "flex", alignItems: "center", gap: 12 }}
+        >
           <Button
             size="sm"
+            className="sketch-home-nav__button"
             onClick={() => {
               showToast("Star us on GitHub! ⭐", "info");
               setTimeout(() => {
