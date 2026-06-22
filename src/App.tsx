@@ -52,6 +52,7 @@ export default function App() {
 
       {/* NAV */}
       <nav
+        className="sketch-home-nav"
         style={{
           display: "flex",
           alignItems: "center",
@@ -575,6 +576,7 @@ export default function App() {
             more than twice a month. No spam, ever.
           </p>
           <div
+            className="sketch-home-newsletter"
             style={{
               display: "flex",
               gap: 12,
@@ -586,7 +588,7 @@ export default function App() {
               placeholder="your@email.com"
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
-              style={{ minWidth: 240 }}
+              style={{ minWidth: 240, width: "100%" }}
             />
             <Button onClick={handleNewsletter}>Subscribe</Button>
           </div>
@@ -594,9 +596,10 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer className="sketch-home-footer" style={{ padding: "40px 48px", background: "#faf7f0" }}>
         <Divider style={{ marginBottom: 32 }} />
         <div
+          className="sketch-home-footer__row"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -621,7 +624,7 @@ export default function App() {
               Sketchbook UI · {new Date().getFullYear()}
             </span>
           </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div className="sketch-home-footer__badges" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Badge variant="default" size="sm">
               Beta
             </Badge>
