@@ -61,6 +61,7 @@ const VARIANT_DEFAULTS = {
 
 let openModalCount = 0;
 const openModalStack: string[] = [];
+let originalBodyPaddingRight = "";
 
 function CloseIcon({ stroke }: { stroke: string }) {
   return (
@@ -138,6 +139,12 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     /* ── Body scroll lock ─────────────────────────────────── */
     useEffect(() => {
       if (isOpen) {
+        const scrollbarWidth =
+          window.innerWidth - document.documentElement.clientWidth;
+        if (openModalCount === 0) {
+          originalBodyPaddingRight = document.body.style.paddingRight;
+          document.body.style.paddingRight = `${scrollbarWidth}px`;
+        }
         openModalCount += 1;
         document.body.style.overflow = "hidden";
         openModalStack.push(uid);
@@ -149,7 +156,13 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         openModalCount = Math.max(0, openModalCount - 1);
         const index = openModalStack.lastIndexOf(uid);
         if (index >= 0) openModalStack.splice(index, 1);
-        document.body.style.overflow = openModalCount > 0 ? "hidden" : "";
+        if (openModalCount === 0) {
+          document.body.style.overflow = "";
+          document.body.style.paddingRight = originalBodyPaddingRight;
+          originalBodyPaddingRight = "";
+        } else {
+          document.body.style.overflow = "hidden";
+        }
       };
     }, [isOpen, uid]);
 
