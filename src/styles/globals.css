@@ -91,6 +91,32 @@
   flex-shrink: 0;
 }
 
+.sketch-feature-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sketch-feature-link .sketch-card {
+  height: 100%;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.sketch-feature-link:hover .sketch-card,
+.sketch-feature-link:focus-visible .sketch-card {
+  transform: translateY(-3px) rotate(-0.4deg);
+  filter: drop-shadow(6px 10px 22px rgba(0, 0, 0, 0.18));
+}
+
+.sketch-feature-link:focus-visible {
+  outline: 2px dashed #3b82f6;
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
 @media (max-width: 768px) {
   .sketch-home-nav {
     flex-direction: column;
