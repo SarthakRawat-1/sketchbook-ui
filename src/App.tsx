@@ -20,8 +20,32 @@ import {
   Tooltip,
 } from "./components";
 
+const THEME_STYLES = {
+  paper: {
+    pageBg: "#faf7f0",
+    pageText: "#2a2a2a",
+    surfaceBg: "#faf7f0",
+    surfaceAlt: "#fffdf8",
+    border: "#e8e0d0",
+  },
+  notebook: {
+    pageBg: "#f7f4ee",
+    pageText: "#282420",
+    surfaceBg: "#f7f4ee",
+    surfaceAlt: "#fffef8",
+    border: "#ddd5c6",
+  },
+  blueprint: {
+    pageBg: "#172033",
+    pageText: "#edf4ff",
+    surfaceBg: "#1c2840",
+    surfaceAlt: "#22314d",
+    border: "#31496f",
+  },
+} as const;
+
 export default function App() {
-  const [theme, setTheme] = useState("paper");
+  const [theme, setTheme] = useState<keyof typeof THEME_STYLES>("paper");
   const [fontSize, setFontSize] = useState(16);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
@@ -29,6 +53,7 @@ export default function App() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const { toasts, showToast, dismissToast } = useToast();
+  const themeStyles = THEME_STYLES[theme];
 
   /* handlers */
   const handleNewsletter = () => {
@@ -42,7 +67,11 @@ export default function App() {
 
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+        minHeight: "100vh",
+        background: themeStyles.pageBg,
+        color: themeStyles.pageText,
+      }}
     >
       <ToastContainer
         toasts={toasts}
@@ -57,8 +86,8 @@ export default function App() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          background: "#faf7f0",
-          borderBottom: "2px solid #e8e0d0",
+          background: themeStyles.surfaceBg,
+          borderBottom: `2px solid ${themeStyles.border}`,
           position: "sticky",
           top: 0,
           zIndex: 100,
@@ -437,7 +466,9 @@ export default function App() {
                 { label: "Blueprint (dark)", value: "blueprint" },
               ]}
               defaultValue={theme}
-              onChange={setTheme}
+              onChange={(value) =>
+                setTheme(value as keyof typeof THEME_STYLES)
+              }
               placeholder="Choose a theme…"
             />
           </div>
@@ -562,7 +593,7 @@ export default function App() {
       {/* NEWSLETTER */}
       <section
         style={{
-          background: "#2a2a2a",
+          background: themeStyles.surfaceAlt,
           padding: "80px 32px",
           textAlign: "center",
         }}
@@ -573,13 +604,20 @@ export default function App() {
               fontFamily: "'Caveat', cursive",
               fontSize: "2.3rem",
               fontWeight: 700,
-              color: "#faf7f0",
+              color: themeStyles.pageText,
               margin: "0 0 12px",
             }}
           >
             Stay in the loop
           </h2>
-          <p style={{ color: "#a09890", lineHeight: 1.75, margin: "0 0 32px" }}>
+          <p
+            style={{
+              color: themeStyles.pageText,
+              opacity: 0.72,
+              lineHeight: 1.75,
+              margin: "0 0 32px",
+            }}
+          >
             Release notes, new components, and the occasional design tip — no
             more than twice a month. No spam, ever.
           </p>
@@ -603,9 +641,16 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+      <footer
+        className="sketch-home-footer"
+        style={{
+          padding: "40px 48px",
+          background: themeStyles.surfaceBg,
+        }}
+      >
         <Divider style={{ marginBottom: 32 }} />
         <div
+          className="sketch-home-footer__inner"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -614,23 +659,30 @@ export default function App() {
             gap: 16,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div
+            className="sketch-home-footer__brand"
+            style={{ display: "flex", alignItems: "center", gap: 8 }}
+          >
             <img
               src="./logo.png"
               alt="Sketchbook UI Logo"
               style={{ width: "24px", height: "24px", objectFit: "contain" }}
             />
             <span
-              style={{
-                fontFamily: "'Caveat', cursive",
-                fontSize: "1.2rem",
-                color: "#5a5248",
-              }}
-            >
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  fontSize: "1.2rem",
+                  color: themeStyles.pageText,
+                  opacity: 0.8,
+                }}
+              >
               Sketchbook UI · {new Date().getFullYear()}
             </span>
           </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div
+            className="sketch-home-footer__badges"
+            style={{ display: "flex", gap: 10, alignItems: "center" }}
+          >
             <Badge variant="default" size="sm">
               Beta
             </Badge>
