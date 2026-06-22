@@ -18,13 +18,82 @@ import {
   ToastContainer,
   useToast,
   Tooltip,
+  UsagePreviewDrawer,
 } from "./components";
+
+const usagePreviewDrawerCode = `import { Button, Card, Badge, Input, Select } from "sketchbook-ui";
+
+function UsageExample() {
+  return (
+    <Card style={{ padding: 24, display: "grid", gap: 18 }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Badge variant="info" size="sm">Live example</Badge>
+        <Badge variant="success" size="sm">Ready to ship</Badge>
+      </div>
+      <h3 style={{ margin: 0, fontFamily: "'Caveat', cursive" }}>
+        Publish a component snapshot
+      </h3>
+      <Input placeholder="Component name" />
+      <Select
+        placeholder="Choose a variant"
+        options={[
+          { label: "Paper", value: "paper" },
+          { label: "Notebook", value: "notebook" },
+          { label: "Sticky", value: "sticky" },
+        ]}
+      />
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+        <Button size="sm">Save draft</Button>
+        <Button size="sm">Copy link</Button>
+      </div>
+    </Card>
+  );
+}`;
+
+const usagePreviewDrawerProps = [
+  {
+    name: "isOpen",
+    type: "boolean",
+    description: "Controls whether the drawer is visible.",
+    required: true,
+  },
+  {
+    name: "onClose",
+    type: "() => void",
+    description: "Closes the drawer when the user clicks the backdrop or presses Escape.",
+    required: true,
+  },
+  {
+    name: "preview",
+    type: "ReactNode",
+    description: "The live component example shown in the first tab.",
+    required: true,
+  },
+  {
+    name: "code",
+    type: "string",
+    description: "The JSX snippet shown in the code tab and copied to the clipboard.",
+    required: true,
+  },
+  {
+    name: "propsReference",
+    type: "UsagePreviewDrawerProp[]",
+    description: "Reference rows displayed in the props tab.",
+    required: true,
+  },
+] as {
+  name: string;
+  type: string;
+  description: string;
+  required: boolean;
+}[];
 
 export default function App() {
   const [theme, setTheme] = useState("paper");
   const [fontSize, setFontSize] = useState(16);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
+  const [usageDrawerOpen, setUsageDrawerOpen] = useState(false);
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
@@ -206,6 +275,9 @@ export default function App() {
         >
           <Button size="lg" onClick={() => window.open("./docs/", "_self")}>
             Get Started
+          </Button>
+          <Button size="lg" onClick={() => setUsageDrawerOpen(true)}>
+            Open preview drawer
           </Button>
         </div>
         <div
@@ -592,6 +664,43 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      <UsagePreviewDrawer
+        isOpen={usageDrawerOpen}
+        onClose={() => setUsageDrawerOpen(false)}
+        title="Component usage preview"
+        description="Open a live example, read the JSX, and skim the prop reference without leaving the current page."
+        preview={
+          <Card style={{ padding: 24, display: "grid", gap: 18 }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Badge variant="info" size="sm">
+                Live example
+              </Badge>
+              <Badge variant="success" size="sm">
+                Ready to ship
+              </Badge>
+            </div>
+            <h3 style={{ margin: 0, fontFamily: "'Caveat', cursive" }}>
+              Publish a component snapshot
+            </h3>
+            <Input placeholder="Component name" />
+            <Select
+              placeholder="Choose a variant"
+              options={[
+                { label: "Paper", value: "paper" },
+                { label: "Notebook", value: "notebook" },
+                { label: "Sticky", value: "sticky" },
+              ]}
+            />
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Button size="sm">Save draft</Button>
+              <Button size="sm">Copy link</Button>
+            </div>
+          </Card>
+        }
+        code={usagePreviewDrawerCode}
+        propsReference={usagePreviewDrawerProps}
+      />
 
       {/* FOOTER */}
       <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
