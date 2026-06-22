@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+@import "../src/styles/fonts.css";
 @import "../src/styles/globals.css";
 
 body {
