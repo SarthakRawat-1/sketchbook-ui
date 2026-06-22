@@ -18,6 +18,7 @@ export interface SelectOption {
 export interface SelectProps {
   options: SelectOption[];
   defaultValue?: string;
+  value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
   size?: "sm" | "md" | "lg";
@@ -43,6 +44,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     {
       options,
       defaultValue,
+      value,
       placeholder = "Choose an option...",
       onChange,
       size = "md",
@@ -57,6 +59,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
   ) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(defaultValue || "");
+    const isControlled = value !== undefined;
     const containerRef = useRef<HTMLDivElement>(null);
     const mergedRef = (node: HTMLDivElement | null) => {
       (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
@@ -66,7 +69,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
     };
 
-    const selectedOption = options.find((opt) => opt.value === selectedValue);
+    const selectedOption = options.find((opt) =>
+      opt.value === (isControlled ? value : selectedValue),
+    );
 
     // Size configurations
     const sizeConfig = {
@@ -158,7 +163,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
     const handleSelect = (value: string) => {
       if (disabled) return;
-      setSelectedValue(value);
+      if (!isControlled) {
+        setSelectedValue(value);
+      }
       onChange?.(value);
       setIsOpen(false);
       triggerRef.current?.focus();
@@ -488,7 +495,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                         }}
                         role="option"
                         tabIndex={-1}
-                        aria-selected={selectedValue === option.value}
+                        aria-selected={
+                          (isControlled ? value : selectedValue) === option.value
+                        }
                         onClick={() => handleSelect(option.value)}
                         onMouseEnter={() => setActiveIndex(i)}
                         onMouseLeave={() => setActiveIndex(null)}
@@ -508,7 +517,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                         }}
                       >
                         {option.label}
-                        {selectedValue === option.value && (
+                        {(isControlled ? value : selectedValue) ===
+                          option.value && (
                           <span className="sketch-select-checkmark">
                             &#x2713;
                           </span>
