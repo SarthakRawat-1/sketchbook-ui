@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 import {
   Accordion,
@@ -25,10 +25,20 @@ export default function App() {
   const [fontSize, setFontSize] = useState(16);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
+  const [cursorGlow, setCursorGlow] = useState({ x: 0, y: 0 });
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const { toasts, showToast, dismissToast } = useToast();
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      setCursorGlow({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
 
   /* handlers */
   const handleNewsletter = () => {
@@ -42,8 +52,21 @@ export default function App() {
 
   return (
     <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      style={{
+        minHeight: "100vh",
+        background: "#faf7f0",
+        color: "#2a2a2a",
+        position: "relative",
+        zIndex: 1,
+      }}
     >
+      <div
+        aria-hidden="true"
+        className="sketch-cursor-glow"
+        style={{
+          transform: `translate3d(${cursorGlow.x - 140}px, ${cursorGlow.y - 140}px, 0)`,
+        }}
+      />
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}
