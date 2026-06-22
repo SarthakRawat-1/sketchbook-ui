@@ -11,6 +11,7 @@ import {
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
   iconOnly?: boolean;
+  fullWidth?: boolean;
   colors?: {
     bg?: string;
     bgOverlay?: string;
@@ -32,6 +33,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       size = "md",
       iconOnly = false,
+      fullWidth = false,
       colors,
       typography,
       showBorder = true,
@@ -184,8 +186,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={cn("sketch-button", className)}
+        className={cn(
+          "sketch-button",
+          fullWidth && "sketch-button-fullWidth",
+          className,
+        )}
         style={{
+          width: fullWidth ? "100%" : undefined,
+          display: fullWidth ? "block" : undefined,
           transform: disabled
             ? "rotate(-0.3deg)"
             : isHovered
@@ -226,9 +234,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           </span>
         )}
         <svg
-          width={w}
+          width={fullWidth ? "100%" : w}
           height={h}
           viewBox={`0 0 ${w} ${h}`}
+          preserveAspectRatio={fullWidth ? "none" : "xMidYMid meet"}
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{ display: "block" }}
