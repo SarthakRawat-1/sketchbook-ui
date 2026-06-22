@@ -1,0 +1,110 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Input,
+  Progress,
+  Select,
+  Slider,
+  Skeleton,
+  SkeletonText,
+  Switch,
+  Tooltip,
+} from "../components";
+
+<Meta title="Docs/Components overview" />
+
+# Components overview
+
+This page gives a single visual entry point for the core Sketchbook UI components.
+Use it as a quick map when you want to compare patterns, browse examples, or jump into a specific component story.
+
+## Form controls
+
+<div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="success" size="sm">Button</Badge>
+    <Button>Primary action</Button>
+    <Button
+      colors={{
+        bg: "#fff",
+        bgOverlay: "#f4f1ea",
+        stroke: "#2a2a2a",
+        text: "#2a2a2a",
+      }}
+    >
+      Secondary action
+    </Button>
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="info" size="sm">Input</Badge>
+    <Input label="Email address" placeholder="your@email.com" />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="warning" size="sm">Select</Badge>
+    <Select
+      options={[
+        { label: "Paper", value: "paper" },
+        { label: "Notebook", value: "notebook" },
+        { label: "Blueprint", value: "blueprint" },
+      ]}
+      defaultValue="paper"
+      placeholder="Choose a theme"
+    />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="default" size="sm">Slider</Badge>
+    <Slider min={12} max={24} value={18} onChange={() => {}} />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="default" size="sm">Switch</Badge>
+    <Switch label="Enable feature" checked onChange={() => {}} />
+  </Card>
+</div>
+
+## Data display
+
+<div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="info" size="sm">Avatar</Badge>
+    <Avatar initials="SK" size="md" />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="success" size="sm">Progress</Badge>
+    <Progress value={68} label="Release readiness" />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="warning" size="sm">Skeleton</Badge>
+    <SkeletonText lines={3} />
+    <Skeleton variant="avatar" height={40} />
+  </Card>
+</div>
+
+## Feedback and layout
+
+<div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="default" size="sm">Divider</Badge>
+    <p style={{ margin: 0 }}>A simple separator helps break up long docs sections.</p>
+    <Divider />
+  </Card>
+  <Card style={{ padding: 20, display: "grid", gap: 14 }}>
+    <Badge variant="info" size="sm">Tooltip</Badge>
+    <Tooltip content="Helpful context">
+      <Button variant="secondary">Hover me</Button>
+    </Tooltip>
+  </Card>
+</div>
+
+## Where to go next
+
+- Browse the Storybook sidebar for the full story set.
+- Open a component story to inspect all variants, sizes, and edge cases.
+- Check `CONTRIBUTING.md` if you want to add a new component or pattern.
+
+<Divider style={{ margin: "24px 0" }} />
+
+This overview is intentionally lightweight. The detailed examples still live beside each component so the documentation stays close to the code.
