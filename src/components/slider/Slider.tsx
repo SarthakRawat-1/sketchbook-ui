@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
+import { cn, SK, SK_DISABLED, SketchBorder, useSketchAssetIds } from "../../lib";
 
 export interface SliderProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -83,6 +83,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     ref,
   ) => {
     const isControlled = controlledValue !== undefined;
+    const ids = useSketchAssetIds();
     const [internalValue, setInternalValue] = useState(defaultValue);
     const [isDragging, setIsDragging] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -275,7 +276,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
               strokeWidth={sc.trackW * 1.6}
               strokeLinecap="round"
               opacity={0.1}
-              filter={`url(#${DISP_SLIDER_ID})`}
+              filter={`url(#${ids.dispSliderId})`}
             />
 
             {/* ── Thumb group ── */}
@@ -299,7 +300,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                   r={tr}
                   fill="#000"
                   opacity={0.1}
-                  filter={`url(#${DISP_SLIDER_ID})`}
+                  filter={`url(#${ids.dispSliderId})`}
                 />
 
                 {/* Paper background */}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { cn, SketchBorder, noiseUrl, SK, SK_DISABLED } from "../../lib";
+import { cn, SketchBorder, useNoiseUrl, SK, SK_DISABLED } from "../../lib";
 
 interface RadioOption {
   value: string;
@@ -140,6 +140,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    const noise = useNoiseUrl();
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLLabelElement>) => {
       if (!disabled) {
@@ -264,7 +265,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               y="0"
               width={w}
               height={h}
-              fill={noiseUrl()}
+              fill={noise}
               opacity={0.12}
             />
 

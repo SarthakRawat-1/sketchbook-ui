@@ -1,5 +1,5 @@
 import React, { useId, useState } from "react";
-import { cn, SK, DISP_AVATAR_ID, noiseUrl } from "../../lib";
+import { cn, SK, useNoiseUrl, useSketchAssetIds } from "../../lib";
 
 export interface AvatarProps {
   src?: string;
@@ -48,6 +48,8 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     const [isHovered, setIsHovered] = useState(false);
     const [imageError, setImageError] = useState(false);
     const uid = useId();
+    const ids = useSketchAssetIds();
+    const noise = useNoiseUrl();
     const shadingId = `ps${uid}`;
     const clipId = `ac${uid}`;
 
@@ -208,7 +210,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             y="0"
             width={actualWidth}
             height={actualHeight}
-            fill={noiseUrl()}
+            fill={noise}
             opacity="0.15"
           />
 
@@ -267,7 +269,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
                       stroke={avatarColors.stroke}
                       strokeWidth="2"
                       opacity="0.6"
-                      filter={`url(#${DISP_AVATAR_ID})`}
+                      filter={`url(#${ids.dispAvatarId})`}
                     />
                     {/* Left eye */}
                     <circle
@@ -293,7 +295,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
                       strokeWidth="2"
                       strokeLinecap="round"
                       opacity="0.7"
-                      filter={`url(#${DISP_AVATAR_ID})`}
+                      filter={`url(#${ids.dispAvatarId})`}
                     />
                   </g>
                 )}
@@ -311,7 +313,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
               strokeLinecap="round"
               strokeLinejoin="round"
               opacity="0.85"
-              filter={`url(#${DISP_AVATAR_ID})`}
+              filter={`url(#${ids.dispAvatarId})`}
               strokeDasharray="1,0.3"
             />
           )}
@@ -327,7 +329,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
               strokeLinejoin="round"
               opacity="0.15"
               transform="translate(1, 1)"
-              filter={`url(#${DISP_AVATAR_ID})`}
+              filter={`url(#${ids.dispAvatarId})`}
               style={{
                 animation: "avatarGlow 0.6s ease-in-out infinite alternate",
               }}
@@ -343,7 +345,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
               ry={radius * 0.15}
               fill={avatarColors.stroke}
               opacity="0.08"
-              filter={`url(#${DISP_AVATAR_ID})`}
+              filter={`url(#${ids.dispAvatarId})`}
             />
           )}
         </svg>
