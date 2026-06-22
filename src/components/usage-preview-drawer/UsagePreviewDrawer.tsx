@@ -191,6 +191,16 @@ const UsagePreviewDrawer = React.forwardRef<
     const font = typography?.fontFamily ?? SK.font;
     const titleId = `usage-preview-drawer-title-${uid}`;
     const descriptionId = `usage-preview-drawer-description-${uid}`;
+    const tabIds = {
+      preview: `usage-preview-drawer-tab-${uid}-preview`,
+      code: `usage-preview-drawer-tab-${uid}-code`,
+      props: `usage-preview-drawer-tab-${uid}-props`,
+    } as const;
+    const panelIds = {
+      preview: `usage-preview-drawer-panel-${uid}-preview`,
+      code: `usage-preview-drawer-panel-${uid}-code`,
+      props: `usage-preview-drawer-panel-${uid}-props`,
+    } as const;
 
     const handleBackdropClick = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
@@ -507,12 +517,16 @@ const UsagePreviewDrawer = React.forwardRef<
                 ["props", "Props reference"],
               ].map(([tab, label]) => {
                 const isActive = activeTab === tab;
+                const tabKey = tab as "preview" | "code" | "props";
                 return (
                   <button
                     key={tab}
+                    id={tabIds[tabKey]}
                     type="button"
                     role="tab"
                     aria-selected={isActive}
+                    aria-controls={panelIds[tabKey]}
+                    tabIndex={isActive ? 0 : -1}
                     onClick={() =>
                       setActiveTab(tab as "preview" | "code" | "props")
                     }
@@ -546,7 +560,9 @@ const UsagePreviewDrawer = React.forwardRef<
             >
               {activeTab === "preview" && (
                 <div
+                  id={panelIds.preview}
                   role="tabpanel"
+                  aria-labelledby={tabIds.preview}
                   aria-label="Live preview"
                   style={{ display: "grid", gap: 16 }}
                 >
@@ -556,7 +572,9 @@ const UsagePreviewDrawer = React.forwardRef<
 
               {activeTab === "code" && (
                 <div
+                  id={panelIds.code}
                   role="tabpanel"
+                  aria-labelledby={tabIds.code}
                   aria-label="JSX usage"
                   style={{ display: "grid", gap: 14 }}
                 >
@@ -621,7 +639,9 @@ const UsagePreviewDrawer = React.forwardRef<
 
               {activeTab === "props" && (
                 <div
+                  id={panelIds.props}
                   role="tabpanel"
+                  aria-labelledby={tabIds.props}
                   aria-label="Props reference"
                   style={{ display: "grid", gap: 14 }}
                 >
