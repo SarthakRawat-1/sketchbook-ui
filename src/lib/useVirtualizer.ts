@@ -51,7 +51,7 @@ export function useVirtualizer({
       container.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId.current);
     };
-  }, [count, itemHeight, containerRef, overscan]);
+  }, [count, itemHeight, containerRef]);
 
   const totalHeight = count * itemHeight;
 
