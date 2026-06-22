@@ -1189,3 +1189,45 @@
 .sketch-card__content form > button[type="submit"] {
   margin-top: 0.5rem;
 }
+
+/* ── Homepage responsive shell ─────────────────────────── */
+@media (max-width: 720px) {
+  .sketch-home-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px !important;
+  }
+
+  .sketch-home-nav > div {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .sketch-home-nav > div:last-child {
+    justify-content: flex-start;
+  }
+
+  .sketch-home-newsletter {
+    width: 100%;
+  }
+
+  .sketch-home-newsletter > * {
+    flex: 1 1 100%;
+    min-width: 0 !important;
+  }
+
+  .sketch-home-footer {
+    padding: 28px 20px !important;
+  }
+
+  .sketch-home-footer__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sketch-home-footer__badges {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
