@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useId,
+} from "react";
 import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
 
 export interface SliderProps extends Omit<
@@ -116,6 +122,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         };
 
     const font = typography?.fontFamily ?? SK.font;
+    const uid = useId();
 
     // ── Value update helper (stable ref to avoid stale closures) ──
     const updateValue = useCallback(
@@ -197,6 +204,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         {label && (
           <div className="sketch-slider__label">
             <label
+              htmlFor={uid}
               style={{
                 fontFamily: font,
                 fontSize: typography?.fontSize ?? sc.fontSize,
@@ -231,6 +239,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         >
           {/* Hidden native input for keyboard / a11y */}
           <input
+            id={uid}
             type="range"
             min={min}
             max={max}
