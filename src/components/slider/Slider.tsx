@@ -173,6 +173,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     const thumbX = TRACK_PAD + (TRACK_USABLE * percentage) / 100;
     const cy = sc.viewH / 2;
     const tr = sc.thumb; // thumb "radius" for the wobbly circle
+    const thumbBox = tr * 2 + 10;
+    const thumbCenter = thumbBox / 2;
 
     // ── Track path data ──
     const trackD1 = `M ${TRACK_PAD} ${cy}
@@ -277,112 +279,136 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
               opacity={0.1}
               filter={`url(#${DISP_SLIDER_ID})`}
             />
-
-            {/* ── Thumb group ── */}
-            <g transform={`translate(${thumbX}, ${cy})`}>
-              <g
-                style={{
-                  cursor: disabled ? "not-allowed" : "grab",
-                  transform: isDragging
-                    ? "scale(1.1)"
-                    : isHovered
-                      ? "scale(1.05)"
-                      : "scale(1)",
-                  transition:
-                    "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-                }}
-              >
-                {/* Drop shadow */}
-                <circle
-                  cx="2"
-                  cy="4"
-                  r={tr}
-                  fill="#000"
-                  opacity={0.1}
-                  filter={`url(#${DISP_SLIDER_ID})`}
-                />
-
-                {/* Paper background */}
-                <path
-                  d={`M ${-tr + 2} ${-tr + 2}
-                      C ${-tr / 2} ${-tr - 1}, ${tr / 2} ${-tr - 1}, ${tr - 2} ${-tr + 2}
-                      C ${tr + 1} ${-tr / 2}, ${tr + 1} ${tr / 2}, ${tr - 2} ${tr - 2}
-                      C ${tr / 2} ${tr + 1}, ${-tr / 2} ${tr + 1}, ${-tr + 2} ${tr - 2}
-                      C ${-tr - 1} ${tr / 2}, ${-tr - 1} ${-tr / 2}, ${-tr + 2} ${-tr + 2} Z`}
-                  fill={c.thumbBg}
-                  stroke="none"
-                  transform="rotate(15)"
-                />
-
-                {/* Main knob outline — wobbly circle */}
-                <path
-                  d={`M ${-tr + 3} ${-tr + 3}
-                      C ${-tr / 2 + 1} ${-tr}, ${tr / 2 - 1} ${-tr}, ${tr - 3} ${-tr + 3}
-                      C ${tr} ${-tr / 2 + 1}, ${tr} ${tr / 2 - 1}, ${tr - 3} ${tr - 3}
-                      C ${tr / 2 - 1} ${tr}, ${-tr / 2 + 1} ${tr}, ${-tr + 3} ${tr - 3}
-                      C ${-tr} ${tr / 2 - 1}, ${-tr} ${-tr / 2 + 1}, ${-tr + 3} ${-tr + 3} Z`}
-                  stroke={c.thumb}
-                  strokeWidth={sc.trackW}
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity={0.9}
-                  strokeDasharray="1,0.5"
-                  transform="rotate(-5)"
-                />
-
-                {/* Secondary outline */}
-                <path
-                  d={`M ${-tr + 2} ${-tr + 4}
-                      C ${-tr / 2} ${-tr + 1}, ${tr / 2} ${-tr + 1}, ${tr - 2} ${-tr + 4}
-                      C ${tr + 1} ${-tr / 2 + 2}, ${tr + 1} ${tr / 2}, ${tr - 2} ${tr - 2}
-                      C ${tr / 2} ${tr + 1}, ${-tr / 2} ${tr + 1}, ${-tr + 2} ${tr - 2}
-                      C ${-tr - 1} ${tr / 2}, ${-tr - 1} ${-tr / 2 + 2}, ${-tr + 2} ${-tr + 4} Z`}
-                  stroke={c.thumb}
-                  strokeWidth={1}
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity={0.4}
-                  transform="rotate(10)"
-                />
-
-                {/* Cross-hatch shading lines */}
-                <g opacity={0.15}>
-                  <line
-                    x1={-tr * 0.4}
-                    y1={-tr * 0.4}
-                    x2={tr * 0.4}
-                    y2={tr * 0.4}
-                    stroke={c.thumb}
-                    strokeWidth={1}
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1={-tr * 0.55}
-                    y1={-tr * 0.15}
-                    x2={tr * 0.3}
-                    y2={tr * 0.7}
-                    stroke={c.thumb}
-                    strokeWidth={1}
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1={-tr * 0.15}
-                    y1={-tr * 0.7}
-                    x2={tr * 0.7}
-                    y2={tr * 0.15}
-                    stroke={c.thumb}
-                    strokeWidth={1}
-                    strokeLinecap="round"
-                  />
-                </g>
-
-                {/* Center dimple */}
-                <circle r={tr * 0.14} fill={c.thumb} opacity={0.6} />
-              </g>
-            </g>
           </svg>
+
+          {/* ── Thumb overlay ── */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: `${(thumbX / TRACK_VIEWBOX_W) * 100}%`,
+              top: "50%",
+              width: `${thumbBox}px`,
+              height: `${thumbBox}px`,
+              transform: "translate(-50%, -50%)",
+              pointerEvents: "none",
+            }}
+          >
+            <svg
+              width="100%"
+              height="100%"
+              viewBox={`0 0 ${thumbBox} ${thumbBox}`}
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+            >
+              <g
+                transform={`translate(${thumbCenter}, ${thumbCenter})`}
+              >
+                <g
+                  style={{
+                    transform: isDragging
+                      ? "scale(1.1)"
+                      : isHovered
+                        ? "scale(1.05)"
+                        : "scale(1)",
+                    transition:
+                      "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                    transformOrigin: "center",
+                    transformBox: "fill-box",
+                  }}
+                >
+                  {/* Drop shadow */}
+                  <circle
+                    cx="2"
+                    cy="4"
+                    r={tr}
+                    fill="#000"
+                    opacity={0.1}
+                    filter={`url(#${DISP_SLIDER_ID})`}
+                  />
+
+                  {/* Paper background */}
+                  <path
+                    d={`M ${-tr + 2} ${-tr + 2}
+                        C ${-tr / 2} ${-tr - 1}, ${tr / 2} ${-tr - 1}, ${tr - 2} ${-tr + 2}
+                        C ${tr + 1} ${-tr / 2}, ${tr + 1} ${tr / 2}, ${tr - 2} ${tr - 2}
+                        C ${tr / 2} ${tr + 1}, ${-tr / 2} ${tr + 1}, ${-tr + 2} ${tr - 2}
+                        C ${-tr - 1} ${tr / 2}, ${-tr - 1} ${-tr / 2}, ${-tr + 2} ${-tr + 2} Z`}
+                    fill={c.thumbBg}
+                    stroke="none"
+                    transform="rotate(15)"
+                  />
+
+                  {/* Main knob outline — wobbly circle */}
+                  <path
+                    d={`M ${-tr + 3} ${-tr + 3}
+                        C ${-tr / 2 + 1} ${-tr}, ${tr / 2 - 1} ${-tr}, ${tr - 3} ${-tr + 3}
+                        C ${tr} ${-tr / 2 + 1}, ${tr} ${tr / 2 - 1}, ${tr - 3} ${tr - 3}
+                        C ${tr / 2 - 1} ${tr}, ${-tr / 2 + 1} ${tr}, ${-tr + 3} ${tr - 3}
+                        C ${-tr} ${tr / 2 - 1}, ${-tr} ${-tr / 2 + 1}, ${-tr + 3} ${-tr + 3} Z`}
+                    stroke={c.thumb}
+                    strokeWidth={sc.trackW}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    opacity={0.9}
+                    strokeDasharray="1,0.5"
+                    transform="rotate(-5)"
+                  />
+
+                  {/* Secondary outline */}
+                  <path
+                    d={`M ${-tr + 2} ${-tr + 4}
+                        C ${-tr / 2} ${-tr + 1}, ${tr / 2} ${-tr + 1}, ${tr - 2} ${-tr + 4}
+                        C ${tr + 1} ${-tr / 2 + 2}, ${tr + 1} ${tr / 2}, ${tr - 2} ${tr - 2}
+                        C ${tr / 2} ${tr + 1}, ${-tr / 2} ${tr + 1}, ${-tr + 2} ${tr - 2}
+                        C ${-tr - 1} ${tr / 2}, ${-tr - 1} ${-tr / 2 + 2}, ${-tr + 2} ${-tr + 4} Z`}
+                    stroke={c.thumb}
+                    strokeWidth={1}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    opacity={0.4}
+                    transform="rotate(10)"
+                  />
+
+                  {/* Cross-hatch shading lines */}
+                  <g opacity={0.15}>
+                    <line
+                      x1={-tr * 0.4}
+                      y1={-tr * 0.4}
+                      x2={tr * 0.4}
+                      y2={tr * 0.4}
+                      stroke={c.thumb}
+                      strokeWidth={1}
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1={-tr * 0.55}
+                      y1={-tr * 0.15}
+                      x2={tr * 0.3}
+                      y2={tr * 0.7}
+                      stroke={c.thumb}
+                      strokeWidth={1}
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1={-tr * 0.15}
+                      y1={-tr * 0.7}
+                      x2={tr * 0.7}
+                      y2={tr * 0.15}
+                      stroke={c.thumb}
+                      strokeWidth={1}
+                      strokeLinecap="round"
+                    />
+                  </g>
+
+                  {/* Center dimple */}
+                  <circle r={tr * 0.14} fill={c.thumb} opacity={0.6} />
+                </g>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     );
