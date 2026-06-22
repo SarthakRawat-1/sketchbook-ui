@@ -303,43 +303,60 @@ export default function App() {
               body: "Every component ships with CSF3 stories covering all variants, sizes, and edge cases. Documentation as code.",
             },
           ].map(({ badge, title, body }) => (
-            <Card key={title} style={{ padding: 28 }}>
-              <div
+            <a
+              key={title}
+              href="./docs/"
+              style={{
+                display: "block",
+                color: "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              <Card
                 style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
-                  gap: 8,
-                  marginBottom: 12,
+                  padding: 28,
+                  height: "100%",
+                  transition: "transform 0.2s ease, filter 0.2s ease",
                 }}
               >
-                <span
+                <div
                   style={{
-                    fontFamily: "'Caveat', cursive",
-                    fontSize: "1.25rem",
-                    fontWeight: 700,
-                    lineHeight: 1.3,
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    gap: 8,
+                    marginBottom: 12,
                   }}
                 >
-                  {title}
-                </span>
-                <span style={{ flexShrink: 0 }}>
-                  <Badge variant="default" size="sm">
-                    {badge}
-                  </Badge>
-                </span>
-              </div>
-              <p
-                style={{
-                  fontSize: "0.92rem",
-                  lineHeight: 1.7,
-                  color: "#6b6460",
-                  margin: 0,
-                }}
-              >
-                {body}
-              </p>
-            </Card>
+                  <span
+                    style={{
+                      fontFamily: "'Caveat', cursive",
+                      fontSize: "1.25rem",
+                      fontWeight: 700,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {title}
+                  </span>
+                  <span style={{ flexShrink: 0 }}>
+                    <Badge variant="default" size="sm">
+                      {badge}
+                    </Badge>
+                  </span>
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.92rem",
+                    lineHeight: 1.7,
+                    color: "#6b6460",
+                    margin: 0,
+                  }}
+                >
+                  {body}
+                </p>
+              </Card>
+            </a>
           ))}
         </div>
       </section>
