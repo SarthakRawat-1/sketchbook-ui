@@ -106,6 +106,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const config = sizeConfig[size];
     const uid = useId();
     const hoverId = `dh${uid}`;
+    const menuId = `sketch-dropdown-menu-${uid}`;
 
     // Default colors with customization support
     const dropdownColors = {
@@ -189,8 +190,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             ref={triggerRef as React.RefObject<HTMLDivElement>}
             role="button"
             tabIndex={0}
-            aria-haspopup="true"
+            aria-haspopup="menu"
             aria-expanded={isOpen}
+            aria-controls={menuId}
             onClick={handleToggle}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -207,8 +209,9 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             ref={triggerRef as React.RefObject<HTMLButtonElement>}
             onClick={handleToggle}
             disabled={disabled}
-            aria-haspopup="true"
+            aria-haspopup="menu"
             aria-expanded={isOpen}
+            aria-controls={menuId}
             onKeyDown={handleTriggerKeyDown}
             onMouseEnter={() => setTriggerHovered(true)}
             onMouseLeave={() => setTriggerHovered(false)}
@@ -703,6 +706,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             {/* Scrollable Container and Virtual Text/Icon overlay */}
             <div
               ref={scrollRef}
+              id={menuId}
               style={{
                 position: "absolute",
                 top: 0,
