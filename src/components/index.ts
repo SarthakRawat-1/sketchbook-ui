@@ -9,6 +9,7 @@ export * from "./dropdown";
 export * from "./input";
 export * from "./modal";
 export * from "./progress";
+export * from "./rating";
 export * from "./radio";
 export * from "./select";
 export * from "./skeleton";
