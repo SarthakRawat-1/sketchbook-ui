@@ -69,6 +69,35 @@
   opacity: 0.7;
 }
 
+.sketch-cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.28;
+  background:
+    radial-gradient(circle at center,
+      rgba(59, 130, 246, 0.24) 0%,
+      rgba(251, 191, 36, 0.14) 38%,
+      rgba(250, 247, 240, 0) 72%);
+  filter: blur(36px);
+  mix-blend-mode: multiply;
+  transition:
+    transform 90ms linear,
+    opacity 180ms ease;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sketch-cursor-glow {
+    display: none;
+  }
+}
+
 /* Size variants */
 .sketch-button-sm {
   font-size: 1.25rem;
