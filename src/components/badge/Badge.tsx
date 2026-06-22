@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   cn,
   SketchPaper,
@@ -52,6 +52,15 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
+    const usesLegacyBorderProp = colors?.border !== undefined;
+
+    useEffect(() => {
+      if (import.meta.env.DEV && usesLegacyBorderProp) {
+        console.warn(
+          'Badge colors.border is deprecated. Please use colors.stroke instead.',
+        );
+      }
+    }, [usesLegacyBorderProp]);
 
     // Default variant color mappings
     const defaultVariants = {
