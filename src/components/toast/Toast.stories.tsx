@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Toast, ToastContainer, useToast } from "./Toast";
 import type { ToastPosition } from "./Toast";
 
