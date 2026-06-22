@@ -18,6 +18,7 @@ import {
   ToastContainer,
   useToast,
   Tooltip,
+  Tabs,
 } from "./components";
 
 export default function App() {
@@ -390,6 +391,89 @@ export default function App() {
       </section>
 
       <Divider style={{ maxWidth: 800, margin: "0 auto" }} />
+
+      {/* TABS DEMO */}
+      <section
+        style={{ maxWidth: 900, margin: "0 auto", padding: "0 32px 88px" }}
+      >
+        <h2
+          style={{
+            fontFamily: "'Caveat', cursive",
+            fontSize: "2.3rem",
+            fontWeight: 700,
+            textAlign: "center",
+            marginBottom: 18,
+          }}
+        >
+          Tabs that keep context close
+        </h2>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#6b6460",
+            lineHeight: 1.75,
+            maxWidth: 640,
+            margin: "0 auto 28px",
+          }}
+        >
+          Switch between grouped content without leaving the page. The tabs are
+          keyboard accessible and keep the interface feeling sketchy, not stiff.
+        </p>
+        <Tabs defaultValue="overview">
+          <Tabs.List style={{ justifyContent: "center", marginBottom: 18 }}>
+            <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="examples">Examples</Tabs.Trigger>
+            <Tabs.Trigger value="accessibility">Accessibility</Tabs.Trigger>
+          </Tabs.List>
+
+          <Tabs.Content value="overview">
+            <Card style={{ padding: 28, display: "grid", gap: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Badge variant="info" size="sm">
+                  New component
+                </Badge>
+                <Badge variant="success" size="sm">
+                  Keyboard ready
+                </Badge>
+              </div>
+              <h3 style={{ margin: 0, fontFamily: "'Caveat', cursive" }}>
+                A familiar pattern with a hand-drawn edge
+              </h3>
+              <p style={{ margin: 0, lineHeight: 1.75, color: "#5a5248" }}>
+                Sketchbook Tabs give you a simple way to organize related
+                content. They support controlled and uncontrolled use, roving
+                focus, and clear ARIA wiring for tab and tabpanel pairs.
+              </p>
+            </Card>
+          </Tabs.Content>
+
+          <Tabs.Content value="examples">
+            <Card style={{ padding: 28, display: "grid", gap: 16 }}>
+              <Input label="Project name" placeholder="Sketchbook UI" />
+              <Select
+                placeholder="Choose a section"
+                options={[
+                  { label: "Overview", value: "overview" },
+                  { label: "Examples", value: "examples" },
+                  { label: "Accessibility", value: "accessibility" },
+                ]}
+              />
+              <Button>Save changes</Button>
+            </Card>
+          </Tabs.Content>
+
+          <Tabs.Content value="accessibility">
+            <Card style={{ padding: 28, display: "grid", gap: 16 }}>
+              <p style={{ margin: 0, lineHeight: 1.75 }}>
+                Arrow keys move focus between tabs, Enter and Space activate the
+                selected tab, and each panel stays linked to its trigger.
+              </p>
+              <Switch label="Focus ring enabled" checked />
+              <Switch label="Reduced motion friendly" />
+            </Card>
+          </Tabs.Content>
+        </Tabs>
+      </section>
 
       {/* PREFERENCES PANEL */}
       <section
