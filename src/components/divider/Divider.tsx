@@ -1,5 +1,5 @@
 import React from "react";
-import { cn, SK, DISP_DIVIDER_ID } from "../../lib";
+import { cn, SK, useSketchAssetIds } from "../../lib";
 
 export interface DividerProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -24,6 +24,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     },
     ref,
   ) => {
+    const ids = useSketchAssetIds();
     // Dimensions based on orientation
     const width = orientation === "horizontal" ? 600 : 40;
     const height = orientation === "horizontal" ? 40 : 600;
@@ -221,7 +222,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             opacity="0.9"
             strokeDasharray={variant === "dashed" ? undefined : "1,0.5"}
             fill={variant === "dots" ? color : "none"}
-            filter={`url(#${DISP_DIVIDER_ID})`}
+            filter={`url(#${ids.dispDividerId})`}
           />
 
           {/* Secondary Stroke — offset shadow for hand-drawn depth */}
@@ -234,7 +235,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
               strokeLinejoin="round"
               opacity="0.2"
               transform="translate(1, 1)"
-              filter={`url(#${DISP_DIVIDER_ID})`}
+              filter={`url(#${ids.dispDividerId})`}
             />
           )}
         </svg>

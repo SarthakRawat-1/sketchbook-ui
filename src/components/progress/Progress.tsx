@@ -6,7 +6,7 @@ import {
   useSketchSize,
   SK,
   SK_DISABLED,
-  DISP_PROGRESS_ID,
+  useSketchAssetIds,
 } from "../../lib";
 
 export interface ProgressProps extends Omit<
@@ -113,6 +113,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
     ref,
   ) => {
     const uid = useId();
+    const ids = useSketchAssetIds();
     const percentage = Math.min(100, Math.max(0, (value / max) * 100));
     const sc = SIZE_CONFIG[size];
 
@@ -307,7 +308,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   height={h * 0.7}
                   fill={c.fill}
                   opacity="0.15"
-                  filter={`url(#${DISP_PROGRESS_ID})`}
+                  filter={`url(#${ids.dispProgressId})`}
                 />
                 <rect
                   x={w * 0.013}
@@ -316,7 +317,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   height={h * 0.7}
                   fill={c.fill}
                   opacity="0.12"
-                  filter={`url(#${DISP_PROGRESS_ID})`}
+                  filter={`url(#${ids.dispProgressId})`}
                   transform="translate(1, 0.5)"
                 />
                 <rect
@@ -326,7 +327,7 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   height={h * 0.7}
                   fill={c.fill}
                   opacity="0.1"
-                  filter={`url(#${DISP_PROGRESS_ID})`}
+                  filter={`url(#${ids.dispProgressId})`}
                   transform="translate(-0.5, 1)"
                 />
               </g>

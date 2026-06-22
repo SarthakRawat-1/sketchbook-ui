@@ -3,7 +3,7 @@ import {
   cn,
   SketchPaper,
   SketchBorder,
-  noiseUrl,
+  useNoiseUrl,
   SK,
   SK_DISABLED,
 } from "../../lib";
@@ -117,6 +117,7 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const sx = w / 80;
     const sy = h / 46;
     const uid = useId();
+    const noise = useNoiseUrl();
     const fillId = `mf${uid}`;
 
     // Default colors - darker and more visible
@@ -353,7 +354,7 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
                       cx={tc}
                       cy={tcy}
                       r={tr}
-                      fill={noiseUrl()}
+                      fill={noise}
                       opacity="0.15"
                     />
                   </>

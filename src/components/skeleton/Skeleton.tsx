@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { cn, SketchBorder, noiseUrl } from "../../lib";
+import { cn, SketchBorder, useNoiseUrl } from "../../lib";
 
 export interface SkeletonProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -65,6 +65,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     ref,
   ) => {
     const uid = useId();
+    const noise = useNoiseUrl();
     const h = height ?? DEFAULT_H[variant];
     const isRound = variant === "circle" || variant === "avatar";
     const vb = isRound ? VB.round : VB.rect;
@@ -185,7 +186,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
             y="0"
             width={vb.w}
             height={vb.h}
-            fill={noiseUrl()}
+            fill={noise}
             opacity={0.15}
           />
 

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 
 export const NOISE_ID = "sk-n";
@@ -9,10 +9,56 @@ export const DISP_DIVIDER_ID = "sk-dd";
 export const DISP_SLIDER_ID = "sk-ds";
 export const DISP_PROGRESS_ID = "sk-dp";
 
+export interface SketchAssetIds {
+  noiseId: string;
+  noiseFineId: string;
+  dispAvatarId: string;
+  dispBadgeId: string;
+  dispDividerId: string;
+  dispSliderId: string;
+  dispProgressId: string;
+}
+
+const LEGACY_SKETCH_IDS: SketchAssetIds = {
+  noiseId: NOISE_ID,
+  noiseFineId: NOISE_FINE_ID,
+  dispAvatarId: DISP_AVATAR_ID,
+  dispBadgeId: DISP_BADGE_ID,
+  dispDividerId: DISP_DIVIDER_ID,
+  dispSliderId: DISP_SLIDER_ID,
+  dispProgressId: DISP_PROGRESS_ID,
+};
+
+const SketchAssetIdsContext = createContext<SketchAssetIds | null>(null);
+
+function normalizeScopeId(scope: string) {
+  return scope.replace(/[^a-zA-Z0-9_-]/g, "") || "root";
+}
+
+function createSketchAssetIds(scope: string): SketchAssetIds {
+  const suffix = normalizeScopeId(scope);
+  return {
+    noiseId: `${NOISE_ID}-${suffix}`,
+    noiseFineId: `${NOISE_FINE_ID}-${suffix}`,
+    dispAvatarId: `${DISP_AVATAR_ID}-${suffix}`,
+    dispBadgeId: `${DISP_BADGE_ID}-${suffix}`,
+    dispDividerId: `${DISP_DIVIDER_ID}-${suffix}`,
+    dispSliderId: `${DISP_SLIDER_ID}-${suffix}`,
+    dispProgressId: `${DISP_PROGRESS_ID}-${suffix}`,
+  };
+}
+
+export function useSketchAssetIds() {
+  return useContext(SketchAssetIdsContext) ?? LEGACY_SKETCH_IDS;
+}
+
 /** Place once at app root. Provides shared SVG noise filters and patterns. */
 export function SketchProvider({ children }: { children: ReactNode }) {
+  const scope = useId();
+  const ids = useMemo(() => createSketchAssetIds(scope), [scope]);
+
   return (
-    <>
+    <SketchAssetIdsContext.Provider value={ids}>
       <svg
         width="0"
         height="0"
@@ -20,7 +66,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
         aria-hidden="true"
       >
         <defs>
-          <filter id={`${NOISE_ID}-n`}>
+          <filter id={`${ids.noiseId}-n`}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.9}
@@ -30,7 +76,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feColorMatrix type="saturate" values="0" />
           </filter>
           <pattern
-            id={`${NOISE_ID}-np`}
+            id={`${ids.noiseId}-np`}
             x="0"
             y="0"
             width="100"
@@ -40,12 +86,12 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <rect
               width="100"
               height="100"
-              filter={`url(#${NOISE_ID}-n)`}
+              filter={`url(#${ids.noiseId}-n)`}
               opacity="0.4"
             />
           </pattern>
 
-          <filter id={`${NOISE_FINE_ID}-n`}>
+          <filter id={`${ids.noiseFineId}-n`}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.85}
@@ -55,7 +101,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feColorMatrix type="saturate" values="0" />
           </filter>
           <pattern
-            id={`${NOISE_FINE_ID}-np`}
+            id={`${ids.noiseFineId}-np`}
             x="0"
             y="0"
             width="100"
@@ -65,12 +111,12 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <rect
               width="100"
               height="100"
-              filter={`url(#${NOISE_FINE_ID}-n)`}
+              filter={`url(#${ids.noiseFineId}-n)`}
               opacity="0.4"
             />
           </pattern>
 
-          <filter id={DISP_AVATAR_ID}>
+          <filter id={ids.dispAvatarId}>
             <feTurbulence
               baseFrequency={0.03}
               numOctaves={3}
@@ -86,7 +132,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             />
           </filter>
 
-          <filter id={DISP_BADGE_ID}>
+          <filter id={ids.dispBadgeId}>
             <feTurbulence
               baseFrequency={0.03}
               numOctaves={2}
@@ -100,7 +146,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             />
           </filter>
 
-          <filter id={DISP_DIVIDER_ID}>
+          <filter id={ids.dispDividerId}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.08}
@@ -110,7 +156,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale={2} />
           </filter>
 
-          <filter id={DISP_SLIDER_ID}>
+          <filter id={ids.dispSliderId}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.8}
@@ -120,7 +166,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale={2} />
           </filter>
 
-          <filter id={DISP_PROGRESS_ID}>
+          <filter id={ids.dispProgressId}>
             <feTurbulence
               type="fractalNoise"
               baseFrequency={0.05}
@@ -132,7 +178,7 @@ export function SketchProvider({ children }: { children: ReactNode }) {
         </defs>
       </svg>
       {children}
-    </>
+    </SketchAssetIdsContext.Provider>
   );
 }
 
@@ -172,6 +218,11 @@ export function SketchNoiseDefs({
 // eslint-disable-next-line react-refresh/only-export-components
 export const noiseUrl = (fine = false) =>
   `url(#${fine ? NOISE_FINE_ID : NOISE_ID}-np)`;
+
+export function useNoiseUrl(fine = false) {
+  const ids = useSketchAssetIds();
+  return `url(#${fine ? ids.noiseFineId : ids.noiseId}-np)`;
+}
 
 export function SketchPaper({
   d,
