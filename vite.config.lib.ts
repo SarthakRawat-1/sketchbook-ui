@@ -10,10 +10,16 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: {
+        index: resolve(__dirname, "src/index.ts"),
+        style: resolve(__dirname, "src/lib-styles.css"),
+      },
       name: "SketchbookUI",
       formats: ["es", "cjs"],
-      fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
+      fileName: (format, entryName) =>
+        entryName === "style"
+          ? "style"
+          : `index.${format === "es" ? "js" : "cjs"}`,
     },
     rollupOptions: {
       // Externalize dependencies that shouldn't be bundled
@@ -27,7 +33,7 @@ export default defineConfig({
         },
       },
     },
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     cssFileName: "style.css",
     sourcemap: true,
     // Don't empty the directory since tsc runs first

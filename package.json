@@ -12,8 +12,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./dist/style.css": "./dist/sketchbook-ui.css",
-    "./style.css": "./dist/sketchbook-ui.css"
+    "./dist/style.css": "./dist/style.css",
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist",
@@ -21,7 +21,7 @@
     "LICENSE.md"
   ],
   "sideEffects": [
-    "*.css"
+    "**/*.css"
   ],
   "keywords": [
     "react",
