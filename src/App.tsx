@@ -18,6 +18,7 @@ import {
   ToastContainer,
   useToast,
   Tooltip,
+  CursorGlow,
 } from "./components";
 
 export default function App() {
@@ -41,14 +42,15 @@ export default function App() {
   };
 
   return (
-    <div
-      style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
-    >
-      <ToastContainer
-        toasts={toasts}
-        onDismiss={dismissToast}
-        position="top-right"
-      />
+    <CursorGlow>
+      <div
+        style={{ minHeight: "100vh", background: "#faf7f0", color: "#2a2a2a" }}
+      >
+        <ToastContainer
+          toasts={toasts}
+          onDismiss={dismissToast}
+          position="top-right"
+        />
 
       {/* NAV */}
       <nav
@@ -594,7 +596,7 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
+        <footer style={{ padding: "40px 48px", background: "#faf7f0" }}>
         <Divider style={{ marginBottom: 32 }} />
         <div
           style={{
@@ -630,7 +632,8 @@ export default function App() {
             </Badge>
           </div>
         </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+    </CursorGlow>
   );
 }
