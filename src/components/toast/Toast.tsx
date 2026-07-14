@@ -546,6 +546,7 @@ ToastContainer.displayName = "ToastContainer";
 export function useToast() {
   const [toasts, setToasts] = useState<ToastOptions[]>(globalToasts);
   const dismissingRef = useRef<Set<string>>(new Set());
+  const timerRefs = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
   // Subscribe to global store changes
   useEffect(() => {
@@ -553,12 +554,21 @@ export function useToast() {
     listeners.add(listener);
     return () => {
       listeners.delete(listener);
+      // Clear all auto-dismiss timers on unmount
+      timerRefs.current.forEach((timer) => clearTimeout(timer));
+      timerRefs.current.clear();
     };
   }, []);
 
   const dismissToast = useCallback((id: string) => {
     // Prevent double-dismiss
     if (dismissingRef.current.has(id)) return;
+    // Clear the auto-dismiss timer if still pending
+    const timer = timerRefs.current.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      timerRefs.current.delete(id);
+    }
     dismissingRef.current.add(id);
 
     // Wait for exit animation to finish, then remove from global state
@@ -580,9 +590,12 @@ export function useToast() {
       addToast(newToast);
 
       // Auto dismiss after specified duration
-      setTimeout(() => {
+      const timerId = setTimeout(() => {
         dismissToast(id);
       }, duration);
+
+      // Store timer for cleanup on unmount
+      timerRefs.current.set(id, timerId);
 
       return id;
     },
@@ -592,6 +605,8 @@ export function useToast() {
   const clearAllToasts = useCallback(() => {
     clearToasts();
     dismissingRef.current.clear();
+    timerRefs.current.forEach((timer) => clearTimeout(timer));
+    timerRefs.current.clear();
   }, []);
 
   return { toasts, showToast, dismissToast, clearAllToasts };
