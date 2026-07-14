@@ -182,6 +182,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           disabled={disabled}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
+          aria-label={selectedOption ? selectedOption.label : placeholder}
           onKeyDown={handleTriggerKeyDown}
           className="sketch-select-trigger"
           style={{
