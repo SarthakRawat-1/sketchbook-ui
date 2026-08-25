@@ -561,11 +561,8 @@ export function useToast() {
     if (dismissingRef.current.has(id)) return;
     dismissingRef.current.add(id);
 
-    // Wait for exit animation to finish, then remove from global state
-    setTimeout(() => {
-      removeToast(id);
-      dismissingRef.current.delete(id);
-    }, 400);
+    removeToast(id);
+    dismissingRef.current.delete(id);
   }, []);
 
   const showToast = useCallback(
