@@ -200,6 +200,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {/* Label */}
         {label && (
           <label
+            htmlFor={uid}
             style={{
               display: "block",
               marginBottom: "0.5rem",
@@ -342,6 +343,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {/* Actual input element - absolutely positioned over the SVG */}
           <input
             ref={ref}
+            id={uid}
             value={value}
             onChange={handleChange}
             onFocus={handleFocus}
