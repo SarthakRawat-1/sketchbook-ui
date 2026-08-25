@@ -41,6 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       onMouseEnter,
       onMouseLeave,
       onFocus,
+      onBlur,
       ...props
     },
     ref,
@@ -65,8 +66,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       onFocus?.(e);
     };
 
-    const handleBlur = () => {
+    const handleBlur = (e: React.FocusEvent<HTMLButtonElement>) => {
       setIsFocused(false);
+      onBlur?.(e);
     };
 
     const sizeConfig = {
