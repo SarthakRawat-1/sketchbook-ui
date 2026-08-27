@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   cn,
   SketchPaper,
@@ -47,6 +47,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+
+    useEffect(() => {
+      if (disabled) {
+        setIsHovered(false);
+        setIsFocused(false);
+      }
+    }, [disabled]);
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!disabled) {
