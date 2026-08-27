@@ -6,7 +6,8 @@ interface RadioOption {
   label: string;
 }
 
-interface RadioGroupProps {
+interface RadioGroupProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "className" | "onChange"> {
   name: string;
   options: RadioOption[];
   size?: "sm" | "md" | "lg";
