@@ -6,7 +6,7 @@ interface RadioOption {
   label: string;
 }
 
-interface RadioGroupProps {
+export interface RadioGroupProps {
   name: string;
   options: RadioOption[];
   size?: "sm" | "md" | "lg";
@@ -31,7 +31,7 @@ interface RadioGroupProps {
   className?: string;
 }
 
-interface RadioProps extends Omit<
+export interface RadioProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "size"
 > {
