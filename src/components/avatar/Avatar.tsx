@@ -88,8 +88,12 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       fontFamily: typography?.fontFamily || SK.font,
     };
 
+    // Sanitize src URL to prevent javascript: URI injection
+    const safeSrc =
+      src && /^(https?:\/\/|data:image\/)/.test(src) ? src : undefined;
+
     // Determine what to display
-    const showImage = src && !imageError;
+    const showImage = safeSrc && !imageError;
     const displayInitials = initials || "?";
     const firstInitial = displayInitials.charAt(0).toUpperCase();
 
@@ -219,7 +223,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           <g clipPath={`url(#${clipId})`}>
             {showImage ? (
               <image
-                href={src}
+                href={safeSrc}
                 x={center - radius + 4}
                 y={center - radius + 4}
                 width={(radius - 4) * 2}
