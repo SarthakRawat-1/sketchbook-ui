@@ -12,6 +12,21 @@ dist
 dist-ssr
 *.local
 
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+serviceAccount*.json
+.npmrc
+
+# OS artifacts
+desktop.ini
+Thumbs.db
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
