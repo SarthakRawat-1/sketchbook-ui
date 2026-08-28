@@ -29,7 +29,7 @@ export default defineConfig({
     },
     cssCodeSplit: false,
     cssFileName: "style.css",
-    sourcemap: true,
+    sourcemap: false,
     // Don't empty the directory since tsc runs first
     emptyOutDir: false,
   },
