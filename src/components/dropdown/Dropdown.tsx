@@ -75,7 +75,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const itemHeight = 60; // Increased from 52 for better spacing
-    const { virtualItems, totalHeight, scrollToIndex } = useVirtualizer({
+    const { virtualItems, totalHeight, scrollToIndex, setRef } = useVirtualizer({
       count: items.length,
       itemHeight,
       containerRef: scrollRef,
@@ -702,7 +702,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
             {/* Scrollable Container and Virtual Text/Icon overlay */}
             <div
-              ref={scrollRef}
+              ref={setRef}
               style={{
                 position: "absolute",
                 top: 0,
