@@ -1,4 +1,4 @@
-import React, { useId, useState, useRef, useEffect } from "react";
+import React, { useId, useState, useRef, useEffect, useCallback } from "react";
 import {
   cn,
   SketchPaper,
@@ -58,13 +58,16 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(defaultValue || "");
     const containerRef = useRef<HTMLDivElement>(null);
-    const mergedRef = (node: HTMLDivElement | null) => {
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
-        node;
-      if (typeof ref === "function") ref(node);
-      else if (ref)
-        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    };
+    const mergedRef = useCallback(
+      (node: HTMLDivElement | null) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
+          node;
+        if (typeof ref === "function") ref(node);
+        else if (ref)
+          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      },
+      [ref],
+    );
 
     const selectedOption = options.find((opt) => opt.value === selectedValue);
 
