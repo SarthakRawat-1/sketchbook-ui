@@ -35,12 +35,16 @@ export interface ToastProps {
 }
 
 // --- Global Toast Store for shared state ---
+const MAX_TOASTS = 50;
 type SubscribeFn = (toasts: ToastOptions[]) => void;
 let globalToasts: ToastOptions[] = [];
 const listeners: Set<SubscribeFn> = new Set();
 
 const addToast = (toast: ToastOptions) => {
-  globalToasts = [...globalToasts, toast];
+  const updated = globalToasts.length >= MAX_TOASTS
+    ? [...globalToasts.slice(1), toast]
+    : [...globalToasts, toast];
+  globalToasts = updated;
   listeners.forEach((listener) => listener(globalToasts));
 };
 
@@ -574,7 +578,7 @@ export function useToast() {
       variant: ToastVariant = "info",
       duration: number = 5000,
     ) => {
-      const id = Math.random().toString(36).substring(7);
+      const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
       const newToast: ToastOptions = { id, message, variant, duration };
 
       addToast(newToast);
