@@ -18,10 +18,12 @@ export function useListNavigation<
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const triggerRef = useRef<TriggerElement>(null);
+  const rafRef = useRef(0);
 
   const focusItem = (index: number) => {
     scrollToIndex?.(index);
-    requestAnimationFrame(() => {
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
       itemRefs.current[index]?.focus();
     });
   };
@@ -29,13 +31,15 @@ export function useListNavigation<
   // Focus first item when list opens, reset when closed
   useEffect(() => {
     if (isOpen && itemCount > 0) {
-      requestAnimationFrame(() => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
         setActiveIndex(0);
         focusItem(0);
       });
     } else {
       setActiveIndex(null);
     }
+    return () => cancelAnimationFrame(rafRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, itemCount]);
 
