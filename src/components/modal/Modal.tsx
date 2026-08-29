@@ -135,13 +135,12 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     /* ── Body scroll lock ─────────────────────────────────── */
     useEffect(() => {
       if (isOpen) {
+        const prev = document.body.style.overflow;
         document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
+        return () => {
+          document.body.style.overflow = prev;
+        };
       }
-      return () => {
-        document.body.style.overflow = "";
-      };
     }, [isOpen]);
 
     /* ── Escape key ───────────────────────────────────────── */
