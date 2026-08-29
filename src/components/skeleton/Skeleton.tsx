@@ -1,5 +1,6 @@
 import React, { useId } from "react";
-import { cn, SketchBorder, noiseUrl } from "../../lib";
+import { cn } from "../../lib";
+import { SketchBorder, noiseUrl } from "../../lib/sketch-primitives";
 
 export interface SkeletonProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,

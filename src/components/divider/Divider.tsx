@@ -1,5 +1,7 @@
 import React from "react";
-import { cn, SK, DISP_DIVIDER_ID } from "../../lib";
+import { cn } from "../../lib";
+import { DISP_DIVIDER_ID } from "../../lib/sketch-primitives";
+import { SK } from "../../lib/sketch-styles";
 
 export interface DividerProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,

@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { cn, SketchPaper, SketchBorder, useSketchSize, SK } from "../../lib";
+import { cn, useSketchSize } from "../../lib";
+import { SketchPaper, SketchBorder } from "../../lib/sketch-primitives";
+import { SK } from "../../lib/sketch-styles";
 
 export interface TooltipProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,

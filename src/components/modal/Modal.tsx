@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
-import { cn, SketchPaper, SketchBorder, SK } from "../../lib";
+import { cn } from "../../lib";
+import { SketchPaper, SketchBorder } from "../../lib/sketch-primitives";
+import { SK } from "../../lib/sketch-styles";
 
 export interface ModalProps {
   isOpen: boolean;

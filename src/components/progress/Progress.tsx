@@ -1,13 +1,7 @@
 import React, { useId } from "react";
-import {
-  cn,
-  SketchPaper,
-  SketchBorder,
-  useSketchSize,
-  SK,
-  SK_DISABLED,
-  DISP_PROGRESS_ID,
-} from "../../lib";
+import { cn, useSketchSize } from "../../lib";
+import { SketchPaper, SketchBorder, DISP_PROGRESS_ID } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface ProgressProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,

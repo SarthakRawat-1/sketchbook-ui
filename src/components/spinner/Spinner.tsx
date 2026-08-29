@@ -1,5 +1,6 @@
 import React from "react";
-import { cn, SK, SK_DISABLED } from "../../lib";
+import { cn } from "../../lib";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual variant */

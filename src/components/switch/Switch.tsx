@@ -1,12 +1,7 @@
 import React, { useId, useState } from "react";
-import {
-  cn,
-  SketchPaper,
-  SketchBorder,
-  noiseUrl,
-  SK,
-  SK_DISABLED,
-} from "../../lib";
+import { cn } from "../../lib";
+import { SketchPaper, SketchBorder, noiseUrl } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface SwitchProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

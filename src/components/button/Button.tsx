@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  cn,
-  SketchPaper,
-  SketchBorder,
-  SK,
-  SK_DISABLED,
-  useSketchSize,
-} from "../../lib";
+import { cn, useSketchSize } from "../../lib";
+import { SketchPaper, SketchBorder } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";

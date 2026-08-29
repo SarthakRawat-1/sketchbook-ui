@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { cn, SketchPaper, SketchBorder, SK, SK_DISABLED } from "../../lib";
+import { cn } from "../../lib";
+import { SketchPaper, SketchBorder } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface CheckboxProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

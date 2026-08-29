@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { cn, SketchPaper, SketchBorder, SK } from "../../lib";
+import { cn } from "../../lib";
+import { SketchPaper, SketchBorder } from "../../lib/sketch-primitives";
+import { SK } from "../../lib/sketch-styles";
 
 export type ToastVariant = "success" | "warning" | "error" | "info";
 
