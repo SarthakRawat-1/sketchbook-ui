@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export interface UseVirtualizerOptions {
   count: number;
@@ -20,11 +20,19 @@ export function useVirtualizer({
 }: UseVirtualizerOptions) {
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   const rafId = useRef(0);
+
+  const setRef = useCallback(
+    (node: HTMLElement | null) => {
+      (containerRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      setContainer(node);
+    },
+    [containerRef],
+  );
 
   // Re-run whenever the container element changes (e.g. conditional rendering)
   useEffect(() => {
-    const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
@@ -51,7 +59,7 @@ export function useVirtualizer({
       container.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId.current);
     };
-  }, [count, itemHeight, containerRef, overscan]);
+  }, [count, itemHeight, container, overscan]);
 
   const totalHeight = count * itemHeight;
 
@@ -87,5 +95,6 @@ export function useVirtualizer({
     virtualItems,
     totalHeight,
     scrollToIndex,
+    setRef,
   };
 }

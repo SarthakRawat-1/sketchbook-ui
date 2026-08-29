@@ -88,7 +88,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const hoverId = `hm${uid}`;
 
     const scrollRef = useRef<HTMLDivElement>(null);
-    const { virtualItems, totalHeight, scrollToIndex } = useVirtualizer({
+    const { virtualItems, totalHeight, scrollToIndex, setRef } = useVirtualizer({
       count: options.length,
       itemHeight: config.optionHeight,
       containerRef: scrollRef,
@@ -376,7 +376,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
             {/* Scrollable Container and Virtual Option text overlay */}
             <div
-              ref={scrollRef}
+              ref={setRef}
               style={{
                 position: "absolute",
                 top: 0,
