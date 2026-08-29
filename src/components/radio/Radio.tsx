@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { cn, SketchBorder, noiseUrl, SK, SK_DISABLED } from "../../lib";
+import { cn } from "../../lib";
+import { SketchBorder, noiseUrl } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 interface RadioOption {
   value: string;

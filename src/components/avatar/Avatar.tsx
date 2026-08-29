@@ -1,5 +1,7 @@
 import React, { useId, useState } from "react";
-import { cn, SK, DISP_AVATAR_ID, noiseUrl } from "../../lib";
+import { cn } from "../../lib";
+import { noiseUrl, DISP_AVATAR_ID } from "../../lib/sketch-primitives";
+import { SK } from "../../lib/sketch-styles";
 
 export interface AvatarProps {
   src?: string;

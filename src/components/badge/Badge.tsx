@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  cn,
-  SketchPaper,
-  SK,
-  SK_DISABLED,
-  DISP_BADGE_ID,
-  useSketchSize,
-} from "../../lib";
+import { cn, useSketchSize } from "../../lib";
+import { SketchPaper, DISP_BADGE_ID } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface BadgeProps {
   children: React.ReactNode;

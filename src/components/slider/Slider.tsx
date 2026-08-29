@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { cn, SK, SK_DISABLED, DISP_SLIDER_ID, SketchBorder } from "../../lib";
+import { cn } from "../../lib";
+import { SketchBorder, DISP_SLIDER_ID } from "../../lib/sketch-primitives";
+import { SK, SK_DISABLED } from "../../lib/sketch-styles";
 
 export interface SliderProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
