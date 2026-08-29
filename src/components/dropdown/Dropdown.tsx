@@ -1,4 +1,4 @@
-import React, { useId, useState, useRef, useEffect } from "react";
+import React, { useId, useState, useRef, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
 import {
   cn,
@@ -65,13 +65,16 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const [isOpen, setIsOpen] = useState(false);
     const [triggerHovered, setTriggerHovered] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const mergedRef = (node: HTMLDivElement | null) => {
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
-        node;
-      if (typeof ref === "function") ref(node);
-      else if (ref)
-        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    };
+    const mergedRef = useCallback(
+      (node: HTMLDivElement | null) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
+          node;
+        if (typeof ref === "function") ref(node);
+        else if (ref)
+          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      },
+      [ref],
+    );
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const itemHeight = 60; // Increased from 52 for better spacing
