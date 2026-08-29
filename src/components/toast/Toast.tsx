@@ -206,11 +206,16 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isDismissing, setIsDismissing] = useState(false);
+    const dismissTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
     const handleDismiss = () => {
       setIsDismissing(true);
-      setTimeout(() => onDismiss(toast.id), 400);
+      dismissTimerRef.current = setTimeout(() => onDismiss(toast.id), 400);
     };
+
+    useEffect(() => {
+      return () => clearTimeout(dismissTimerRef.current);
+    }, []);
 
     // Size configurations
     const sizeConfig = {
@@ -546,6 +551,7 @@ ToastContainer.displayName = "ToastContainer";
 export function useToast() {
   const [toasts, setToasts] = useState<ToastOptions[]>(globalToasts);
   const dismissingRef = useRef<Set<string>>(new Set());
+  const timersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
   // Subscribe to global store changes
   useEffect(() => {
@@ -556,16 +562,33 @@ export function useToast() {
     };
   }, []);
 
+  // Cleanup all pending timers on unmount
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((t) => clearTimeout(t));
+      timersRef.current.clear();
+    };
+  }, []);
+
   const dismissToast = useCallback((id: string) => {
     // Prevent double-dismiss
     if (dismissingRef.current.has(id)) return;
     dismissingRef.current.add(id);
 
+    // Cancel any pending auto-dismiss timer for this toast
+    const autoTimer = timersRef.current.get(id);
+    if (autoTimer) {
+      clearTimeout(autoTimer);
+      timersRef.current.delete(id);
+    }
+
     // Wait for exit animation to finish, then remove from global state
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       removeToast(id);
       dismissingRef.current.delete(id);
+      timersRef.current.delete(id);
     }, 400);
+    timersRef.current.set(`${id}-dismiss`, timer);
   }, []);
 
   const showToast = useCallback(
@@ -580,9 +603,10 @@ export function useToast() {
       addToast(newToast);
 
       // Auto dismiss after specified duration
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         dismissToast(id);
       }, duration);
+      timersRef.current.set(id, timer);
 
       return id;
     },
@@ -592,6 +616,8 @@ export function useToast() {
   const clearAllToasts = useCallback(() => {
     clearToasts();
     dismissingRef.current.clear();
+    timersRef.current.forEach((t) => clearTimeout(t));
+    timersRef.current.clear();
   }, []);
 
   return { toasts, showToast, dismissToast, clearAllToasts };
