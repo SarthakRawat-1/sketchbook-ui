@@ -2,6 +2,9 @@ import React, { useCallback, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { cn, SketchPaper, SketchBorder, SK } from "../../lib";
 
+let openModalCount = 0;
+let savedOverflow = "";
+
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -132,16 +135,21 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const font = typography?.fontFamily ?? SK.font;
     const titleId = `modal-title-${uid}`;
 
-    /* ── Body scroll lock ─────────────────────────────────── */
+    /* ── Body scroll lock (stacked-modal safe) ──────────── */
     useEffect(() => {
       if (isOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
+        if (openModalCount === 0) {
+          savedOverflow = document.body.style.overflow;
+          document.body.style.overflow = "hidden";
+        }
+        openModalCount++;
+        return () => {
+          openModalCount--;
+          if (openModalCount === 0) {
+            document.body.style.overflow = savedOverflow;
+          }
+        };
       }
-      return () => {
-        document.body.style.overflow = "";
-      };
     }, [isOpen]);
 
     /* ── Escape key ───────────────────────────────────────── */
