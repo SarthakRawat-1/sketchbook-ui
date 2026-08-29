@@ -178,11 +178,11 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     /* ── Focus trap (Tab cycling) ─────────────────────────── */
     useEffect(() => {
       if (!isOpen) return;
-      const modal = modalRef.current;
-      if (!modal) return;
 
       const handleTab = (e: KeyboardEvent) => {
         if (e.key !== "Tab") return;
+        const modal = modalRef.current;
+        if (!modal) return;
         const focusable = modal.querySelectorAll<HTMLElement>(
           'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
         );
