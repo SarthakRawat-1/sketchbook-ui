@@ -1189,3 +1189,39 @@
 .sketch-card__content form > button[type="submit"] {
   margin-top: 0.5rem;
 }
+
+/* Sketch DatePicker Styles */
+@keyframes sketch-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) rotate(0.1deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0.3deg);
+  }
+}
+
+.sketch-datepicker-popover {
+  animation: sketch-popover-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sketch-datepicker-trigger:hover:not(:disabled) {
+  transform: translateY(-1px) rotate(-0.5deg) !important;
+}
+
+.sketch-datepicker-trigger:active:not(:disabled) {
+  transform: translateY(0.5px) rotate(-0.2deg) !important;
+}
+
+.sketch-datepicker-nav-btn:hover {
+  transform: scale(1.15);
+}
+
+.sketch-datepicker-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.sketch-datepicker-nav-btn:focus-visible {
+  outline: none;
+}

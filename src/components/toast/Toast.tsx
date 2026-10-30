@@ -574,7 +574,10 @@ export function useToast() {
       variant: ToastVariant = "info",
       duration: number = 5000,
     ) => {
-      const id = Math.random().toString(36).substring(7);
+      const id =
+        typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
       const newToast: ToastOptions = { id, message, variant, duration };
 
       addToast(newToast);

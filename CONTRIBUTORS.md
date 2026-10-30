@@ -10,6 +10,8 @@ Thank you to everyone who has contributed to Sketchbook UI! Whether you proposed
     *   Implemented text highlighting using `react-rough-notation` and standardized codebase formatting via Prettier.
 *   **YogeshK34 (Yogesh)**
     *   Fixed WebKit input field auto-fill overrides to ensure background transparency is preserved.
+*   **kush-mehra1 (Kush Mehra)**
+    *   Added the GitHub Actions CI workflow (#40), proposed templates (#31), toast ID enhancements (#34), and library build checks in the deploy workflow (#35).
 
 ---
 
@@ -28,5 +30,3 @@ Thank you to everyone who has contributed to Sketchbook UI! Whether you proposed
 
 *   **Carol-here (Carol)**
     *   Drafted the initial implementation for the Tabs component (#10).
-*   **kush-mehra (Kush Mehra)**
-    *   Drafted the issue and pull request templates (#31).

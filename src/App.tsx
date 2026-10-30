@@ -18,6 +18,7 @@ import {
   ToastContainer,
   useToast,
   Tooltip,
+  DatePicker,
 } from "./components";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
   const [fontSize, setFontSize] = useState(16);
   const [notifications, setNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
@@ -430,6 +432,23 @@ export default function App() {
               defaultValue={theme}
               onChange={setTheme}
               placeholder="Choose a theme…"
+            />
+          </div>
+          <div>
+            <p
+              style={{
+                fontFamily: "'Caveat', cursive",
+                fontSize: "1.1rem",
+                margin: "0 0 10px",
+                color: "#5a5248",
+              }}
+            >
+              Launch date
+            </p>
+            <DatePicker
+              value={selectedDate}
+              onChange={setSelectedDate}
+              placeholder="Pick launch date..."
             />
           </div>
           <div>
