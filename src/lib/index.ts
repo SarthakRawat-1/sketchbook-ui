@@ -2,6 +2,7 @@ export * from "./utils";
 export * from "./useVirtualizer";
 export * from "./useListNavigation";
 export * from "./useCalendar";
+export * from "./useTabs";
 export {
   SketchProvider,
   SketchNoiseDefs,

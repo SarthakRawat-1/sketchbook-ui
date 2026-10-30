@@ -1225,3 +1225,54 @@
 .sketch-datepicker-nav-btn:focus-visible {
   outline: none;
 }
+
+/* Sketch Tabs Styles */
+.sketch-tabs-trigger:hover:not(:disabled) {
+  opacity: 0.95 !important;
+}
+
+.sketch-tabs-content {
+  animation: sketch-tab-fade-in 0.15s ease-out;
+}
+
+@keyframes sketch-tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sketch Tabs Sizing Overrides */
+.sketch-tabs--sm .sketch-card__content {
+  padding: 14px 18px !important;
+  min-height: 85px !important;
+  font-size: 1.05rem !important;
+}
+
+.sketch-tabs--md .sketch-card__content {
+  padding: 24px 28px !important;
+  min-height: 140px !important;
+  font-size: 1.25rem !important;
+}
+
+.sketch-tabs--lg .sketch-card__content {
+  padding: 36px 40px !important;
+  min-height: 210px !important;
+  font-size: 1.55rem !important;
+}
+
+.sketch-tabs--sm .sketch-card--notebook .sketch-card__content {
+  padding-left: calc(15% + 0.5rem) !important;
+}
+
+.sketch-tabs--md .sketch-card--notebook .sketch-card__content {
+  padding-left: calc(15% + 0.8rem) !important;
+}
+
+.sketch-tabs--lg .sketch-card--notebook .sketch-card__content {
+  padding-left: calc(15% + 1.2rem) !important;
+}

@@ -245,7 +245,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     return (
-      <div ref={ref} className={cn("sketch-card", className)} {...rest}>
+      <div
+        ref={ref}
+        className={cn("sketch-card", `sketch-card--${variant}`, className)}
+        {...rest}
+      >
         {/* SVG background – stretched behind content (same as Modal) */}
         <svg
           width="100%"
